@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
   otpContainer: {
     flex: 1,
     alignItems: 'center',
+    backgroundColor:MyTheme.white,
   },
   otpHeader: {
     width: '100%',
@@ -46,17 +47,7 @@ export const styles = StyleSheet.create({
     lineHeight: 19,
     color: MyTheme.white,
   },
-  inputContainer: {
-    // backgroundColor:'red',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: 170,
+  otpView: {
+    marginTop: 100,
   },
-  textInput: {
-    backgroundColor: 'white',
-    padding: 7,
-    margin: 7,
-    borderRadius: 5,
-    textAlign: 'center',
-},
 });

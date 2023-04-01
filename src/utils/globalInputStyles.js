@@ -23,7 +23,6 @@ export const globalInputsStyles = StyleSheet.create({
     marginTop: 9,
     // fontSize: 12,
     color: MyTheme.labelBlack,
-    textTransform: 'capitalize',
     width: '100%',
     backgroundColor: MyTheme.grey,
     borderRadius: 8,
@@ -38,4 +37,12 @@ export const globalInputsStyles = StyleSheet.create({
 
     elevation: 2,
   },
+  resend:{
+    fontFamily: MyTheme.fontFamily,
+    fontStyle: 'normal',
+    marginTop: 9,
+    fontSize: 12,
+    color: MyTheme.labelBlack,
+  },
+
 });

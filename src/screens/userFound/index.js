@@ -3,23 +3,16 @@ import React from 'react';
 import {styles} from './styles';
 import {TopHeader, BottomBar} from '@components';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {ArrowHeader} from '../../components';
 
 export const UserFound = ({navigation}) => {
-
-  const searchHandler=()=>{
-    navigation.navigate("VerifyOtp")
-  }
-
+  const searchHandler = () => {
+    navigation.navigate('VerifyOtp');
+  };
 
   return (
     <View style={styles.userFoundContainer}>
-      <TopHeader />
-      <View style={styles.userFoundHeader}>
-        <Pressable onPress={() => navigation.goBack()}>
-          <AntDesign name="arrowleft" size={20} color="#000" />
-        </Pressable>
-        <Text style={styles.userFoundHeaderText}>User Found👋</Text>
-      </View>
+      <ArrowHeader heading="User Found👋" />
       <View style={styles.userImageContainer}>
         <View style={styles.userImageView}>
           <Image
@@ -53,16 +46,13 @@ export const UserFound = ({navigation}) => {
             source={require('../../assets/icons/subscription.png')}
             style={styles.userDetailsIcon}
           />
-          <Text style={styles.userDetailsText}>
-          Subscription: 
-          </Text>
+          <Text style={styles.userDetailsText}>Subscription:</Text>
           <Text style={styles.subscription}> Active</Text>
         </View>
         <Pressable style={styles.sendSMS} onPress={() => searchHandler()}>
           <Text style={styles.sendSMSText}>Send SMS OTP</Text>
         </Pressable>
       </View>
-      <BottomBar />
     </View>
   );
 };

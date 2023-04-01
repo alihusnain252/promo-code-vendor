@@ -4,5 +4,9 @@ export {Dashboard} from './dashboard';
 export {Notifications} from './notifications';
 export {AccountScreen} from './AccountScreen';
 export {ValidateCustomer} from './validateCustomer';
-export {UserFound} from "./userFound"
-export {VerifyOtp} from "./verifyOtp"
+export {UserFound} from './userFound';
+export {VerifyOtp} from './verifyOtp';
+export {MyAds} from './myAds';
+export {CreateAd} from './createAd';
+export {RecordSale} from './recordSale';
+export {OrdersHistory} from './ordersHistory';

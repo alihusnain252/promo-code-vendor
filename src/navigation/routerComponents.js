@@ -12,8 +12,12 @@ import {
   ValidateCustomer,
   UserFound,
   VerifyOtp,
+  MyAds,
+  CreateAd,
+  RecordSale,
+  OrdersHistory,
 } from '@screens';
-import { TopHeader } from '@components';
+import {TopHeader} from '@components';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,12 +33,20 @@ export const RouterComponents = () => {
         <Stack.Screen name="Login" component={LogInScreen} />
         <Stack.Screen name="LoginOtp" component={LoginOtp} />
         <Stack.Screen name="Dashboard" component={Dashboard} />
-        <Stack.Screen name="AccountScreen" component={AccountScreen} options={{statusBarHidden:true}} />
+        <Stack.Screen
+          name="AccountScreen"
+          component={AccountScreen}
+          options={{statusBarHidden: true}}
+        />
         <Stack.Screen name="Notifications" component={Notifications} />
         <Stack.Screen name="TopHeader" component={TopHeader} />
         <Stack.Screen name="ValidateCustomer" component={ValidateCustomer} />
         <Stack.Screen name="UserFound" component={UserFound} />
         <Stack.Screen name="VerifyOtp" component={VerifyOtp} />
+        <Stack.Screen name="MyAds" component={MyAds} />
+        <Stack.Screen name="CreateAd" component={CreateAd} />
+        <Stack.Screen name="RecordSale" component={RecordSale} />
+        <Stack.Screen name="OrdersHistory" component={OrdersHistory} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -44,7 +44,9 @@ export const Dashboard = ({navigation}) => {
           />
           <Text style={styles.validationText}>Validate Customer</Text>
         </Pressable>
-        <Pressable style={styles.validateCustomer}>
+        <Pressable
+          style={styles.validateCustomer}
+          onPress={() => navigation.navigate('RecordSale')}>
           <Image
             source={require('../../assets/icons/cat1.png')}
             style={styles.images}
@@ -53,7 +55,7 @@ export const Dashboard = ({navigation}) => {
         </Pressable>
         {/* <Pressable style={styles.recordSale}></Pressable> */}
       </View>
-      <Pressable style={styles.history}>
+      <Pressable style={styles.history} onPress={()=>navigation.navigate("OrdersHistory")}>
         <Image
           source={require('../../assets/icons/history.png')}
           style={styles.historyImages}
