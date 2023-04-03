@@ -13,7 +13,7 @@ export const BottomBar = () => {
     <View style={styles.bottomBarContainer}>
       <Pressable
         style={styles.iconView}
-        onPress={() => navigation.navigate('Dashboard')}>
+        onPress={() => navigation.navigate('MyAds')}>
         <Image
           source={require('../../assets/icons/myAds.png')}
           style={styles.icon}

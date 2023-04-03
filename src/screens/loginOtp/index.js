@@ -4,14 +4,19 @@ import { styles } from './styles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { globalInputsStyles } from '@utils';
 import { OtpContainer } from '../../components';
+import { useDispatch } from 'react-redux';
+import { updateToken } from '@redux/tokenSlice';
 
 export const LoginOtp = ({ navigation }) => {
+
+
+  const dispatch =useDispatch()
 
   
 
 
   const loginHandler = () => {
-    navigation.navigate("Dashboard")
+    dispatch(updateToken("1234"))
   }
 
 

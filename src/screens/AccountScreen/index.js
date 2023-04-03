@@ -3,8 +3,11 @@ import React from 'react';
 import { styles } from './styles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import ProfileImage from "../../assets/icons/profile.png"
+import {useDispatch} from 'react-redux';
+import {updateToken} from '@redux/tokenSlice';
 
 export const AccountScreen = ({navigation}) => {
+  const dispatch = useDispatch();
   return (
     <View style={styles.accountContainer}>
       <View style={styles.accountHeader}>
@@ -31,7 +34,7 @@ export const AccountScreen = ({navigation}) => {
           </Pressable>
         </View>
         <View style={styles.logoutView}>
-          <Pressable style={styles.logoutPress}>
+          <Pressable style={styles.logoutPress} onPress={() => dispatch(updateToken(''))}>
             <Image source={require("../../assets/icons/logout.png")} style={styles.logoutIcon}/>
             <Text style={styles.logoutText}>Logout</Text>
           </Pressable>

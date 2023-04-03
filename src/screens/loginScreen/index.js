@@ -1,14 +1,41 @@
-import {View, Text, TextInput, Pressable, Image} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  Pressable,
+  Image,
+  ActivityIndicator,
+} from 'react-native';
 import React, {useState} from 'react';
 import {styles} from './styles';
 import {signInInputsStyles} from '@utils';
+import {LoginPostRequest} from '../../api/apiCall';
+import {MyTheme} from '../../utils';
+import {useDispatch} from 'react-redux';
+import {updateToken} from '../../redux/tokenSlice';
 
 export const LogInScreen = ({navigation}) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
 
   const loginHandler = () => {
-    navigation.navigate('LoginOtp');
+    const data = {
+      phone_number: phoneNumber,
+      password: password,
+    };
+    setLoading(true);
+    LoginPostRequest(data, (url = 'api/vendor/login')).then(response => {
+      setLoading(false);
+      console.log('api response :', response.data);
+      dispatch(
+        updateToken(response.data.data.token ? response.data.data.token : "")
+      );
+    });
+
+    // navigation.navigate('LoginOtp');
   };
   const recoverHandler = () => {};
 
@@ -26,8 +53,8 @@ export const LogInScreen = ({navigation}) => {
           />
           <TextInput
             style={signInInputsStyles.input}
-            onChangeText={setPassword}
-            value={password}
+            onChangeText={setPhoneNumber}
+            value={phoneNumber}
             placeholder="Phone Number / UserID"
             keyboardType="numeric"
           />
@@ -39,8 +66,8 @@ export const LogInScreen = ({navigation}) => {
           />
           <TextInput
             style={signInInputsStyles.input}
-            onChangeText={setPhoneNumber}
-            value={phoneNumber}
+            onChangeText={setPassword}
+            value={password}
             placeholder="Password"
             secureTextEntry={true}
           />
@@ -55,15 +82,10 @@ export const LogInScreen = ({navigation}) => {
         <Pressable style={styles.login} onPress={() => loginHandler()}>
           <Text style={styles.loginText}>Login</Text>
         </Pressable>
+        <View style={loading === false ? {display: 'none'} : {marginTop: 20}}>
+          <ActivityIndicator size={36} color={MyTheme.yellow} />
+        </View>
       </View>
-      {/* <View style={styles.registerNow}>
-        <Text style={styles.notMemberText}> Not a member?</Text>
-        <Pressable
-          style={styles.registerPress}
-          onPress={() => navigation.navigate('Signup')}>
-          <Text style={styles.registerText}>Register now</Text>
-        </Pressable>
-      </View> */}
     </View>
   );
 };

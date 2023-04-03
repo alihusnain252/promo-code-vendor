@@ -64,9 +64,8 @@ export const styles = StyleSheet.create({
   scrollView: {
     position: 'absolute',
     width: '100%',
-    height: '80%',
     left: 20,
-    top: 179,
+    top: 99,
   },
   register: {
     width: width - 40,

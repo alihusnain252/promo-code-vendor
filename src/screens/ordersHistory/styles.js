@@ -179,7 +179,7 @@ export const styles = StyleSheet.create({
   },
   ordersListFilter: {
     marginVertical: 12,
-    height: height / 2.75,
+    height: height / 2,
     // marginBottom:20,
   },
   item: {
@@ -206,6 +206,8 @@ export const styles = StyleSheet.create({
     elevation: 2,
   },
   downloadBtn: {
+    position:"absolute",
+    bottom:25,
     width: width - 32,
     flexDirection: 'row',
     alignItems: 'center',

@@ -1,0 +1,54 @@
+import axios from 'axios';
+
+const baseUrl = 'https://backend.buddysaver.net';
+
+export const LoginPostRequest = async (data, url) => {
+  console.log('signUInData :', data.password);
+  console.log('signIn URl :', url);
+
+  const headers = {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    Cookie:
+      'V6jQYYPC2FmJsXEd9G3B4LZ1eIt9ZZvBDvkj2i2p=eyJpdiI6IjVjQVR5a2I1ZmJqc2J2Yk9vbzJMY1E9PSIsInZhbHVlIjoiNWU0SGNBbisralRKNm5nWU5tTFpaZVdBZjJrNTBpb1Rmd2xhMUtwRENkdlJHRTdLK3FYRmNjXC9xSXFrNytmN3pMWkFDZ01LVkxDcDhcL1BuZCtVeWx1WTQ1RkRjUEkycEFidGROdHhtNUJZVnRnd3NEUVJTWW9aa0dLbk14ZHJHZlhTMWx2YU9GckxBNWtQN2pkUnlVaHByeEpCZXE5TEYzZll1QjY2bmlXVTh0ckYyNDlUYmhwT0gwSUcxV05hd3JqSmVYMzBTS0hkaGlmSko2NWx0QVBnVkF6TkhYVzRicFZMQmpYcVlcL3o2T2lGcVZ2VW5DMkVsYWdxWW9ua2tHSHdQQXJ2RHdueUFQaWVXVm4yVWxXWkowb3hsQW5JMlFCekJXYmNIa1lcL3BwOFdJMURsQzROOU5UK3c0OEJSQjhHNUpkcHJkNWwzcFwvd3VuN2NwTUkwVDZ0RHBtT1R2NGN6T3lETFR3dHE5RGEyUzlFKzVGZXlkZUs3SDE3WG02eEgiLCJtYWMiOiI0MTdmMmZkNWNlOTlkYmVmNzI4NmRjNGZlNDQ2YjA4MDhhYjRkZTVmY2IzMzRjNmNhYTQ2NDMxMmRlYzU0YTMyIn0%3D; XSRF-TOKEN=eyJpdiI6IjNyVk1wcFhLTEFZTUdvYlwvS1lKRmJRPT0iLCJ2YWx1ZSI6IkNLNWRKOHhJSHRKc2R4bEVmQnhZY2hqOGVyYkUrTFBDRGoxNVU3c2N1dnVtXC9iVElOTDIwU0lNK0w4VVZaZkhQM1I0NWk4cktmOFdSNVVHeTRSRHBadVR0Yk5neUVwTk9NbGN3NzFkUjNJSk5KbG5jbDNReWdjK3hndFdnb3YzZSIsIm1hYyI6IjA2ZTU0OTU0OTkwNjcyNjQzZWYyZGU2MzgzNDRkMDgxZjgzMzFiMDI0Y2NjMDVhNjI1NTEyNjI1MTRjMDcxMjkifQ%3D%3D; saver_buddy_session=eyJpdiI6IjUwUkxreUQwMUxic2x6ZTM2b2o2TlE9PSIsInZhbHVlIjoiUHp5eWgwbFpyZEhYamdCREl6dmZMRFc1WjRvOFc2R29jcTNiQVRKOW00cGFsTnBFMTM5TjhMR0lhVGkzckt6WlBub05TVFlPSkduUVgyVkVCZlhxY3RPOHYrYXg3OEhzRFU5eWdyTWVyN3I2Y1wvOENUOHpadmJDXC9XYklVVmhDVSIsIm1hYyI6ImUxMWFhMDJkY2M2MjU4ZDVhMzUzZjBjYjIyNmM1NzQ0OWM0ZTRkM2VmZmJkNzJjYzE3MWQxZTM4NDBhZmNkY2EifQ%3D%3D',
+  };
+
+  const res = await axios({
+    method: 'post',
+    url: url,
+    baseURL: baseUrl,
+    data: data,
+    headers: headers,
+  });
+  return res;
+};
+export const GetRequest = async (token, url) => {
+    const AuthStr = "Bearer ".concat(token);
+    const res = await axios({
+      method: "get",
+      url: url,
+      baseURL: baseUrl,
+      headers: { Authorization: AuthStr,
+        Cookie:
+        'V6jQYYPC2FmJsXEd9G3B4LZ1eIt9ZZvBDvkj2i2p=eyJpdiI6IjVjQVR5a2I1ZmJqc2J2Yk9vbzJMY1E9PSIsInZhbHVlIjoiNWU0SGNBbisralRKNm5nWU5tTFpaZVdBZjJrNTBpb1Rmd2xhMUtwRENkdlJHRTdLK3FYRmNjXC9xSXFrNytmN3pMWkFDZ01LVkxDcDhcL1BuZCtVeWx1WTQ1RkRjUEkycEFidGROdHhtNUJZVnRnd3NEUVJTWW9aa0dLbk14ZHJHZlhTMWx2YU9GckxBNWtQN2pkUnlVaHByeEpCZXE5TEYzZll1QjY2bmlXVTh0ckYyNDlUYmhwT0gwSUcxV05hd3JqSmVYMzBTS0hkaGlmSko2NWx0QVBnVkF6TkhYVzRicFZMQmpYcVlcL3o2T2lGcVZ2VW5DMkVsYWdxWW9ua2tHSHdQQXJ2RHdueUFQaWVXVm4yVWxXWkowb3hsQW5JMlFCekJXYmNIa1lcL3BwOFdJMURsQzROOU5UK3c0OEJSQjhHNUpkcHJkNWwzcFwvd3VuN2NwTUkwVDZ0RHBtT1R2NGN6T3lETFR3dHE5RGEyUzlFKzVGZXlkZUs3SDE3WG02eEgiLCJtYWMiOiI0MTdmMmZkNWNlOTlkYmVmNzI4NmRjNGZlNDQ2YjA4MDhhYjRkZTVmY2IzMzRjNmNhYTQ2NDMxMmRlYzU0YTMyIn0%3D; XSRF-TOKEN=eyJpdiI6IjNyVk1wcFhLTEFZTUdvYlwvS1lKRmJRPT0iLCJ2YWx1ZSI6IkNLNWRKOHhJSHRKc2R4bEVmQnhZY2hqOGVyYkUrTFBDRGoxNVU3c2N1dnVtXC9iVElOTDIwU0lNK0w4VVZaZkhQM1I0NWk4cktmOFdSNVVHeTRSRHBadVR0Yk5neUVwTk9NbGN3NzFkUjNJSk5KbG5jbDNReWdjK3hndFdnb3YzZSIsIm1hYyI6IjA2ZTU0OTU0OTkwNjcyNjQzZWYyZGU2MzgzNDRkMDgxZjgzMzFiMDI0Y2NjMDVhNjI1NTEyNjI1MTRjMDcxMjkifQ%3D%3D; saver_buddy_session=eyJpdiI6IjUwUkxreUQwMUxic2x6ZTM2b2o2TlE9PSIsInZhbHVlIjoiUHp5eWgwbFpyZEhYamdCREl6dmZMRFc1WjRvOFc2R29jcTNiQVRKOW00cGFsTnBFMTM5TjhMR0lhVGkzckt6WlBub05TVFlPSkduUVgyVkVCZlhxY3RPOHYrYXg3OEhzRFU5eWdyTWVyN3I2Y1wvOENUOHpadmJDXC9XYklVVmhDVSIsIm1hYyI6ImUxMWFhMDJkY2M2MjU4ZDVhMzUzZjBjYjIyNmM1NzQ0OWM0ZTRkM2VmZmJkNzJjYzE3MWQxZTM4NDBhZmNkY2EifQ%3D%3D',
+    },
+    });
+    return res;
+  };
+  export const CreateAdRequest = async (token, data, url) => {
+    console.log('signUInData :', data.password);
+    console.log('signIn URl :', url);
+    const AuthStr = "Bearer ".concat(token);
+  
+    const res = await axios({
+      method: 'post',
+      url: url,
+      baseURL: baseUrl,
+      data: data,
+      headers: { Authorization: AuthStr,
+        'Content-Type': 'multipart/form-data',
+        Cookie:
+        'V6jQYYPC2FmJsXEd9G3B4LZ1eIt9ZZvBDvkj2i2p=eyJpdiI6IjVjQVR5a2I1ZmJqc2J2Yk9vbzJMY1E9PSIsInZhbHVlIjoiNWU0SGNBbisralRKNm5nWU5tTFpaZVdBZjJrNTBpb1Rmd2xhMUtwRENkdlJHRTdLK3FYRmNjXC9xSXFrNytmN3pMWkFDZ01LVkxDcDhcL1BuZCtVeWx1WTQ1RkRjUEkycEFidGROdHhtNUJZVnRnd3NEUVJTWW9aa0dLbk14ZHJHZlhTMWx2YU9GckxBNWtQN2pkUnlVaHByeEpCZXE5TEYzZll1QjY2bmlXVTh0ckYyNDlUYmhwT0gwSUcxV05hd3JqSmVYMzBTS0hkaGlmSko2NWx0QVBnVkF6TkhYVzRicFZMQmpYcVlcL3o2T2lGcVZ2VW5DMkVsYWdxWW9ua2tHSHdQQXJ2RHdueUFQaWVXVm4yVWxXWkowb3hsQW5JMlFCekJXYmNIa1lcL3BwOFdJMURsQzROOU5UK3c0OEJSQjhHNUpkcHJkNWwzcFwvd3VuN2NwTUkwVDZ0RHBtT1R2NGN6T3lETFR3dHE5RGEyUzlFKzVGZXlkZUs3SDE3WG02eEgiLCJtYWMiOiI0MTdmMmZkNWNlOTlkYmVmNzI4NmRjNGZlNDQ2YjA4MDhhYjRkZTVmY2IzMzRjNmNhYTQ2NDMxMmRlYzU0YTMyIn0%3D; XSRF-TOKEN=eyJpdiI6IjNyVk1wcFhLTEFZTUdvYlwvS1lKRmJRPT0iLCJ2YWx1ZSI6IkNLNWRKOHhJSHRKc2R4bEVmQnhZY2hqOGVyYkUrTFBDRGoxNVU3c2N1dnVtXC9iVElOTDIwU0lNK0w4VVZaZkhQM1I0NWk4cktmOFdSNVVHeTRSRHBadVR0Yk5neUVwTk9NbGN3NzFkUjNJSk5KbG5jbDNReWdjK3hndFdnb3YzZSIsIm1hYyI6IjA2ZTU0OTU0OTkwNjcyNjQzZWYyZGU2MzgzNDRkMDgxZjgzMzFiMDI0Y2NjMDVhNjI1NTEyNjI1MTRjMDcxMjkifQ%3D%3D; saver_buddy_session=eyJpdiI6IjUwUkxreUQwMUxic2x6ZTM2b2o2TlE9PSIsInZhbHVlIjoiUHp5eWgwbFpyZEhYamdCREl6dmZMRFc1WjRvOFc2R29jcTNiQVRKOW00cGFsTnBFMTM5TjhMR0lhVGkzckt6WlBub05TVFlPSkduUVgyVkVCZlhxY3RPOHYrYXg3OEhzRFU5eWdyTWVyN3I2Y1wvOENUOHpadmJDXC9XYklVVmhDVSIsIm1hYyI6ImUxMWFhMDJkY2M2MjU4ZDVhMzUzZjBjYjIyNmM1NzQ0OWM0ZTRkM2VmZmJkNzJjYzE3MWQxZTM4NDBhZmNkY2EifQ%3D%3D',
+    },
+    });
+    return res;
+  };

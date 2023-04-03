@@ -5,6 +5,9 @@ import {Ads, BottomBar, TopHeader} from '@components';
 import { ArrowHeader } from '../../components';
 
 export const MyAds = ({navigation}) => {
+
+
+
   return (
     <View style={styles.myAdsContainer}>
         <ArrowHeader heading="My Ads" />
