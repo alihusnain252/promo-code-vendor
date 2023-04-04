@@ -6,18 +6,20 @@ import {
   TextInput,
   Image,
 } from 'react-native';
-import React, {useState} from 'react';
-import {styles} from './styles';
-import {globalInputsStyles} from '@utils';
-import {MyTheme} from '@utils';
-import {ArrowHeader} from '../../components';
-import {CreateAdRequest} from '../../api/apiCall';
-import {useSelector} from 'react-redux';
-import {token} from '../../redux/tokenSlice';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import React, { useState } from 'react';
+import { styles } from './styles';
+import { globalInputsStyles } from '@utils';
+import { MyTheme } from '@utils';
+import { ArrowHeader } from '../../components';
+import { CreateAdRequest } from '../../api/apiCall';
+import { useSelector } from 'react-redux';
+import { token } from '../../redux/tokenSlice';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
-export const CreateAd = ({navigation}) => {
+import axios from 'axios';
+
+export const CreateAd = ({ navigation }) => {
   const [company, setCompany] = useState('');
   const [category, setCategory] = useState('');
   const [originalPrice, setOriginalPrice] = useState('');
@@ -27,6 +29,7 @@ export const CreateAd = ({navigation}) => {
   const [loading, setLoading] = useState(false);
   const [adImage, setAdImage] = useState('');
   const [adImageName, setAdImageName] = useState('');
+  const [description, setDescription] = useState('description');
   const userToken = useSelector(token);
 
   let options = {
@@ -39,8 +42,6 @@ export const CreateAd = ({navigation}) => {
 
   const pickImage = () => {
     launchImageLibrary(options, response => {
-      console.log('Response = ', response);
-
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
@@ -57,27 +58,24 @@ export const CreateAd = ({navigation}) => {
   };
 
   const createHandler = () => {
-    const data = new FormData();
-    data.append('company_name', 'Good health pharmany');
+    let data = new FormData();
+    data.append('company_name', company);
     data.append('category_id', '1');
-    data.append('original_price', '150');
-    data.append('discounted_price', '70');
-    data.append('promotion_details', 'Philips - iron promo');
-    data.append('promotion_duration', '20');
+    data.append('original_price', originalPrice);
+    data.append('discounted_price', discountedPrice);
+    data.append('promotion_details', promotionDetails);
+    data.append('promotion_duration', promotionDuration);
     data.append('image', {
       uri: adImage,
       type: 'image/jpeg',
-      name: 'userPhoto', //Math.random()
+      name: 'adPhoto.png',
     });
     data.append('status', 'active');
     data.append('is_featured', '1');
-    data.append('description', 'Philips - iron promo');
+    data.append('description', description);
+
     setLoading(true);
-    CreateAdRequest(
-      userToken,
-      data,
-      (url = 'api/vendor/promotion/create'),
-    ).then(response => {
+    CreateAdRequest(userToken, data).then(response => {
       setLoading(false);
       console.log('api response :', response.data);
       // dispatch(
@@ -115,7 +113,7 @@ export const CreateAd = ({navigation}) => {
               {adImageName != '' ? adImageName : `Pick Ad Image`}
             </Text>
 
-          <EvilIcons name="image" size={25} color="#000" />
+            <EvilIcons name="image" size={25} color="#000" />
           </Pressable>
         </View>
         <View style={globalInputsStyles.globalInputs}>
