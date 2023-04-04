@@ -14,8 +14,8 @@ import {ArrowHeader} from '../../components';
 import {CreateAdRequest} from '../../api/apiCall';
 import {useSelector} from 'react-redux';
 import {token} from '../../redux/tokenSlice';
-import ImagePicker from 'react-native-image-picker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 export const CreateAd = ({navigation}) => {
   const [company, setCompany] = useState('');
@@ -25,6 +25,8 @@ export const CreateAd = ({navigation}) => {
   const [promotionDetails, setPromotionDetails] = useState('');
   const [promotionDuration, setPromotionDuration] = useState('');
   const [loading, setLoading] = useState(false);
+  const [adImage, setAdImage] = useState('');
+  const [adImageName, setAdImageName] = useState('');
   const userToken = useSelector(token);
 
   let options = {
@@ -35,10 +37,10 @@ export const CreateAd = ({navigation}) => {
     },
   };
 
-  const pickImage =()=>{
-    launchImageLibrary(options, (response) => {
+  const pickImage = () => {
+    launchImageLibrary(options, response => {
       console.log('Response = ', response);
-    
+
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
@@ -46,19 +48,13 @@ export const CreateAd = ({navigation}) => {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
-        const source = { uri: response.uri };
-        console.log("selected Image :",source);
-        // You can also display the image using data:
-        // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-    
-        // this.setState({
-        //  filePath: response,
-        //  fileData: response.data,
-        //  fileUri: response.uri
-        // });
+        const source = response.assets[0];
+        console.log('selected Image :', source.uri);
+        setAdImage(source.uri);
+        setAdImageName(source.fileName);
       }
     });
-  }
+  };
 
   const createHandler = () => {
     const data = new FormData();
@@ -68,7 +64,11 @@ export const CreateAd = ({navigation}) => {
     data.append('discounted_price', '70');
     data.append('promotion_details', 'Philips - iron promo');
     data.append('promotion_duration', '20');
-    data.append('image', '/Users/apple/Downloads/2021-10-24 1.png');
+    data.append('image', {
+      uri: adImage,
+      type: 'image/jpeg',
+      name: 'userPhoto', //Math.random()
+    });
     data.append('status', 'active');
     data.append('is_featured', '1');
     data.append('description', 'Philips - iron promo');
@@ -101,16 +101,22 @@ export const CreateAd = ({navigation}) => {
           />
         </View>
         <View style={globalInputsStyles.globalInputs}>
-          <Text style={globalInputsStyles.globalLabel}>Image Picker </Text>
-          <Pressable style={globalInputsStyles.input} onPress={()=>pickImage()}>
-            <Text style={{height:50,alignItems:"center",justifyContent:"center",paddingVertical:15}}>Pick Your Image</Text>
-          </Pressable>
-          {/* <TextInput
+          <Text style={globalInputsStyles.globalLabel}>Ad Image </Text>
+          <Pressable
             style={globalInputsStyles.input}
-            onChangeText={setCategory}
-            value={category}
-            placeholder="pick your Image"
-          /> */}
+            onPress={() => pickImage()}>
+            <Text
+              style={{
+                height: 50,
+                alignItems: 'center',
+                justifyContent: 'center',
+                paddingVertical: 15,
+              }}>
+              {adImageName != '' ? adImageName : `Pick Ad Image`}
+            </Text>
+
+          <EvilIcons name="image" size={25} color="#000" />
+          </Pressable>
         </View>
         <View style={globalInputsStyles.globalInputs}>
           <Text style={globalInputsStyles.globalLabel}>Category </Text>

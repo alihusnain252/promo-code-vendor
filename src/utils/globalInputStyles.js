@@ -18,6 +18,9 @@ export const globalInputsStyles = StyleSheet.create({
     marginBottom: 5,
   },
   input: {
+    flexDirection:"row",
+    alignItems:"center",
+    justifyContent:"space-between",
     fontFamily: MyTheme.fontFamily,
     fontStyle: 'normal',
     marginTop: 9,
