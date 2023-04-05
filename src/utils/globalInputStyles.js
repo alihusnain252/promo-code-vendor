@@ -15,7 +15,7 @@ export const globalInputsStyles = StyleSheet.create({
     lineHeight: 20,
     color: MyTheme.labelBlack,
     textTransform: 'capitalize',
-    marginBottom: 5,
+    marginTop: 5,
   },
   input: {
     flexDirection:"row",
@@ -23,7 +23,7 @@ export const globalInputsStyles = StyleSheet.create({
     justifyContent:"space-between",
     fontFamily: MyTheme.fontFamily,
     fontStyle: 'normal',
-    marginTop: 9,
+    marginTop: 5,
     // fontSize: 12,
     color: MyTheme.labelBlack,
     width: '100%',

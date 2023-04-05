@@ -49,8 +49,8 @@ export const styles = StyleSheet.create({
     alignItems:"center"
   },
   userFoundImage:{
-    width:40,
-    height:34,
+    width:"100%",
+    height:"100%",
   },
   userText:{
     fontFamily: MyTheme.poppins,

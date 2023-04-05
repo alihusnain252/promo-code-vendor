@@ -111,11 +111,12 @@ export const CreateAd = ({navigation}) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 paddingVertical: 15,
+                width:"80%",
               }}>
               {adImageName != '' ? adImageName : `Pick Ad Image`}
             </Text>
 
-          <EvilIcons name="image" size={25} color="#000" />
+            <EvilIcons name="image" size={25} color="#000" />
           </Pressable>
         </View>
         <View style={globalInputsStyles.globalInputs}>
@@ -134,6 +135,7 @@ export const CreateAd = ({navigation}) => {
             onChangeText={setOriginalPrice}
             value={originalPrice}
             placeholder="150$"
+            keyboardType="number-pad"
           />
         </View>
         <View style={globalInputsStyles.globalInputs}>
@@ -143,6 +145,7 @@ export const CreateAd = ({navigation}) => {
             onChangeText={setDiscountedPrice}
             value={discountedPrice}
             placeholder="70$"
+            keyboardType="number-pad"
           />
         </View>
         <View style={globalInputsStyles.globalInputs}>
@@ -163,6 +166,7 @@ export const CreateAd = ({navigation}) => {
             onChangeText={setPromotionDuration}
             value={promotionDuration}
             placeholder="15 hours"
+            keyboardType="number-pad"
           />
         </View>
         <Pressable style={styles.register} onPress={() => createHandler()}>

@@ -95,7 +95,7 @@ export const styles = StyleSheet.create({
     width: '45%',
     backgroundColor: MyTheme.white,
     borderRadius: 8,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
   },
   endDate: {
     fontFamily: MyTheme.fontFamily,
@@ -105,7 +105,7 @@ export const styles = StyleSheet.create({
     width: '50%',
     backgroundColor: MyTheme.white,
     borderRadius: 8,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

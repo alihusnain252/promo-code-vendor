@@ -6,11 +6,15 @@ import {
   Pressable,
   Image,
   Modal,
+  Alert,
 } from 'react-native';
 import React, {useState} from 'react';
 import {ArrowHeader} from '../../components';
 import {styles} from './styles';
 import {globalInputsStyles} from '../../utils';
+import {useSelector} from 'react-redux';
+import {token} from '../../redux/tokenSlice';
+import {PostRequest} from '../../api/apiCall';
 
 export const RecordSale = () => {
   const [description, setDescription] = useState('');
@@ -21,63 +25,78 @@ export const RecordSale = () => {
   const [vATPercent, setVATPercent] = useState('');
   const [vAT, setVAT] = useState('');
   const [grandTotal, setGrandTotal] = useState('');
+  const [customerId, setCustomerId] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [noDisplay, setNoDisplay] = useState(false);
+  const [userFoundDisplay, setUserFoundDisplay] = useState(false);
   const [errorText, setErrorText] = useState('');
-
   const [modalVisible, setModalVisible] = useState(false);
-
-  const recordOrderData = {
-    description: 'Pizza, Jollof, Drinks',
-    orderTotalExVAT: '3,250.50',
-    discountPercent: '20',
-    discountedPrice: '650.10',
-    vATPercent: '21.90',
-    vATPrice: '579.48',
-    total: '2,600.40',
-    grandTotal: '569.48',
-  };
+  const userToken = useSelector(token);
 
   const checkHandler = () => {
+    const data = {phone_number: phoneNumber};
+
     if (phoneNumber === '') {
       setNoDisplay(true);
       setErrorText('please Add Phone Number');
-      setDescription('');
-      setOrderTotalExVAT('');
-      setDiscountPercent('');
-      setDiscountedPrice('');
-      setTotal('');
-      setVAT('');
-      setVATPercent('');
-      setGrandTotal('');
     } else {
-      if (phoneNumber === '1234') {
-        setNoDisplay(false);
-        setDescription(recordOrderData.description);
-        setOrderTotalExVAT('GHS  ' + recordOrderData.orderTotalExVAT);
-        setDiscountPercent(recordOrderData.discountPercent + '%');
-        setDiscountedPrice('GHS ' + recordOrderData.discountedPrice);
-        setTotal('GHS ' + recordOrderData.total);
-        setVAT('GHS ' + recordOrderData.vATPrice);
-        setVATPercent(recordOrderData.vATPrice + '%');
-        setGrandTotal('GHS ' + recordOrderData.grandTotal);
-      } else {
-        setNoDisplay(true);
-        setErrorText('User not found');
-        setDescription('');
-        setOrderTotalExVAT('');
-        setDiscountPercent('');
-        setDiscountedPrice('');
-        setTotal('');
-        setVAT('');
-        setVATPercent('');
-        setGrandTotal('');
-      }
+      PostRequest(userToken.token, data, 'api/vendor/verify-user').then(res => {
+        console.log(
+          'validate customer res :',
+          res.data.data.id,
+        );
+        if (res.data.message === 'User not found') {
+          setNoDisplay(true);
+          setErrorText(res.data.message);
+        } else {
+          setNoDisplay(false);
+          setUserFoundDisplay(true);
+          setCustomerId(res.data.data.id)
+          setErrorText(
+            'User subscription status : ' + res.data.data.subscription_status,
+          );
+        }
+      });
     }
   };
   const createHandler = () => {
-    setModalVisible(true);
+    const data = {
+      customer_id: customerId,
+      customer_phone_number: phoneNumber,
+      description: description,
+      order_total: orderTotalExVAT,
+      discount_percentage: discountPercent,
+      discount_price: discountedPrice,
+      total: total,
+      vat_percentage: vATPercent,
+      vat_price: vAT,
+      grand_total: grandTotal,
+    };
+
+    PostRequest(userToken.token, data, 'api/vendor/create-order').then(res => {
+      console.log('validate customer res :', res.data.success);
+      if (res.data.success === false) {
+       Alert.alert(res.data.error)
+      } else {
+        setModalVisible(true)
+      }
+    })
+
   };
+  const okPressHandler=()=>{
+    setModalVisible(false)
+    setPhoneNumber("")
+    setCustomerId("")
+    setDescription("")
+    setOrderTotalExVAT("")
+    setDiscountPercent("")
+    setDiscountedPrice("")
+    setTotal("")
+    setVATPercent("")
+    setVAT("")
+    setGrandTotal("")
+    setUserFoundDisplay(false)
+  }
 
   return (
     <View style={styles.recordSaleContainer}>
@@ -102,6 +121,14 @@ export const RecordSale = () => {
             />
             <Text style={styles.notFoundText}>{errorText}</Text>
           </View>
+          <View
+            style={
+              userFoundDisplay === false
+                ? styles.noDisplay
+                : styles.userFoundNote
+            }>
+            <Text style={styles.userFoundText}>{errorText}</Text>
+          </View>
         </View>
       </View>
       <ScrollView style={styles.scrollView}>
@@ -116,6 +143,7 @@ export const RecordSale = () => {
             onChangeText={setDescription}
             value={description}
             placeholder=""
+            editable={noDisplay === true ? false : true}
           />
         </View>
         <View style={globalInputsStyles.globalInputs}>
@@ -132,6 +160,7 @@ export const RecordSale = () => {
             onChangeText={setOrderTotalExVAT}
             value={orderTotalExVAT}
             placeholder=""
+            editable={noDisplay === true ? false : true}
           />
         </View>
         <View style={globalInputsStyles.globalInputs}>
@@ -146,6 +175,7 @@ export const RecordSale = () => {
               onChangeText={setDiscountPercent}
               value={discountPercent}
               placeholder=""
+              editable={noDisplay === true ? false : true}
             />
             <TextInput
               style={
@@ -156,6 +186,7 @@ export const RecordSale = () => {
               onChangeText={setDiscountedPrice}
               value={discountedPrice}
               placeholder=""
+              editable={noDisplay === true ? false : true}
             />
           </View>
         </View>
@@ -170,6 +201,7 @@ export const RecordSale = () => {
             onChangeText={setTotal}
             value={total}
             placeholder=""
+            editable={noDisplay === true ? false : true}
           />
         </View>
         <View style={globalInputsStyles.globalInputs}>
@@ -184,6 +216,7 @@ export const RecordSale = () => {
               onChangeText={setVATPercent}
               value={vATPercent}
               placeholder=""
+              editable={noDisplay === true ? false : true}
             />
             <TextInput
               style={
@@ -194,6 +227,7 @@ export const RecordSale = () => {
               onChangeText={setVAT}
               value={vAT}
               placeholder=""
+              editable={noDisplay === true ? false : true}
             />
           </View>
         </View>
@@ -208,6 +242,7 @@ export const RecordSale = () => {
             onChangeText={setGrandTotal}
             value={grandTotal}
             placeholder=""
+            editable={noDisplay === true ? false : true}
           />
         </View>
         <Pressable style={styles.createPress} onPress={() => createHandler()}>
@@ -237,7 +272,7 @@ export const RecordSale = () => {
                 </Text>
                 <Pressable
                   style={styles.okPres}
-                  onPress={() => setModalVisible(false)}>
+                  onPress={() => okPressHandler()}>
                   <Text style={styles.okPresText}>ok</Text>
                 </Pressable>
               </View>

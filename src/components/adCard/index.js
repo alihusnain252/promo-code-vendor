@@ -4,7 +4,7 @@ import {styles} from './styles';
 import image from '../../assets/images/image8.png';
 
 export const AdCard = ({data}) => {
-  console.log("Card Details : " ,data.discounted_price);
+  // console.log("Card Details : " ,data.discounted_price);
   return (
     <View style={styles.cardContainer}>
       <View style={styles.cardTopView}>

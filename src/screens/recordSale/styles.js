@@ -19,6 +19,14 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 12,
   },
+  userFoundNote: {
+    position:"absolute",
+    top:45,
+    right:10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 12,
+  },
   notFoundImage: {
     width: 15,
     height: 15,
@@ -30,6 +38,15 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 14,
     color: MyTheme.FireOpal,
+    marginLeft: 4,
+  },
+  userFoundText: {
+    fontFamily: MyTheme.fontFamily,
+    fontStyle: 'normal',
+    fontWeight: 400,
+    fontSize: 12,
+    lineHeight: 14,
+    color: MyTheme.green,
     marginLeft: 4,
   },
   scrollView: {
