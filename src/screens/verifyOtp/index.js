@@ -14,7 +14,7 @@ export const VerifyOtp = ({ route , navigation}) => {
   const {phoneNumber}=route.params;
 
   const [otp, setOtp] = useState("")
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
   const userToken = useSelector(token)
 
 
