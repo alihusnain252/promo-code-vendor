@@ -28,8 +28,8 @@ export const styles = StyleSheet.create({
   userImageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    width:"100%",
-    height:194
+    width: '100%',
+    height: 194,
   },
   userImageView: {
     width: 80,
@@ -43,48 +43,48 @@ export const styles = StyleSheet.create({
     shadowRadius: 1.41,
 
     elevation: 2,
-    backgroundColor:MyTheme.grey400,
-    borderRadius:8,
-    justifyContent:"center",
-    alignItems:"center"
+    backgroundColor: MyTheme.grey400,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  userFoundImage:{
-    width:"100%",
-    height:"100%",
+  userFoundImage: {
+    width: '100%',
+    height: '100%',
   },
-  userText:{
+  userText: {
     fontFamily: MyTheme.poppins,
     fontStyle: 'normal',
     fontWeight: 500,
     fontSize: 18,
     lineHeight: 21,
-    marginTop:7,
-    color:MyTheme.darkLemonLime
+    marginTop: 7,
+    color: MyTheme.darkLemonLime,
   },
-  userDetailsContainer:{
-    width:width-28
+  userDetailsContainer: {
+    width: width - 28,
   },
-  userDetails:{
-    alignItems:"center",
-    flexDirection:"row",
-    width:"100%",
-    marginTop:2,
-    height:27,
+  userDetails: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: '100%',
+    marginTop: 2,
+    height: 27,
   },
-  userDetailsIcon:{
-    width:12,
-    height:12,
+  userDetailsIcon: {
+    width: 12,
+    height: 12,
   },
-  userDetailsText:{
+  userDetailsText: {
     fontFamily: MyTheme.poppins,
     fontStyle: 'normal',
     fontWeight: 500,
     fontSize: 11,
     lineHeight: 21,
     color: MyTheme.black,
-    marginLeft:5,
+    marginLeft: 5,
   },
-  boldText:{
+  boldText: {
     fontFamily: MyTheme.poppins,
     fontStyle: 'normal',
     fontWeight: 800,
@@ -92,19 +92,19 @@ export const styles = StyleSheet.create({
     lineHeight: 21,
     color: MyTheme.black,
   },
-  subscription:{
+  subscription: {
     // width:54,
     // height:17,
-    backgroundColor:MyTheme.darkLemonLime,
-    paddingHorizontal:10,
+    backgroundColor: MyTheme.darkLemonLime,
+    paddingHorizontal: 10,
     fontFamily: MyTheme.poppins,
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: 11,
     lineHeight: 21,
-    borderRadius:4,
-    color:MyTheme.white,
-    marginLeft:5,
+    borderRadius: 4,
+    color: MyTheme.white,
+    marginLeft: 5,
   },
   sendSMS: {
     height: 56,

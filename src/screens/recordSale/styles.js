@@ -12,17 +12,17 @@ export const styles = StyleSheet.create({
     display: 'none',
   },
   notFound: {
-    position:"absolute",
-    top:45,
-    right:10,
+    position: 'absolute',
+    top: 45,
+    right: 10,
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 12,
   },
   userFoundNote: {
-    position:"absolute",
-    top:45,
-    right:10,
+    position: 'absolute',
+    top: 45,
+    right: 10,
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 12,
@@ -50,7 +50,7 @@ export const styles = StyleSheet.create({
     marginLeft: 4,
   },
   scrollView: {
-    width: width-40,
+    width: width - 40,
     height: '100%',
   },
   register: {
@@ -104,27 +104,27 @@ export const styles = StyleSheet.create({
     lineHeight: 19,
     color: MyTheme.white,
   },
-  customerPhoneInput:{
-    width:"80%",
+  customerPhoneInput: {
+    width: '80%',
   },
-  checkText:{
+  checkText: {
     fontFamily: MyTheme.fontFamily,
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: 12,
     lineHeight: 20,
     color: MyTheme.black,
-    borderBottomWidth:0.5,
+    borderBottomWidth: 0.5,
   },
   emptyView: {
     width: width - 40,
     height: 86,
   },
   input: {
-    flexDirection:"row",
-    alignItems:"center",
+    flexDirection: 'row',
+    alignItems: 'center',
     fontFamily: MyTheme.fontFamily,
-    justifyContent:"space-between",
+    justifyContent: 'space-between',
     fontStyle: 'normal',
     marginTop: 9,
     // fontSize: 12,
@@ -143,9 +143,9 @@ export const styles = StyleSheet.create({
 
     elevation: 2,
   },
-  discountInputContainer:{
-    flexDirection:"row",
-    justifyContent:"space-between"
+  discountInputContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 
   noUserInput: {
@@ -168,7 +168,7 @@ export const styles = StyleSheet.create({
 
     elevation: 2,
   },
-  discountInput1:{
+  discountInput1: {
     fontFamily: MyTheme.fontFamily,
     fontStyle: 'normal',
     marginTop: 9,
@@ -188,7 +188,7 @@ export const styles = StyleSheet.create({
 
     elevation: 2,
   },
-  discountInput2:{
+  discountInput2: {
     fontFamily: MyTheme.fontFamily,
     fontStyle: 'normal',
     marginTop: 9,
@@ -208,7 +208,7 @@ export const styles = StyleSheet.create({
 
     elevation: 2,
   },
-  noUserDiscountInput1:{
+  noUserDiscountInput1: {
     fontFamily: MyTheme.fontFamily,
     fontStyle: 'normal',
     marginTop: 9,
@@ -228,7 +228,7 @@ export const styles = StyleSheet.create({
 
     elevation: 2,
   },
-  noUserDiscountInput2:{
+  noUserDiscountInput2: {
     fontFamily: MyTheme.fontFamily,
     fontStyle: 'normal',
     marginTop: 9,
@@ -257,10 +257,10 @@ export const styles = StyleSheet.create({
     backgroundColor: '#00000080',
   },
   modalView: {
-    width: width-50,
+    width: width - 50,
     height: 245,
     backgroundColor: 'white',
-    borderRadius:10,
+    borderRadius: 10,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
@@ -288,17 +288,17 @@ export const styles = StyleSheet.create({
     marginTop: 17,
     marginLeft: 24,
   },
-  successContainer:{
-    width:"100%",
-    justifyContent:"center",
-    alignItems:"center",
+  successContainer: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  successImage:{
-    width:85,
-    height:70,
-    marginTop:20,
+  successImage: {
+    width: 85,
+    height: 70,
+    marginTop: 20,
   },
-  successText:{
+  successText: {
     fontFamily: MyTheme.fontFamily,
     fontStyle: 'normal',
     fontWeight: 700,
@@ -307,7 +307,7 @@ export const styles = StyleSheet.create({
     color: MyTheme.black,
     marginTop: 17,
   },
-  successMessage:{
+  successMessage: {
     fontFamily: MyTheme.fontFamily,
     fontStyle: 'normal',
     fontWeight: 400,
@@ -315,5 +315,17 @@ export const styles = StyleSheet.create({
     lineHeight: 20,
     color: MyTheme.black,
     marginTop: 7,
+  },
+  loader: {
+    position: 'absolute',
+    top: '50%',
+    left: '40%',
+    zIndex: 1,
+    backgroundColor: '#00000080',
+    width: 100,
+    height: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
   },
 });

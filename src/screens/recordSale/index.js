@@ -7,11 +7,12 @@ import {
   Image,
   Modal,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useState} from 'react';
 import {ArrowHeader} from '../../components';
 import {styles} from './styles';
-import {globalInputsStyles} from '../../utils';
+import {globalInputsStyles, MyTheme} from '../../utils';
 import {useSelector} from 'react-redux';
 import {token} from '../../redux/tokenSlice';
 import {PostRequest} from '../../api/apiCall';
@@ -32,26 +33,28 @@ export const RecordSale = () => {
   const [errorText, setErrorText] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const userToken = useSelector(token);
+  const [loading, setLoading] = useState(false);
 
   const checkHandler = () => {
+    setLoading(true);
     const data = {phone_number: phoneNumber};
 
     if (phoneNumber === '') {
       setNoDisplay(true);
+      setLoading(false);
       setErrorText('please Add Phone Number');
     } else {
       PostRequest(userToken.token, data, 'api/vendor/verify-user').then(res => {
-        console.log(
-          'validate customer res :',
-          res.data.data.id,
-        );
+        console.log('validate customer res :', res.data.data.id);
         if (res.data.message === 'User not found') {
           setNoDisplay(true);
+          setLoading(false);
           setErrorText(res.data.message);
         } else {
           setNoDisplay(false);
+          setLoading(false);
           setUserFoundDisplay(true);
-          setCustomerId(res.data.data.id)
+          setCustomerId(res.data.data.id);
           setErrorText(
             'User subscription status : ' + res.data.data.subscription_status,
           );
@@ -60,6 +63,7 @@ export const RecordSale = () => {
     }
   };
   const createHandler = () => {
+    setLoading(true)
     const data = {
       customer_id: customerId,
       customer_phone_number: phoneNumber,
@@ -76,30 +80,34 @@ export const RecordSale = () => {
     PostRequest(userToken.token, data, 'api/vendor/create-order').then(res => {
       console.log('validate customer res :', res.data.success);
       if (res.data.success === false) {
-       Alert.alert(res.data.error)
+        Alert.alert(res.data.error);
+        setLoading(false)
       } else {
-        setModalVisible(true)
+        setLoading(true)
+        setModalVisible(true);
       }
-    })
-
+    });
   };
-  const okPressHandler=()=>{
-    setModalVisible(false)
-    setPhoneNumber("")
-    setCustomerId("")
-    setDescription("")
-    setOrderTotalExVAT("")
-    setDiscountPercent("")
-    setDiscountedPrice("")
-    setTotal("")
-    setVATPercent("")
-    setVAT("")
-    setGrandTotal("")
-    setUserFoundDisplay(false)
-  }
+  const okPressHandler = () => {
+    setModalVisible(false);
+    setPhoneNumber('');
+    setCustomerId('');
+    setDescription('');
+    setOrderTotalExVAT('');
+    setDiscountPercent('');
+    setDiscountedPrice('');
+    setTotal('');
+    setVATPercent('');
+    setVAT('');
+    setGrandTotal('');
+    setUserFoundDisplay(false);
+  };
 
   return (
     <View style={styles.recordSaleContainer}>
+      <View style={loading === false ? {display: 'none'} : styles.loader}>
+        <ActivityIndicator size={36} color={MyTheme.yellow} />
+      </View>
       <ArrowHeader heading="Sales Order" />
       <View style={globalInputsStyles.globalInputs}>
         <Text style={globalInputsStyles.globalLabel}>Customer Phone* </Text>

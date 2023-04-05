@@ -17,10 +17,10 @@ export const MyTheme = {
   grey600: '#FBFBFB',
   grey700: '#0000001f',
   FireOpal: '#E75858',
-  Seashell:"#fdeeee",
+  Seashell: '#fdeeee',
   yellow: '#FBD211',
-  metallicYellow:"#FBD211",
+  metallicYellow: '#FBD211',
   fontFamily: 'Rubik',
   poppins: 'Poppins',
-  darkLemonLime:"#86BB1E"
+  darkLemonLime: '#86BB1E',
 };

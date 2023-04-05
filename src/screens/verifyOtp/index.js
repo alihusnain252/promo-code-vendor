@@ -1,4 +1,4 @@
-import {View, Text, Pressable, Modal, Image} from 'react-native';
+import {View, Text, Pressable, Modal, Image, ActivityIndicator} from 'react-native';
 import React, {useState} from 'react';
 import {styles} from './styles';
 import {BottomBar, TopHeader} from '@components';
@@ -6,44 +6,42 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {OtpContainer} from '@components';
 import {globalInputsStyles} from '@utils';
 import {ArrowHeader} from '../../components';
-import { useSelector } from 'react-redux';
-import { token } from '../../redux/tokenSlice';
-import { PostRequest } from '../../api/apiCall';
+import {useSelector} from 'react-redux';
+import {token} from '../../redux/tokenSlice';
+import {PostRequest} from '../../api/apiCall';
+import { MyTheme } from '../../utils';
 
-export const VerifyOtp = ({ route , navigation}) => {
-  const {phoneNumber}=route.params;
+export const VerifyOtp = ({route, navigation}) => {
+  const {phoneNumber} = route.params;
 
-  const [otp, setOtp] = useState("")
+  const [otp, setOtp] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-  const userToken = useSelector(token)
+  const userToken = useSelector(token);
+  const [loading, setLoading] = useState(false);
 
-
-
-
-  
   const [noDisplay, setNoDisplay] = useState(false);
   const [errorText, setErrorText] = useState('');
 
   const verifyHandler = () => {
-    console.log(otp);
-    const data = {phone_number: phoneNumber,
-      otp_code:otp
-    }
+    setLoading(true);
+    const data = {phone_number: phoneNumber, otp_code: otp};
 
-    PostRequest(userToken.token,data,"api/vendor/verify-otpcode").then(res=>{
-      console.log("validate customer res :",res.data);
+    PostRequest(userToken.token, data, 'api/vendor/verify-otpcode').then(
+      res => {
+        console.log('validate customer res :', res.data);
 
-      if (res.data.success === true) {
-        setModalVisible(true)
-      }
-      
-    })
+        if (res.data.success === true) {
+          setModalVisible(true);
+          setLoading(false);
+        }
+      },
+    );
   };
 
-  const okPressHandler = ()=>{
+  const okPressHandler = () => {
     setModalVisible(false);
-    navigation.navigate("ValidateCustomer")
-  }
+    navigation.navigate('ValidateCustomer');
+  };
 
   return (
     <View style={styles.verifyOtpContainer}>
@@ -65,6 +63,10 @@ export const VerifyOtp = ({ route , navigation}) => {
       <Pressable style={styles.notVerifyOtpBtn} onPress={() => verifyHandler()}>
         <Text style={styles.notVerifyOtpText}>Verify OTP</Text>
       </Pressable>
+
+      <View style={loading === false ? {display: 'none'} : {marginTop: 20}}>
+        <ActivityIndicator size={36} color={MyTheme.yellow} />
+      </View>
       <View>
         <Modal
           animationType="slide"

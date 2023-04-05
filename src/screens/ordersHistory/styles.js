@@ -88,6 +88,7 @@ export const styles = StyleSheet.create({
     elevation: 2,
   },
   startDate: {
+    paddingHorizontal: 10,
     fontFamily: MyTheme.fontFamily,
     fontStyle: 'normal',
     // fontSize: 12,
@@ -95,9 +96,9 @@ export const styles = StyleSheet.create({
     width: '45%',
     backgroundColor: MyTheme.white,
     borderRadius: 8,
-    paddingHorizontal: 20,
   },
   endDate: {
+    paddingHorizontal: 10,
     fontFamily: MyTheme.fontFamily,
     fontStyle: 'normal',
     // fontSize: 12,
@@ -105,7 +106,6 @@ export const styles = StyleSheet.create({
     width: '50%',
     backgroundColor: MyTheme.white,
     borderRadius: 8,
-    paddingHorizontal: 20,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -174,7 +174,7 @@ export const styles = StyleSheet.create({
   },
   ordersList: {
     marginVertical: 12,
-    height: height / 1.75,
+    height: height / 1.25,
     // marginBottom:20,
   },
   ordersListFilter: {
@@ -234,7 +234,7 @@ export const styles = StyleSheet.create({
   },
   orderDetails: {
     height: '100%',
-    width: '70%',
+    width: '50%',
     justifyContent: 'center',
     marginLeft: 5,
   },
@@ -266,9 +266,9 @@ export const styles = StyleSheet.create({
     marginTop: 5,
   },
   orderPriceView: {
-    marginRight: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
+    width:"50%",
+    justifyContent:"center",
+    alignItems: "flex-end",
   },
   orderPrice: {
     fontFamily: MyTheme.fontFamily,

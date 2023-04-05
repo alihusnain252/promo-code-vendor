@@ -1,5 +1,5 @@
-import {View, Text, Pressable, Image} from 'react-native';
-import React from 'react';
+import {View, Text, Pressable, Image, ActivityIndicator} from 'react-native';
+import React, {useState} from 'react';
 import {styles} from './styles';
 import {TopHeader, BottomBar} from '@components';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -7,14 +7,18 @@ import {ArrowHeader} from '../../components';
 import {PostRequest} from '../../api/apiCall';
 import {useSelector} from 'react-redux';
 import {token} from '../../redux/tokenSlice';
+import {MyTheme} from '../../utils';
 
 export const UserFound = ({route, navigation}) => {
   const userToken = useSelector(token);
 
   const {userDetails} = route.params;
+
+  const [loading, setLoading] = useState(false);
   console.log('Founded userDetails', userDetails.profile_pic);
 
   const searchHandler = () => {
+    setLoading(true);
     const data = {phone_number: userDetails.phone_number};
 
     PostRequest(userToken.token, data, 'api/vendor/send-otpcode').then(res => {
@@ -24,6 +28,7 @@ export const UserFound = ({route, navigation}) => {
         navigation.navigate('VerifyOtp', {
           phoneNumber: userDetails.phone_number,
         });
+        setLoading(false);
       }
     });
   };
@@ -89,6 +94,9 @@ export const UserFound = ({route, navigation}) => {
         <Pressable style={styles.sendSMS} onPress={() => searchHandler()}>
           <Text style={styles.sendSMSText}>Send SMS OTP</Text>
         </Pressable>
+        <View style={loading === false ? {display: 'none'} : {marginTop: 20}}>
+          <ActivityIndicator size={36} color={MyTheme.yellow} />
+        </View>
       </View>
     </View>
   );

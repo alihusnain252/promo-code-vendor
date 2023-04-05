@@ -1,4 +1,4 @@
-import {View, Text, TextInput, Pressable, Image, Alert} from 'react-native';
+import {View, Text, TextInput, Pressable, Image, Alert, ActivityIndicator} from 'react-native';
 import React, {useState} from 'react';
 import {styles} from './styles';
 import {TopHeader, BottomBar} from '@components';
@@ -7,27 +7,33 @@ import {ArrowHeader} from '../../components';
 import {PostRequest} from '../../api/apiCall';
 import {useSelector} from 'react-redux';
 import {token} from '../../redux/tokenSlice';
+import { MyTheme } from '../../utils';
 
 export const ValidateCustomer = ({navigation}) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [noDisplay, setNoDisplay] = useState(false);
   const [errorText, setErrorText] = useState('');
+  const [loading, setLoading] = useState(false);
   const userToken = useSelector(token);
 
   const searchHandler = () => {
+    setLoading(true)
     const data = {phone_number: phoneNumber};
 
     if (phoneNumber === '') {
       setNoDisplay(true);
+      setLoading(false)
       setErrorText('please Add Phone Number');
     } else {
       PostRequest(userToken.token, data, 'api/vendor/verify-user').then(res => {
         console.log('validate customer res :', res.data);
         if (res.data.message === 'User not found') {
           setNoDisplay(true);
+          setLoading(false)
           setErrorText(res.data.message);
         } else {
           setNoDisplay(false);
+          setLoading(false)
           navigation.navigate('UserFound', {userDetails: res.data.data});
         }
       });
@@ -57,6 +63,10 @@ export const ValidateCustomer = ({navigation}) => {
         <Pressable style={styles.search} onPress={() => searchHandler()}>
           <Text style={styles.searchText}>Search</Text>
         </Pressable>
+
+        <View style={loading === false ? {display: 'none'} : {marginTop: 20}}>
+          <ActivityIndicator size={36} color={MyTheme.yellow} />
+        </View>
       </View>
     </View>
   );
