@@ -94,7 +94,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 69,
-    backgroundColor: MyTheme.yellow,
+    backgroundColor: MyTheme.accent,
   },
   okPresText: {
     fontFamily: MyTheme.fontFamily,
@@ -259,7 +259,7 @@ export const styles = StyleSheet.create({
   modalView: {
     width: width - 50,
     height: 245,
-    backgroundColor: 'white',
+    backgroundColor: MyTheme.primary,
     borderRadius: 10,
     alignItems: 'center',
     shadowColor: '#000',

@@ -12,7 +12,7 @@ import {
 import React, {useState} from 'react';
 import {ArrowHeader} from '../../components';
 import {styles} from './styles';
-import {globalInputsStyles, MyTheme} from '../../utils';
+import {globalInputsStyles, MyTheme, vendorUris} from '../../utils';
 import {useSelector} from 'react-redux';
 import {token} from '../../redux/tokenSlice';
 import {PostRequest} from '../../api/apiCall';
@@ -63,7 +63,7 @@ export const RecordSale = () => {
     }
   };
   const createHandler = () => {
-    setLoading(true)
+    setLoading(true);
     const data = {
       customer_id: customerId,
       customer_phone_number: phoneNumber,
@@ -77,13 +77,13 @@ export const RecordSale = () => {
       grand_total: grandTotal,
     };
 
-    PostRequest(userToken.token, data, 'api/vendor/create-order').then(res => {
+    PostRequest(userToken.token, data, vendorUris.createOrder).then(res => {
       console.log('validate customer res :', res.data.success);
       if (res.data.success === false) {
         Alert.alert(res.data.error);
-        setLoading(false)
+        setLoading(false);
       } else {
-        setLoading(true)
+        setLoading(false);
         setModalVisible(true);
       }
     });

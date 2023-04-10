@@ -7,7 +7,7 @@ import {ArrowHeader} from '../../components';
 import {PostRequest} from '../../api/apiCall';
 import {useSelector} from 'react-redux';
 import {token} from '../../redux/tokenSlice';
-import {MyTheme} from '../../utils';
+import {MyTheme, vendorUris} from '../../utils';
 
 export const UserFound = ({route, navigation}) => {
   const userToken = useSelector(token);
@@ -21,7 +21,7 @@ export const UserFound = ({route, navigation}) => {
     setLoading(true);
     const data = {phone_number: userDetails.phone_number};
 
-    PostRequest(userToken.token, data, 'api/vendor/send-otpcode').then(res => {
+    PostRequest(userToken.token, data, vendorUris.userSendOtpCode).then(res => {
       console.log('validate customer res :', res.data);
 
       if (res.data.is_otp_send === true) {

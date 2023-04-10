@@ -8,41 +8,6 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: MyTheme.white,
   },
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: width - 30,
-    marginTop: 28,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: MyTheme.grey200,
-
-    shadowColor: '#000',
-    shadowOffset: {
-      width: -2,
-      height: 1,
-    },
-    shadowOpacity: 0.52,
-    shadowRadius: 2.22,
-
-    elevation: -2,
-  },
-  searchPress: {
-    width: 50,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  searchImage: {
-    width: 14,
-    height: 14,
-    marginRight: 15.5,
-  },
-  searchInput: {
-    width: '80%',
-    paddingLeft: 16,
-  },
   signupHeader: {
     width: '100%',
     flexDirection: 'row',
@@ -63,15 +28,16 @@ export const styles = StyleSheet.create({
   },
   scrollView: {
     position: 'absolute',
-    height: '100%',
     width: '100%',
+    height: '80%',
     left: 20,
-    top: 99,
+    top: 144,
   },
   register: {
+    height: 56,
     width: width - 40,
     height: 56,
-    marginTop: 16,
+    marginTop: 6,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 69,
@@ -85,20 +51,14 @@ export const styles = StyleSheet.create({
     lineHeight: 19,
     color: MyTheme.white,
   },
-  emptyView: {
-    width: width - 40,
-    height: 186,
+
+  dateInput: {
+    width: '80%',
   },
-  loader: {
-    position: 'absolute',
-    top: '50%',
-    left: '40%',
-    zIndex: 1,
-    backgroundColor: '#00000080',
-    width: 100,
-    height: 100,
+  datePress: {
+    width: '20%',
+    height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 50,
   },
 });

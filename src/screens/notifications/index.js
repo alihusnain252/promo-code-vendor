@@ -47,7 +47,7 @@ export const Notifications = ({navigation}) => {
 
 const NotificationCard = props => {
   return (
-    <View style={styles.notificationCard} >
+    <View style={styles.notificationCard}>
       <Text style={styles.notificationHeadings}>{props.heading}</Text>
       <Text style={styles.notificationDescription}>{props.description}</Text>
     </View>

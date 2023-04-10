@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
   bottomBarContainer: {
     width: width - 18,
     height: 61,
-    backgroundColor: MyTheme.dark,
+    backgroundColor: MyTheme.accent,
     borderRadius: 70,
     position: 'absolute',
     bottom: 12,

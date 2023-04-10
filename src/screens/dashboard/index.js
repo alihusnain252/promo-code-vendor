@@ -4,15 +4,11 @@ import {
   TextInput,
   Image,
   Pressable,
-  StyleSheet,
 } from 'react-native';
 import React from 'react';
 import {styles} from './styles';
 import {
-  Ads,
   BottomBar,
-  FeaturedAds,
-  FeaturedVendors,
   TopHeader,
 } from '@components';
 import {MyTheme} from '@utils';
@@ -55,7 +51,9 @@ export const Dashboard = ({navigation}) => {
         </Pressable>
         {/* <Pressable style={styles.recordSale}></Pressable> */}
       </View>
-      <Pressable style={styles.history} onPress={()=>navigation.navigate("OrdersHistory")}>
+      <Pressable
+        style={styles.history}
+        onPress={() => navigation.navigate('OrdersHistory')}>
         <Image
           source={require('../../assets/icons/history.png')}
           style={styles.historyImages}

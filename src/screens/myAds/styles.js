@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
   createAdPress: {
     width: 78,
     height: 22,
-    backgroundColor: MyTheme.yellow,
+    backgroundColor: MyTheme.accent,
     borderRadius: 4,
     justifyContent: 'center',
     alignItems: 'center',

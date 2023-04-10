@@ -10,7 +10,8 @@ export const styles = StyleSheet.create({
     marginTop: 70,
   },
   textInput: {
-    backgroundColor: MyTheme.grey,
+    backgroundColor: MyTheme.accent,
+    color: MyTheme.white,
     padding: 7,
     margin: 7,
     borderRadius: 5,

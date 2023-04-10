@@ -10,3 +10,7 @@ export {MyAds} from './myAds';
 export {CreateAd} from './createAd';
 export {RecordSale} from './recordSale';
 export {OrdersHistory} from './ordersHistory';
+export {RecoverPassword} from './recoverPassword';
+export {ResetPassword} from './resetPassword';
+export {AccountDetails} from './accountDetails';
+export {UpdatePassword} from './updatePassword';

@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 69,
-    backgroundColor: MyTheme.yellow,
+    backgroundColor: MyTheme.primary,
   },
   loginText: {
     fontFamily: MyTheme.fontFamily,
@@ -97,6 +97,6 @@ export const styles = StyleSheet.create({
     fontWeight: 400,
     fontSize: 14,
     lineHeight: 19,
-    color: MyTheme.yellow,
+    color: MyTheme.primary,
   },
 });

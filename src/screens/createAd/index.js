@@ -5,21 +5,21 @@ import {
   ScrollView,
   TextInput,
   Image,
+  ActivityIndicator,
 } from 'react-native';
-import React, { useState } from 'react';
-import { styles } from './styles';
-import { globalInputsStyles } from '@utils';
-import { MyTheme } from '@utils';
-import { ArrowHeader } from '../../components';
-import { CreateAdRequest } from '../../api/apiCall';
-import { useSelector } from 'react-redux';
-import { token } from '../../redux/tokenSlice';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import React, {useState} from 'react';
+import {styles} from './styles';
+import {globalInputsStyles} from '@utils';
+import {MyTheme} from '@utils';
+import {ArrowHeader} from '../../components';
+import {CreateAdRequest} from '../../api/apiCall';
+import {useSelector} from 'react-redux';
+import {token} from '../../redux/tokenSlice';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import {vendorUris} from '../../utils';
 
-import axios from 'axios';
-
-export const CreateAd = ({ navigation }) => {
+export const CreateAd = ({navigation}) => {
   const [company, setCompany] = useState('');
   const [category, setCategory] = useState('');
   const [originalPrice, setOriginalPrice] = useState('');
@@ -32,15 +32,15 @@ export const CreateAd = ({ navigation }) => {
   const [description, setDescription] = useState('description');
   const userToken = useSelector(token);
 
-  let options = {
-    title: 'Select Image',
-    storageOptions: {
-      skipBackup: true,
-      path: 'images',
-    },
-  };
-
   const pickImage = () => {
+    let options = {
+      title: 'Select Image',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+
     launchImageLibrary(options, response => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
@@ -75,18 +75,22 @@ export const CreateAd = ({ navigation }) => {
     data.append('description', description);
 
     setLoading(true);
-    CreateAdRequest(userToken, data).then(response => {
-      setLoading(false);
-      console.log('api response :', response.data);
-      // dispatch(
-      //   updateToken(response.data.data.token ? response.data.data.token : "")
-      // );
-    });
+
+    CreateAdRequest(userToken.token, data, vendorUris.promotionCreate).then(
+      response => {
+        setLoading(false);
+        console.log('api response :', response.data);
+      },
+    );
   };
 
   return (
     <View style={styles.signupContainer}>
       <ArrowHeader heading="Create Ad" />
+
+      <View style={loading === false ? {display: 'none'} : styles.loader}>
+        <ActivityIndicator size={36} color={MyTheme.yellow} />
+      </View>
 
       <ScrollView style={styles.scrollView}>
         <View style={globalInputsStyles.globalInputs}>
@@ -109,7 +113,7 @@ export const CreateAd = ({ navigation }) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 paddingVertical: 15,
-                width:"80%",
+                width: '80%',
               }}>
               {adImageName != '' ? adImageName : `Pick Ad Image`}
             </Text>

@@ -193,7 +193,7 @@ export const styles = StyleSheet.create({
     color: MyTheme.labelBlack,
     height: 61,
     width: width - 32,
-    backgroundColor: MyTheme.white,
+    backgroundColor: MyTheme.primary,
     borderRadius: 8,
     shadowColor: '#000',
     shadowOffset: {

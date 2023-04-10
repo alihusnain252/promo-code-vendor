@@ -5,12 +5,13 @@ import {
   Pressable,
   Image,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import React, {useState} from 'react';
 import {styles} from './styles';
 import {signInInputsStyles} from '@utils';
 import {LoginPostRequest} from '../../api/apiCall';
-import {MyTheme} from '../../utils';
+import {MyTheme, vendorUris} from '../../utils';
 import {useDispatch} from 'react-redux';
 import {updateToken} from '../../redux/tokenSlice';
 
@@ -27,17 +28,24 @@ export const LogInScreen = ({navigation}) => {
       password: password,
     };
     setLoading(true);
-    LoginPostRequest(data, (url = 'api/vendor/login')).then(response => {
-      setLoading(false);
+    LoginPostRequest(data, vendorUris.login).then(response => {
       console.log('api response :', response.data);
-      dispatch(
-        updateToken(response.data.data.token ? response.data.data.token : "")
-      );
+      if (response.data.data.length === 0) {
+        Alert.alert(response.data.message);
+        setLoading(false);
+      } else {
+        dispatch(
+          updateToken(response.data.data.token ? response.data.data.token : ''),
+        );
+        setLoading(false);
+      }
     });
 
     // navigation.navigate('LoginOtp');
   };
-  const recoverHandler = () => {};
+  const recoverHandler = () => {
+    navigation.navigate('RecoverPassword');
+  };
 
   return (
     <View style={styles.loginContainer}>
@@ -83,7 +91,7 @@ export const LogInScreen = ({navigation}) => {
           <Text style={styles.loginText}>Login</Text>
         </Pressable>
         <View style={loading === false ? {display: 'none'} : {marginTop: 20}}>
-          <ActivityIndicator size={36} color={MyTheme.yellow} />
+          <ActivityIndicator size={36} color={MyTheme.primary} />
         </View>
       </View>
     </View>

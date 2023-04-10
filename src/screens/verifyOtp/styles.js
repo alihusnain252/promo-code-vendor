@@ -3,7 +3,7 @@ import {StyleSheet, Dimensions} from 'react-native';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 export const styles = StyleSheet.create({
- verifyOtpContainer: {
+  verifyOtpContainer: {
     flex: 1,
     alignItems: 'center',
     backgroundColor: MyTheme.white,
@@ -32,7 +32,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 69,
-    backgroundColor: MyTheme.yellow,
+    backgroundColor: MyTheme.primary,
+    color: MyTheme.textPrimary,
   },
   notVerifyOtpBtn: {
     height: 56,
@@ -41,6 +42,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 69,
+    color: MyTheme.textPrimary,
     backgroundColor: MyTheme.grey300,
   },
   verifyOtpText: {
@@ -49,7 +51,7 @@ export const styles = StyleSheet.create({
     fontWeight: 400,
     fontSize: 16,
     lineHeight: 19,
-    color: MyTheme.white,
+    color: MyTheme.textPrimary,
   },
   notVerifyOtpText: {
     fontFamily: MyTheme.fontFamily,
@@ -57,21 +59,20 @@ export const styles = StyleSheet.create({
     fontWeight: 400,
     fontSize: 16,
     lineHeight: 19,
-    color: MyTheme.grey500,
+    color: MyTheme.textPrimary,
   },
   centeredView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // marginTop: 22,
     width: '100%',
     backgroundColor: '#00000080',
   },
   modalView: {
-    width: width-50,
+    width: width - 50,
     height: 245,
-    backgroundColor: 'white',
-    borderRadius:10,
+    backgroundColor: MyTheme.primary,
+    borderRadius: 10,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
@@ -99,17 +100,20 @@ export const styles = StyleSheet.create({
     marginTop: 17,
     marginLeft: 24,
   },
-  successContainer:{
-    width:"100%",
-    justifyContent:"center",
-    alignItems:"center",
+  successContainer: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: MyTheme.primary,
+    borderRadius: 10,
   },
-  successImage:{
-    width:85,
-    height:70,
-    marginTop:20,
+  successImage: {
+    width: 85,
+    height: 70,
+    marginTop: 20,
+    borderRadius: 10,
   },
-  successText:{
+  successText: {
     fontFamily: MyTheme.fontFamily,
     fontStyle: 'normal',
     fontWeight: 700,
@@ -118,7 +122,7 @@ export const styles = StyleSheet.create({
     color: MyTheme.black,
     marginTop: 17,
   },
-  successMessage:{
+  successMessage: {
     fontFamily: MyTheme.fontFamily,
     fontStyle: 'normal',
     fontWeight: 400,
@@ -134,7 +138,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 69,
-    backgroundColor: MyTheme.yellow,
+    backgroundColor: MyTheme.accent,
   },
   okPresText: {
     fontFamily: MyTheme.fontFamily,

@@ -1,12 +1,12 @@
-import { MyTheme } from '@utils';
-import { StyleSheet, Dimensions } from 'react-native';
+import {MyTheme} from '@utils';
+import {StyleSheet, Dimensions} from 'react-native';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 export const styles = StyleSheet.create({
   otpContainer: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor:MyTheme.white,
+    backgroundColor: MyTheme.white,
   },
   otpHeader: {
     width: '100%',

@@ -43,17 +43,18 @@ export const styles = StyleSheet.create({
     width: '80%',
     paddingLeft: 16,
   },
-  topPress:{
-    flexDirection:"row",
-    width:width-30,
-    height:110,
-    marginTop:20,
-    alignItems:"center",
-    justifyContent:"space-between",
-    alignSelf:"center",
-    borderRadius:8,
+  topPress: {
+    flexDirection: 'row',
+    width: width - 30,
+    height: 110,
+    marginTop: 20,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    alignSelf: 'center',
+    borderRadius: 8,
   },
   validateCustomer: {
+    backgroundColor: MyTheme.primary,
     width: 160,
     height: 100,
     shadowColor: '#000',
@@ -65,21 +66,21 @@ export const styles = StyleSheet.create({
     shadowRadius: 1.41,
 
     elevation: 2,
-    justifyContent:"center",
-    alignItems:"center",
-    backgroundColor:MyTheme.grey400,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8,
   },
-  validationText:{
+  validationText: {
     fontFamily: MyTheme.fontFamily,
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: 14,
     lineHeight: 20,
-    color: MyTheme.black,
-    marginTop:10,
+    color: MyTheme.textPrimary,
+    marginTop: 10,
   },
   history: {
-    width: width-30,
+    width: width - 30,
     height: 100,
     shadowColor: '#000',
     shadowOffset: {
@@ -90,17 +91,18 @@ export const styles = StyleSheet.create({
     shadowRadius: 1.41,
 
     elevation: 2,
-    justifyContent:"center",
-    alignItems:"center",
-    backgroundColor:MyTheme.grey400,
-    marginTop:10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: MyTheme.primary,
+    borderRadius: 8,
+    marginTop: 10,
   },
-  images:{
-    width:35,
-    height:35,
+  images: {
+    width: 35,
+    height: 35,
   },
-  historyImages:{
-    width:45,
-    height:65,
+  historyImages: {
+    width: 45,
+    height: 65,
   },
 });

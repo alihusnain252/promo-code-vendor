@@ -1,4 +1,11 @@
-import {View, Text, Pressable, Modal, Image, ActivityIndicator} from 'react-native';
+import {
+  View,
+  Text,
+  Pressable,
+  Modal,
+  Image,
+  ActivityIndicator,
+} from 'react-native';
 import React, {useState} from 'react';
 import {styles} from './styles';
 import {BottomBar, TopHeader} from '@components';
@@ -8,11 +15,12 @@ import {globalInputsStyles} from '@utils';
 import {ArrowHeader} from '../../components';
 import {useSelector} from 'react-redux';
 import {token} from '../../redux/tokenSlice';
-import {PostRequest} from '../../api/apiCall';
-import { MyTheme } from '../../utils';
+import {PostRequest, PostRequestWithoutToken} from '../../api/apiCall';
+import {MyTheme, vendorUris} from '../../utils';
 
 export const VerifyOtp = ({route, navigation}) => {
   const {phoneNumber} = route.params;
+  console.log('userPhone Number :' + phoneNumber);
 
   const [otp, setOtp] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
@@ -26,20 +34,19 @@ export const VerifyOtp = ({route, navigation}) => {
     setLoading(true);
     const data = {phone_number: phoneNumber, otp_code: otp};
 
-    PostRequest(userToken.token, data, 'api/vendor/verify-otpcode').then(
-      res => {
-        console.log('validate customer res :', res.data);
+    PostRequest(userToken.token, data, vendorUris.userVerifyUser).then(res => {
+      console.log('validate customer res :', res);
 
-        if (res.data.success === true) {
-          setModalVisible(true);
-          setLoading(false);
-        }
-      },
-    );
+      if (res.data.success === true) {
+        setModalVisible(true);
+        setLoading(false);
+      }
+    });
   };
 
   const okPressHandler = () => {
     setModalVisible(false);
+
     navigation.navigate('ValidateCustomer');
   };
 
@@ -60,7 +67,9 @@ export const VerifyOtp = ({route, navigation}) => {
         </View>
       </View> */}
 
-      <Pressable style={styles.notVerifyOtpBtn} onPress={() => verifyHandler()}>
+      <Pressable
+        style={otp === '' ? styles.notVerifyOtpBtn : styles.verifyOtpBtn}
+        onPress={() => verifyHandler()}>
         <Text style={styles.notVerifyOtpText}>Verify OTP</Text>
       </Pressable>
 

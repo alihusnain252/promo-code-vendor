@@ -31,7 +31,9 @@ export const styles = StyleSheet.create({
     elevation: 3,
   },
   adDetails: {
-    marginLeft: 19,
+    paddingLeft: 19,
+    backgroundColor: MyTheme.primary,
+    width: '50%',
   },
   originalPrice: {
     fontFamily: MyTheme.poppins,

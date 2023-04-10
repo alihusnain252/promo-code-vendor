@@ -1,4 +1,12 @@
-import {View, Text, Pressable, TextInput, Image, FlatList, ActivityIndicator} from 'react-native';
+import {
+  View,
+  Text,
+  Pressable,
+  TextInput,
+  Image,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {styles} from './styles';
 import {ArrowHeader} from '../../components';
@@ -7,11 +15,11 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
 import {token} from '../../redux/tokenSlice';
 import {GetRequest} from '../../api/apiCall';
-import { MyTheme } from '../../utils';
+import {MyTheme, vendorUris} from '../../utils';
 
 export const OrdersHistory = () => {
   const [filterDisplay, setFilterDisplay] = useState(false);
-  const [orderHistoryData, setOrderHistoryData] = useState([])
+  const [orderHistoryData, setOrderHistoryData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const userToken = useSelector(token);
@@ -65,9 +73,7 @@ export const OrdersHistory = () => {
     <View style={styles.item}>
       <View style={styles.orderDetails}>
         <Text style={styles.orderIndex}>#{id}</Text>
-        <Text style={styles.orderCustomerId}>
-          Customer # : {customer_id}
-        </Text>
+        <Text style={styles.orderCustomerId}>Customer # : {customer_id}</Text>
         <Text style={styles.orderTime}>Time : {order_date}</Text>
       </View>
       <View style={styles.orderPriceView}>
@@ -76,11 +82,11 @@ export const OrdersHistory = () => {
     </View>
   );
   const getOrderHistory = () => {
-    setLoading(true)
-    GetRequest(userToken.token, 'api/vendor/order-history').then(res => {
+    setLoading(true);
+    GetRequest(userToken.token, vendorUris.orderHistory).then(res => {
       console.log('order Histories :', res.data.data.order_histories.data);
-      setOrderHistoryData(res.data.data.order_histories.data)
-      setLoading(false)
+      setOrderHistoryData(res.data.data.order_histories.data);
+      setLoading(false);
     });
   };
   useEffect(() => {
@@ -137,10 +143,10 @@ export const OrdersHistory = () => {
           data={orderHistoryData}
           renderItem={({item}) => (
             <Item
-            id={item.id}
-            customer_id={item.customer_id}
-            grand_total={item.grand_total}
-            order_date={item.order_date}
+              id={item.id}
+              customer_id={item.customer_id}
+              grand_total={item.grand_total}
+              order_date={item.order_date}
             />
           )}
           keyExtractor={item => item.id}

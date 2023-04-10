@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
     height: '100%',
   },
   scroll: {
-    // height:"70%",
+    height: '70%',
     width: width,
   },
   cardTopView: {

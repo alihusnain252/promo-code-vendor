@@ -10,14 +10,14 @@ import {
 import React, {useState} from 'react';
 import {styles} from './styles';
 import {TopHeader, BottomBar} from '@components';
-import {globalInputsStyles} from '@utils';
 import {ArrowHeader} from '../../components';
-import {PostRequest} from '../../api/apiCall';
+import {PostRequest, PostRequestWithToken} from '../../api/apiCall';
 import {useSelector} from 'react-redux';
 import {token} from '../../redux/tokenSlice';
-import {MyTheme, vendorUris} from '../../utils';
+import {MyTheme, vendorUris, globalInputsStyles} from '@utils';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-export const ValidateCustomer = ({navigation}) => {
+export const RecoverPassword = ({navigation}) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [noDisplay, setNoDisplay] = useState(false);
   const [errorText, setErrorText] = useState('');
@@ -27,35 +27,40 @@ export const ValidateCustomer = ({navigation}) => {
   const searchHandler = () => {
     setLoading(true);
     const data = {phone_number: phoneNumber};
+    navigation.navigate("ResetPassword",{phoneNumber:phoneNumber})
 
-    if (phoneNumber === '') {
-      setNoDisplay(true);
-      setLoading(false);
-      setErrorText('please Add Phone Number');
-    } else {
-      PostRequest(userToken.token, data, vendorUris.userVerifyUser).then(
-        res => {
-          console.log('validate customer res :', res.data);
-          if (res.data.message === 'User not found') {
-            setNoDisplay(true);
-            setLoading(false);
-            setErrorText(res.data.message);
-          } else {
-            setNoDisplay(false);
-            setLoading(false);
-            navigation.navigate('UserFound', {userDetails: res.data.data});
-          }
-        },
-      );
-    }
+    // if (phoneNumber === '') {
+    //   setNoDisplay(true);
+    //   setLoading(false);
+    //   setErrorText('please Add Phone Number');
+    // } else {
+    //   PostRequest(userToken.token, data, vendorUris.forgotPasswordRequest).then(
+    //     res => {
+    //       setLoading(false);
+    //       if (res.status) {
+    //         console.log('validate customer res :', res.data.data);
+    //         setNoDisplay(false);
+    //         setLoading(false);
+    //         navigation.navigate('VerifyOtp', {
+    //           phoneNumber: res.data.data.phone_number,
+    //           forgot: true,
+    //         });
+    //       } else {
+    //         setNoDisplay(true);
+    //         setLoading(false);
+    //         setErrorText(res.data.message);
+    //       }
+    //     },
+    //   );
+    // }
   };
 
   return (
     <View style={styles.validateContainer}>
-      <ArrowHeader heading="Validate Customer" />
+      <ArrowHeader heading="Forgot Password" />
       <View style={styles.body}>
         {/* <Text style={styles.validateText}>Validate Customer</Text> */}
-        <Text style={styles.phoneText}>Customer Phone #</Text>
+        <Text style={styles.phoneText}>Phone Number #</Text>
         <TextInput
           style={noDisplay === false ? globalInputsStyles.input : styles.input}
           placeholder="0212345678"
@@ -64,10 +69,7 @@ export const ValidateCustomer = ({navigation}) => {
           keyboardType="numeric"
         />
         <View style={noDisplay === false ? styles.noDisplay : styles.notFound}>
-          <Image
-            source={require('../../assets/icons/notFound.png')}
-            style={styles.notFoundImage}
-          />
+          <MaterialIcons name="error-outline" size={25} color="red" />
           <Text style={styles.notFoundText}>{errorText}</Text>
         </View>
         <Pressable style={styles.search} onPress={() => searchHandler()}>
