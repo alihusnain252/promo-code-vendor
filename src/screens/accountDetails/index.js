@@ -24,7 +24,7 @@ import ProfileImage from '../../assets/icons/profile.png';
 import {useSelector} from 'react-redux';
 import {token} from '@redux/tokenSlice';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import { vendorUris } from '../../utils';
+import {vendorUris} from '../../utils';
 
 export const AccountDetails = ({route, navigation}) => {
   const {profileDetails} = route.params;
@@ -119,7 +119,7 @@ export const AccountDetails = ({route, navigation}) => {
     ).then(response => {
       console.log('api response :', response);
       if (response.data.success === true) {
-        Alert.alert(response.data.message)
+        Alert.alert(response.data.message);
         setLoading(false);
       } else {
         Alert.alert(response.data.message);

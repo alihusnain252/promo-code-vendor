@@ -3,10 +3,10 @@ import {StyleSheet, Dimensions} from 'react-native';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 export const styles = StyleSheet.create({
-  signupContainer: {
+  resetPasswordContainer: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: MyTheme.white,
+    backgroundColor: MyTheme.backgroundColor,
   },
   signupHeader: {
     width: '100%',
@@ -31,9 +31,11 @@ export const styles = StyleSheet.create({
     width: '100%',
     height: '80%',
     left: 20,
-    top: 144,
+    top: 100,
   },
-  register: {
+  reset: {
+    position: 'absolute',
+    bottom: '2%',
     height: 56,
     width: width - 40,
     height: 56,
@@ -43,7 +45,7 @@ export const styles = StyleSheet.create({
     borderRadius: 69,
     backgroundColor: MyTheme.yellow,
   },
-  registerText: {
+  resetText: {
     fontFamily: MyTheme.fontFamily,
     fontStyle: 'normal',
     fontWeight: 400,

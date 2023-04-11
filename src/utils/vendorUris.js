@@ -15,8 +15,8 @@ export const vendorUris = {
   promotionCreate: 'api/vendor/promotion/create',
   promotionListing: 'api/vendor/promotion/listing',
   promotionFindById: 'api/vendor/promotion/findById/3',
-  promotionDelete: 'api/vendor/promotion/delete/2',
-  promotionUpdate: 'api/vendor/promotion/update/2',
+  promotionDelete: 'api/vendor/promotion/delete/',
+  promotionUpdate: 'api/vendor/promotion/update/',
   updateProfileImage: 'api/customer/update-profile-image',
   updatePassword: 'api/vendor/update-password',
 };

@@ -30,10 +30,6 @@ export const UpdatePassword = ({navigation}) => {
       'new-password': newPassword,
       'new-password-confirm': conformNewPassword,
     };
-    // let data= new FormData()
-    // data.append("current-password",currentPassword)
-    // data.append("new-password",newPassword)
-    // data.append("new-password-confirm",conformNewPassword)
     PostRequest(
       userToken.token,
       data,

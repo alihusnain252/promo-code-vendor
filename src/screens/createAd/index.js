@@ -6,6 +6,7 @@ import {
   TextInput,
   Image,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import React, {useState} from 'react';
 import {styles} from './styles';
@@ -19,17 +20,36 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {vendorUris} from '../../utils';
 
-export const CreateAd = ({navigation}) => {
-  const [company, setCompany] = useState('');
-  const [category, setCategory] = useState('');
-  const [originalPrice, setOriginalPrice] = useState('');
-  const [discountedPrice, setDiscountedPrice] = useState('');
-  const [promotionDetails, setPromotionDetails] = useState('');
-  const [promotionDuration, setPromotionDuration] = useState('');
+export const CreateAd = ({route, navigation}) => {
+  const {adDetails, update} = route.params;
+  console.log('adDetails :' + adDetails + ' update :' + update);
+
+  const [company, setCompany] = useState(update ? adDetails.company_name : '');
+  const [category, setCategory] = useState(
+    update ? JSON.stringify(adDetails.category_id) : '',
+  );
+  const [originalPrice, setOriginalPrice] = useState(
+    update ? adDetails.original_price : '',
+  );
+  const [discountedPrice, setDiscountedPrice] = useState(
+    update ? adDetails.discounted_price : '',
+  );
+  const [promotionDetails, setPromotionDetails] = useState(
+    update ? adDetails.promotion_details : '',
+  );
+  const [promotionDuration, setPromotionDuration] = useState(
+    update ? adDetails.promotion_duration : '',
+  );
   const [loading, setLoading] = useState(false);
-  const [adImage, setAdImage] = useState('');
-  const [adImageName, setAdImageName] = useState('');
-  const [description, setDescription] = useState('description');
+  const [adImage, setAdImage] = useState(update ? adDetails.image : '');
+  const [adImageName, setAdImageName] = useState(update ? adDetails.image : '');
+  const [description, setDescription] = useState(
+    update ? adDetails.description : '',
+  );
+  const [status, setStatus] = useState(update ? adDetails.status : '');
+  const [isFeatured, setIsFeatured] = useState(
+    update ? (adDetails.is_featured === true ? '1' : '0') : '',
+  );
   const userToken = useSelector(token);
 
   const pickImage = () => {
@@ -60,7 +80,7 @@ export const CreateAd = ({navigation}) => {
   const createHandler = () => {
     let data = new FormData();
     data.append('company_name', company);
-    data.append('category_id', '1');
+    data.append('category_id', category);
     data.append('original_price', originalPrice);
     data.append('discounted_price', discountedPrice);
     data.append('promotion_details', promotionDetails);
@@ -70,18 +90,43 @@ export const CreateAd = ({navigation}) => {
       type: 'image/jpeg',
       name: 'adPhoto.png',
     });
-    data.append('status', 'active');
-    data.append('is_featured', '1');
+    data.append('status', status);
+    data.append('is_featured', isFeatured);
     data.append('description', description);
 
     setLoading(true);
 
-    CreateAdRequest(userToken.token, data, vendorUris.promotionCreate).then(
-      response => {
+    CreateAdRequest(
+      userToken.token,
+      data,
+      update
+        ? vendorUris.promotionUpdate + `${adDetails.id}`
+        : vendorUris.promotionCreate,
+    ).then(response => {
+      if (response.status) {
+        Alert.alert('', response.data.message, [
+          {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          {text: 'OK', onPress: () => navigation.goBack()},
+        ]);
         setLoading(false);
-        console.log('api response :', response.data);
-      },
-    );
+        console.log('api response :', response);
+      } else {
+        Alert.alert('', response.error, [
+          {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          {text: 'OK', onPress: () => navigation.goBack()},
+        ]);
+        setLoading(false);
+        console.log('api response :', response);
+      }
+    });
   };
 
   return (
@@ -114,6 +159,7 @@ export const CreateAd = ({navigation}) => {
                 justifyContent: 'center',
                 paddingVertical: 15,
                 width: '80%',
+                color: MyTheme.textPrimary,
               }}>
               {adImageName != '' ? adImageName : `Pick Ad Image`}
             </Text>
@@ -122,12 +168,13 @@ export const CreateAd = ({navigation}) => {
           </Pressable>
         </View>
         <View style={globalInputsStyles.globalInputs}>
-          <Text style={globalInputsStyles.globalLabel}>Category </Text>
+          <Text style={globalInputsStyles.globalLabel}>Category Id </Text>
           <TextInput
             style={globalInputsStyles.input}
             onChangeText={setCategory}
             value={category}
-            placeholder="Health & Wellness"
+            placeholder="1"
+            keyboardType="number-pad"
           />
         </View>
         <View style={globalInputsStyles.globalInputs}>
@@ -161,13 +208,41 @@ export const CreateAd = ({navigation}) => {
         </View>
         <View style={globalInputsStyles.globalInputs}>
           <Text style={globalInputsStyles.globalLabel}>
-            Promotion Duration{' '}
+            Promotion Duration (Hours)
           </Text>
           <TextInput
             style={globalInputsStyles.input}
             onChangeText={setPromotionDuration}
             value={promotionDuration}
             placeholder="15 hours"
+            keyboardType="number-pad"
+          />
+        </View>
+        <View style={globalInputsStyles.globalInputs}>
+          <Text style={globalInputsStyles.globalLabel}>Status </Text>
+          <TextInput
+            style={globalInputsStyles.input}
+            onChangeText={setStatus}
+            value={status}
+            placeholder="Status"
+          />
+        </View>
+        <View style={globalInputsStyles.globalInputs}>
+          <Text style={globalInputsStyles.globalLabel}>Description </Text>
+          <TextInput
+            style={globalInputsStyles.input}
+            onChangeText={setDescription}
+            value={description}
+            placeholder="Description"
+          />
+        </View>
+        <View style={globalInputsStyles.globalInputs}>
+          <Text style={globalInputsStyles.globalLabel}>Is Featured (1,0) </Text>
+          <TextInput
+            style={globalInputsStyles.input}
+            onChangeText={setIsFeatured}
+            value={isFeatured}
+            placeholder="is Featured"
             keyboardType="number-pad"
           />
         </View>

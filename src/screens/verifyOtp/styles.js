@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
   verifyOtpContainer: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: MyTheme.white,
+    backgroundColor: MyTheme.backgroundColor,
   },
   verifyOtpHeader: {
     width: '100%',

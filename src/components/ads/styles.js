@@ -26,6 +26,7 @@ export const styles = StyleSheet.create({
     height: '100%',
   },
   scroll: {
+    marginTop:"2%",
     height: '70%',
     width: width,
   },

@@ -146,6 +146,33 @@ export const updateImageRequest = async (userToken, data, url) => {
     }
   } catch (error) {
     console.log('Post request Error :', error);
-    return {status: false, data: null,error:error};
+    return {status: false, data: null, error: error};
+  }
+};
+export const deleteAdRequest = async (userToken, data, url) => {
+  try {
+    console.log('postData :', data);
+    console.log('post URl :', url);
+    const AuthStr = 'Bearer '.concat(userToken);
+    console.log(AuthStr);
+
+    const res = await axios({
+      method: 'post',
+      url: url,
+      baseURL: baseUrl,
+      data: data,
+      headers: {
+        Authorization: AuthStr,
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    if (res.status === 200) {
+      return {status: true, data: res.data};
+    } else {
+      return {status: false, data: res.data};
+    }
+  } catch (error) {
+    console.log('Post request Error :', error);
+    return {status: false, data: null, error: error};
   }
 };

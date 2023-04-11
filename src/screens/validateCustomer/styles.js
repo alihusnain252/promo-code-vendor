@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
   validateContainer: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: MyTheme.white,
+    backgroundColor: MyTheme.backgroundColor,
   },
   body: {
     width: width - 38,
@@ -78,8 +78,8 @@ export const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: MyTheme.grey,
     borderRadius: 8,
-    borderWidth:1,
-    borderColor:MyTheme.FireOpal,
+    borderWidth: 1,
+    borderColor: MyTheme.FireOpal,
     paddingHorizontal: 15,
     shadowColor: '#000',
     shadowOffset: {

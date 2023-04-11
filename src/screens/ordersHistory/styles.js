@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
   ordersHistoryContainer: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: MyTheme.white,
+    backgroundColor: MyTheme.backgroundColor,
   },
   top: {
     flexDirection: 'row',
@@ -206,8 +206,8 @@ export const styles = StyleSheet.create({
     elevation: 2,
   },
   downloadBtn: {
-    position:"absolute",
-    bottom:25,
+    position: 'absolute',
+    bottom: 25,
     width: width - 32,
     flexDirection: 'row',
     alignItems: 'center',
@@ -266,9 +266,9 @@ export const styles = StyleSheet.create({
     marginTop: 5,
   },
   orderPriceView: {
-    width:"50%",
-    justifyContent:"center",
-    alignItems: "flex-end",
+    width: '50%',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
   },
   orderPrice: {
     fontFamily: MyTheme.fontFamily,

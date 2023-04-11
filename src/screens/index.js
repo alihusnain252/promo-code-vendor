@@ -14,3 +14,4 @@ export {RecoverPassword} from './recoverPassword';
 export {ResetPassword} from './resetPassword';
 export {AccountDetails} from './accountDetails';
 export {UpdatePassword} from './updatePassword';
+export {PromoDetails} from './promoDetails';

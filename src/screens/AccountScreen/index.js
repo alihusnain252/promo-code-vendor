@@ -61,13 +61,17 @@ export const AccountScreen = ({navigation}) => {
         <View style={styles.accountBtns}>
           <Pressable
             style={styles.accountButton}
-            onPress={() => navigation.navigate('AccountDetails',{profileDetails:userData})}>
+            onPress={() =>
+              navigation.navigate('AccountDetails', {profileDetails: userData})
+            }>
             <Text style={styles.accountButtonText}>Account Detail</Text>
           </Pressable>
           <Pressable style={styles.accountButton}>
             <Text style={styles.accountButtonText}>About Saver Buddy</Text>
           </Pressable>
-          <Pressable style={styles.accountButton} onPress={()=>navigation.navigate("UpdatePassword")} >
+          <Pressable
+            style={styles.accountButton}
+            onPress={() => navigation.navigate('UpdatePassword')}>
             <Text style={styles.accountButtonText}>Update Password</Text>
           </Pressable>
           {/* <Pressable style={styles.accountButton}>

@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
   recordSaleContainer: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: MyTheme.white,
+    backgroundColor: MyTheme.backgroundColor,
   },
   noDisplay: {
     display: 'none',

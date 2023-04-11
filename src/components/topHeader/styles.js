@@ -6,15 +6,15 @@ export const styles = StyleSheet.create({
   topContainer: {
     alignItems: 'center',
     width: '100%',
-    backgroundColor: 'white',
+    backgroundColor: MyTheme.primary,
     shadowColor: MyTheme.black,
     shadowOffset: {
-        width: 0,
-        height: 2,
+      width: 0,
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    
+
     elevation: 5,
   },
   topBody: {
@@ -27,10 +27,10 @@ export const styles = StyleSheet.create({
   profile: {
     width: 31,
     height: 31,
-    borderRadius:50,
+    borderRadius: 50,
   },
   profileImage: {
-    borderRadius:50,
+    borderRadius: 50,
     width: '100%',
     height: '100%',
   },
@@ -50,13 +50,13 @@ export const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  dot:{
-    width:8,
-    height:8,
-    backgroundColor:MyTheme.FireOpal,
-    borderRadius:50,
-    position:"absolute",
-    top:2,
-    left:8.61,
+  dot: {
+    width: 8,
+    height: 8,
+    backgroundColor: MyTheme.FireOpal,
+    borderRadius: 50,
+    position: 'absolute',
+    top: 2,
+    left: 8.61,
   },
 });

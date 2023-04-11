@@ -1,5 +1,6 @@
 export const MyTheme = {
   white: '#ffffff',
+  backgroundColor: '#ffffff',
   black: '#000000',
   accent: '#000000',
   textPrimary: '#000000',
@@ -20,7 +21,7 @@ export const MyTheme = {
   grey700: '#0000001f',
   FireOpal: '#E75858',
   Seashell: '#fdeeee',
-  primary:'#FBD211',
+  primary: '#FBD211',
   yellow: '#FBD211',
   metallicYellow: '#FBD211',
   fontFamily: 'Rubik',

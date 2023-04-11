@@ -4,7 +4,7 @@ import {styles} from './styles';
 import image from '../../assets/images/image8.png';
 
 export const AdCard = ({data}) => {
-  // console.log("Card Details : " ,data.discounted_price);
+  // console.log("Card Details : " ,data);
   return (
     <View style={styles.cardContainer}>
       <View style={styles.cardTopView}>
@@ -45,7 +45,6 @@ export const AdCard = ({data}) => {
               ? `Available Till:${data.expiry_date}`
               : `Available Till: data `}
           </Text>
-          <Text style={styles.ratings}>⭐️ 5.0 </Text>
         </View>
       </View>
     </View>

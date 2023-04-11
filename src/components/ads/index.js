@@ -5,6 +5,7 @@ import {
   Image,
   ActivityIndicator,
   FlatList,
+  Pressable,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {styles} from './styles';
@@ -14,8 +15,11 @@ import {useSelector} from 'react-redux';
 import {token} from '../../redux/tokenSlice';
 import {GetRequest} from '../../api/apiCall';
 import {MyTheme, vendorUris} from '../../utils';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 
 export const Ads = () => {
+  const navigation = useNavigation();
+
   const [loading, setLoading] = useState(false);
   const [adsRecord, setAdsRecord] = useState([]);
 
@@ -34,10 +38,21 @@ export const Ads = () => {
         setLoading(false);
       });
   };
-  useEffect(() => {
-    AdRecord();
-  }, []);
-  const Item = ({data}) => <AdCard data={data} />;
+  useFocusEffect(
+    React.useCallback(() => {
+      AdRecord();
+    }, []),
+  );
+  const Item = ({data}) => {
+    return (
+      <Pressable
+        onPress={() =>
+          navigation.navigate('PromoDetails', {promoDetails: data})
+        }>
+        <AdCard data={data} />
+      </Pressable>
+    );
+  };
 
   return (
     <View style={styles.adsContainer}>
@@ -50,6 +65,7 @@ export const Ads = () => {
         keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
         style={styles.scroll}
+        contentContainerStyle={{marginBottom: 50}}
       />
 
       {/* <ScrollView style={styles.scroll}>

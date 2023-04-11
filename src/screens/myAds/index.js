@@ -8,10 +8,12 @@ export const MyAds = ({navigation}) => {
   return (
     <View style={styles.myAdsContainer}>
       <ArrowHeader heading="My Ads" />
-      <View style={styles.top}>
+      <View style={styles.createAd}>
         <Pressable
           style={styles.createAdPress}
-          onPress={() => navigation.navigate('CreateAd')}>
+          onPress={() =>
+            navigation.navigate('CreateAd', {adDetails: null, update: false})
+          }>
           <Text style={styles.createAdText}>Create Ad</Text>
         </Pressable>
       </View>

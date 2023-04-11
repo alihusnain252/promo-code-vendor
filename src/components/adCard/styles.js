@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
   cardContainer: {
     width: '100%',
     paddingHorizontal: 17,
-    marginTop: 22,
+    marginTop: '5%',
   },
   cardImage: {
     width: '50%',
@@ -17,8 +17,10 @@ export const styles = StyleSheet.create({
   },
   cardTopView: {
     width: '100%',
-    height: 100,
+    height: 140,
     flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: MyTheme.grey400,
     shadowColor: '#000',
     shadowOffset: {
@@ -34,6 +36,8 @@ export const styles = StyleSheet.create({
     paddingLeft: 19,
     backgroundColor: MyTheme.primary,
     width: '50%',
+    height: '100%',
+    justifyContent: 'center',
   },
   originalPrice: {
     fontFamily: MyTheme.poppins,

@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
   signupContainer: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: MyTheme.white,
+    backgroundColor: MyTheme.backgroundColor,
   },
   signupHeader: {
     width: '100%',

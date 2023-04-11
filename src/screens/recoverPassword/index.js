@@ -11,7 +11,7 @@ import React, {useState} from 'react';
 import {styles} from './styles';
 import {TopHeader, BottomBar} from '@components';
 import {ArrowHeader} from '../../components';
-import {PostRequest, PostRequestWithToken} from '../../api/apiCall';
+import {PostRequest, PostRequestWithoutToken} from '../../api/apiCall';
 import {useSelector} from 'react-redux';
 import {token} from '../../redux/tokenSlice';
 import {MyTheme, vendorUris, globalInputsStyles} from '@utils';
@@ -27,32 +27,31 @@ export const RecoverPassword = ({navigation}) => {
   const searchHandler = () => {
     setLoading(true);
     const data = {phone_number: phoneNumber};
-    navigation.navigate("ResetPassword",{phoneNumber:phoneNumber})
+    // navigation.navigate("ResetPassword",{phoneNumber:phoneNumber})
 
-    // if (phoneNumber === '') {
-    //   setNoDisplay(true);
-    //   setLoading(false);
-    //   setErrorText('please Add Phone Number');
-    // } else {
-    //   PostRequest(userToken.token, data, vendorUris.forgotPasswordRequest).then(
-    //     res => {
-    //       setLoading(false);
-    //       if (res.status) {
-    //         console.log('validate customer res :', res.data.data);
-    //         setNoDisplay(false);
-    //         setLoading(false);
-    //         navigation.navigate('VerifyOtp', {
-    //           phoneNumber: res.data.data.phone_number,
-    //           forgot: true,
-    //         });
-    //       } else {
-    //         setNoDisplay(true);
-    //         setLoading(false);
-    //         setErrorText(res.data.message);
-    //       }
-    //     },
-    //   );
-    // }
+    if (phoneNumber === '') {
+      setNoDisplay(true);
+      setLoading(false);
+      setErrorText('please Add Phone Number');
+    } else {
+      PostRequestWithoutToken(data, vendorUris.forgotPasswordRequest).then(
+        res => {
+          if (res.status) {
+            console.log('validate customer res :', res.data.data);
+            setNoDisplay(false);
+            setLoading(false);
+            navigation.navigate('LoginOtp', {
+              phoneNumber: res.data.data.phone_number,
+              forgot: true,
+            });
+          } else {
+            setNoDisplay(true);
+            setLoading(false);
+            setErrorText(res.data.message);
+          }
+        },
+      );
+    }
   };
 
   return (

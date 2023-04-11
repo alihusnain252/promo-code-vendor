@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
   userFoundContainer: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: MyTheme.white,
+    backgroundColor: MyTheme.backgroundColor,
   },
   userFoundHeader: {
     width: '100%',

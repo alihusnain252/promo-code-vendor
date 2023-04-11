@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
   dashboardContainer: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: MyTheme.backgroundColor,
   },
   searchContainer: {
     flexDirection: 'row',

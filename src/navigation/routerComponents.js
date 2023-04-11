@@ -20,10 +20,12 @@ import {
   ResetPassword,
   AccountDetails,
   UpdatePassword,
+  PromoDetails,
 } from '@screens';
 import {TopHeader} from '@components';
 import {useSelector} from 'react-redux';
 import {token} from '@redux/tokenSlice';
+import { MyTheme } from '../utils';
 
 const Stack = createNativeStackNavigator();
 
@@ -37,7 +39,7 @@ export const RouterComponents = () => {
         <Stack.Navigator
           screenOptions={{
             headerShown: false,
-            statusBarColor: 'white',
+            statusBarColor: MyTheme.backgroundColor,
             statusBarStyle: 'dark',
           }}>
           <Stack.Screen name="Login" component={LogInScreen} />
@@ -50,10 +52,11 @@ export const RouterComponents = () => {
         <Stack.Navigator
           screenOptions={{
             headerShown: false,
-            statusBarColor: 'white',
+            statusBarColor: MyTheme.backgroundColor,
             statusBarStyle: 'dark',
           }}>
-          <Stack.Screen name="Dashboard" component={Dashboard} />
+          <Stack.Screen name="Dashboard" component={Dashboard} 
+            options={{statusBarColor:MyTheme.primary,statusBarStyle:"dark"}}/>
           <Stack.Screen
             name="AccountScreen"
             component={AccountScreen}
@@ -70,6 +73,7 @@ export const RouterComponents = () => {
           <Stack.Screen name="OrdersHistory" component={OrdersHistory} />
           <Stack.Screen name="AccountDetails" component={AccountDetails} />
           <Stack.Screen name="UpdatePassword" component={UpdatePassword} />
+          <Stack.Screen name="PromoDetails" component={PromoDetails} />
         </Stack.Navigator>
       )}
     </NavigationContainer>

@@ -1,12 +1,12 @@
 import {View, Text, Pressable, Image} from 'react-native';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {styles} from './styles';
 
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import { GetRequest } from '../../api/apiCall';
-import { vendorUris } from '../../utils';
-import { useSelector } from 'react-redux';
-import { token } from '../../redux/tokenSlice';
+import {GetRequest} from '../../api/apiCall';
+import {vendorUris} from '../../utils';
+import {useSelector} from 'react-redux';
+import {token} from '../../redux/tokenSlice';
 
 export const TopHeader = () => {
   const navigation = useNavigation();
@@ -17,8 +17,7 @@ export const TopHeader = () => {
 
   const userProfile = () => {
     setLoading(true);
-    GetRequest
-    (userToken.token, vendorUris.vendorProfile).then(res => {
+    GetRequest(userToken.token, vendorUris.vendorProfile).then(res => {
       console.log('user Profile data', res.data);
       if (res.data.success === true) {
         setUserData(res.data.data);
@@ -36,15 +35,17 @@ export const TopHeader = () => {
     }, []),
   );
 
-
-
   return (
     <View style={styles.topContainer}>
       <View style={styles.topBody}>
         <View style={styles.profile}>
           <Pressable onPress={() => navigation.navigate('AccountScreen')}>
             <Image
-              source={userData.profile_pic?{uri:userData.profile_pic}: require('../../assets/icons/profile.png')}
+              source={
+                userData.profile_pic
+                  ? {uri: userData.profile_pic}
+                  : require('../../assets/icons/profile.png')
+              }
               style={styles.profileImage}
             />
           </Pressable>

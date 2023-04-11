@@ -7,13 +7,14 @@ export const styles = StyleSheet.create({
   loginContainer: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: MyTheme.white,
+    backgroundColor: MyTheme.backgroundColor,
   },
   heading: {
     position: 'absolute',
-    width: 126,
+    width: "30%",
     left: 22,
     top: 70,
+    // backgroundColor:"red"
   },
   headingText: {
     fontFamily: MyTheme.fontFamily,

@@ -7,20 +7,18 @@ export const styles = StyleSheet.create({
   myAdsContainer: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: MyTheme.white,
+    backgroundColor: MyTheme.backgroundColor,
   },
-  top: {
+  createAd: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 18,
     width: width - 30,
-    alignItems: 'center',
     justifyContent: 'flex-end',
   },
   createAdPress: {
     width: 78,
-    height: 22,
-    backgroundColor: MyTheme.accent,
+    height: 32,
+    backgroundColor: MyTheme.primary,
     borderRadius: 4,
     justifyContent: 'center',
     alignItems: 'center',
@@ -32,6 +30,6 @@ export const styles = StyleSheet.create({
     fontWeight: 400,
     fontSize: 12,
     lineHeight: 14,
-    color: MyTheme.white,
+    color: MyTheme.accent,
   },
 });

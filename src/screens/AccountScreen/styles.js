@@ -5,7 +5,7 @@ const height = Dimensions.get('window').height;
 export const styles = StyleSheet.create({
   accountContainer: {
     flex: 1,
-    backgroundColor: MyTheme.yellow,
+    backgroundColor: MyTheme.primary,
   },
   accountHeader: {
     width: '100%',
@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
   profileImage: {
     width: '100%',
     height: '100%',
-    borderRadius:59
+    borderRadius: 59,
   },
   userName: {
     fontFamily: MyTheme.fontFamily,
