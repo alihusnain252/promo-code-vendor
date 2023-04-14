@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
     marginTop: 28,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: MyTheme.grey200,
+    borderColor: MyTheme.black,
 
     shadowColor: '#000',
     shadowOffset: {

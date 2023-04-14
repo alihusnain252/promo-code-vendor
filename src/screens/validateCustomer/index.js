@@ -49,6 +49,18 @@ export const ValidateCustomer = ({navigation}) => {
       );
     }
   };
+  const numberValidations=(value)=>{
+    let s = value.toString()
+   if (parseInt(s.charAt(0)) !==0) {
+    // Alert.alert('First number must be 0')
+   } else {
+    let num = value.replace(".", '');
+    if(isNaN(num)){
+        // Alert.alert("please add Numbers")
+    }else{
+       setPhoneNumber(num)}  
+   }
+  }
 
   return (
     <View style={styles.validateContainer}>
@@ -60,8 +72,9 @@ export const ValidateCustomer = ({navigation}) => {
           style={noDisplay === false ? globalInputsStyles.input : styles.input}
           placeholder="0212345678"
           value={phoneNumber}
-          onChangeText={e => setPhoneNumber(e)}
+          onChangeText={value => numberValidations(value)}
           keyboardType="numeric"
+          maxLength={10}
         />
         <View style={noDisplay === false ? styles.noDisplay : styles.notFound}>
           <Image

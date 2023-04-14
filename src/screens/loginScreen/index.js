@@ -28,23 +28,41 @@ export const LogInScreen = ({navigation}) => {
       password: password,
     };
     setLoading(true);
-    LoginPostRequest(data, vendorUris.login).then(response => {
-      console.log('api response :', response.data);
-      if (response.data.data.length === 0) {
-        Alert.alert(response.data.message);
-        setLoading(false);
-      } else {
-        dispatch(
-          updateToken(response.data.data.token ? response.data.data.token : ''),
-        );
-        setLoading(false);
-      }
-    });
-
-    // navigation.navigate('LoginOtp');
+    phoneNumber === ''
+      ? Alert.alert('please Add Phone Number')
+      : password === ''
+      ? Alert.alert('Please Add Password')
+      : LoginPostRequest(data, vendorUris.login).then(response => {
+          console.log('api response :', response.data);
+          if (response.data.data.length === 0) {
+            Alert.alert(response.data.message);
+            setLoading(false);
+          } else {
+            dispatch(
+              updateToken(
+                response.data.data.token ? response.data.data.token : '',
+              ),
+            );
+            setLoading(false);
+          }
+        });
   };
   const recoverHandler = () => {
     navigation.navigate('RecoverPassword');
+  };
+
+  const numberValidations = value => {
+    let s = value.toString();
+    if (parseInt(s.charAt(0)) !== 0) {
+      // Alert.alert('First number must be 0')
+    } else {
+      let num = value.replace('.', '');
+      if (isNaN(num)) {
+        // Alert.alert("please add Numbers")
+      } else {
+        setPhoneNumber(num);
+      }
+    }
   };
 
   return (
@@ -61,10 +79,12 @@ export const LogInScreen = ({navigation}) => {
           />
           <TextInput
             style={signInInputsStyles.input}
-            onChangeText={setPhoneNumber}
+            onChangeText={value => numberValidations(value)}
             value={phoneNumber}
             placeholder="Phone Number / UserID"
+            placeholderTextColor={MyTheme.grey100}
             keyboardType="numeric"
+            maxLength={11}
           />
         </View>
         <View style={signInInputsStyles.inputView}>
@@ -78,6 +98,7 @@ export const LogInScreen = ({navigation}) => {
             value={password}
             placeholder="Password"
             secureTextEntry={true}
+            placeholderTextColor={MyTheme.grey100}
           />
         </View>
       </View>

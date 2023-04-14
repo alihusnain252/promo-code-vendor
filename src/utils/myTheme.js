@@ -1,9 +1,13 @@
 export const MyTheme = {
-  white: '#ffffff',
-  backgroundColor: '#ffffff',
-  black: '#000000',
+
+  primary: '#FBD211',
   accent: '#000000',
+
   textPrimary: '#000000',
+  backgroundColor: '#ffffff',
+
+  white: '#ffffff',
+  black: '#000000',
   EerieBlack: '#1F1F1F',
   dark: '#2D2E44',
   labelBlack: '#47494D',
@@ -21,7 +25,6 @@ export const MyTheme = {
   grey700: '#0000001f',
   FireOpal: '#E75858',
   Seashell: '#fdeeee',
-  primary: '#FBD211',
   yellow: '#FBD211',
   metallicYellow: '#FBD211',
   fontFamily: 'Rubik',

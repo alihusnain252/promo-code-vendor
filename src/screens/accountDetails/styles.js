@@ -54,6 +54,7 @@ export const styles = StyleSheet.create({
 
   dateInput:{
     width:"80%",
+    color:MyTheme.textPrimary
   },
   datePress:{
     width:"20%",

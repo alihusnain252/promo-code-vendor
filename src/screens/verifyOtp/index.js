@@ -8,15 +8,13 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {styles} from './styles';
-import {BottomBar, TopHeader} from '@components';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import {OtpContainer} from '@components';
-import {globalInputsStyles} from '@utils';
 import {ArrowHeader} from '../../components';
 import {useSelector} from 'react-redux';
 import {token} from '../../redux/tokenSlice';
-import {PostRequest, PostRequestWithoutToken} from '../../api/apiCall';
+import {PostRequest} from '../../api/apiCall';
 import {MyTheme, vendorUris} from '../../utils';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export const VerifyOtp = ({route, navigation}) => {
   const {phoneNumber} = route.params;
@@ -26,9 +24,6 @@ export const VerifyOtp = ({route, navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const userToken = useSelector(token);
   const [loading, setLoading] = useState(false);
-
-  const [noDisplay, setNoDisplay] = useState(false);
-  const [errorText, setErrorText] = useState('');
 
   const verifyHandler = () => {
     setLoading(true);
@@ -55,18 +50,6 @@ export const VerifyOtp = ({route, navigation}) => {
       <ArrowHeader heading="Verify otp" />
       <OtpContainer setText={setOtp} />
 
-      {/* <Text style={globalInputsStyles.resend}>Resend code in 00:32</Text> */}
-      {/* <View style={styles.notFoundView}>
-      <View style={noDisplay === false ? styles.noDisplay : styles.notFound}>
-          <Image
-            source={require('../../assets/icons/notFound.png')}
-            style={styles.notFoundImage}
-          />
-          <Text style={styles.notFoundText}>{errorText}</Text>
-
-        </View>
-      </View> */}
-
       <Pressable
         style={otp === '' ? styles.notVerifyOtpBtn : styles.verifyOtpBtn}
         onPress={() => verifyHandler()}>
@@ -74,7 +57,7 @@ export const VerifyOtp = ({route, navigation}) => {
       </Pressable>
 
       <View style={loading === false ? {display: 'none'} : {marginTop: 20}}>
-        <ActivityIndicator size={36} color={MyTheme.yellow} />
+        <ActivityIndicator size={36} color={MyTheme.primary} />
       </View>
       <View>
         <Modal
@@ -88,10 +71,13 @@ export const VerifyOtp = ({route, navigation}) => {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <View style={styles.successContainer}>
-                <Image
-                  source={require('../../assets/images/success.png')}
-                  style={styles.successImage}
-                />
+                <View style={styles.successImage}>
+                  <AntDesign
+                    name="checkcircle"
+                    size={55}
+                    color={MyTheme.green}
+                  />
+                </View>
                 <Text style={styles.successText}>Successful !!!</Text>
                 <Text style={styles.successMessage}>
                   Customer verified Successfully !

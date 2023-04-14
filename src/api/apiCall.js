@@ -3,7 +3,7 @@ import axios from 'axios';
 const baseUrl = 'https://backend.buddysaver.net';
 
 export const LoginPostRequest = async (data, url) => {
-  console.log('signUInData :', data.password);
+  console.log('signUInData :', data);
   console.log('signIn URl :', url);
 
   const headers = {

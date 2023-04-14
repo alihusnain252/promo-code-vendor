@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 21,
     color: MyTheme.black,
-    marginTop: 16,
+    marginTop: "16",
   },
   phoneText: {
     fontFamily: MyTheme.fontFamily,
@@ -26,8 +26,8 @@ export const styles = StyleSheet.create({
     fontWeight: 400,
     fontSize: 12,
     lineHeight: 20,
-    color: MyTheme.labelBlack,
-    marginTop: 11,
+    color: MyTheme.textPrimary,
+    marginTop: "9%",
   },
 
   search: {

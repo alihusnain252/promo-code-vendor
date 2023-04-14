@@ -62,11 +62,8 @@ export const styles = StyleSheet.create({
     marginLeft: 5,
   },
   scrollView: {
-    position: 'absolute',
-    height: '100%',
-    width: '100%',
-    left: 20,
-    top: 99,
+    width: width - 40,
+    marginTop: '3%',
   },
   register: {
     width: width - 40,
@@ -100,5 +97,21 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 50,
+  },
+  pickImage: {
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 15,
+    width: '80%',
+    color: MyTheme.textPrimary,
+  },
+  notPickImage: {
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 15,
+    width: '80%',
+    color: MyTheme.grey100,
   },
 });

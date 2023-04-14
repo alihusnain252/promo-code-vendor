@@ -11,6 +11,9 @@ export const styles = StyleSheet.create({
   cardImage: {
     width: '50%',
     height: '100%',
+    backgroundColor: MyTheme.primary,
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8,
   },
   scroll: {
     width: width,
@@ -22,6 +25,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: MyTheme.grey400,
+    borderRadius: 8,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -38,6 +42,8 @@ export const styles = StyleSheet.create({
     width: '50%',
     height: '100%',
     justifyContent: 'center',
+    borderTopRightRadius: 8,
+    borderBottomRightRadius: 8,
   },
   originalPrice: {
     fontFamily: MyTheme.poppins,

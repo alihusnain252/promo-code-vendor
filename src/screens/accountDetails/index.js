@@ -174,6 +174,19 @@ export const AccountDetails = ({route, navigation}) => {
     setDob(x1[2] + '/' + x1[1] + '/' + x1[0]);
     hideDatePicker();
   };
+  const numberValidations = value => {
+    let s = value.toString();
+    if (parseInt(s.charAt(0)) !== 0) {
+      // Alert.alert('First number must be 0')
+    } else {
+      let num = value.replace('.', '');
+      if (isNaN(num)) {
+        // Alert.alert("please add Numbers")
+      } else {
+        setPhoneNumber(num);
+      }
+    }
+  };
 
   return (
     <View style={styles.signupContainer}>
@@ -191,7 +204,7 @@ export const AccountDetails = ({route, navigation}) => {
             style={globalInputsStyles.input}
             onChangeText={setFirstName}
             value={firstName}
-            placeholder="john"
+            placeholder="First Name"
           />
         </View>
         <View style={globalInputsStyles.globalInputs}>
@@ -200,17 +213,22 @@ export const AccountDetails = ({route, navigation}) => {
             style={globalInputsStyles.input}
             onChangeText={setLastName}
             value={lastName}
-            placeholder="Smith"
+            placeholder="Last Name"
           />
         </View>
         <View style={globalInputsStyles.globalInputs}>
           <Text style={globalInputsStyles.globalLabel}>Date of birth*</Text>
+          <Pressable onPress={() => {
+                showDatePicker();
+              }}>
+
           <View style={globalInputsStyles.input}>
             <TextInput
               style={styles.dateInput}
               onChangeText={setDob}
               value={dob}
-              placeholder="10/10/2007"
+              placeholder="Date of birth"
+              editable={false}
             />
             <Pressable
               style={styles.datePress}
@@ -220,6 +238,7 @@ export const AccountDetails = ({route, navigation}) => {
               <EvilIcons name="calendar" size={30} color="#000" />
             </Pressable>
           </View>
+          </Pressable>
         </View>
         <View style={globalInputsStyles.globalInputs}>
           <Text style={globalInputsStyles.globalLabel}>Nationality*</Text>
@@ -227,7 +246,7 @@ export const AccountDetails = ({route, navigation}) => {
             style={globalInputsStyles.input}
             onChangeText={setNationality}
             value={nationality}
-            placeholder="USA"
+            placeholder="Nationality"
           />
         </View>
         <View style={globalInputsStyles.globalInputs}>
@@ -236,7 +255,7 @@ export const AccountDetails = ({route, navigation}) => {
             style={globalInputsStyles.input}
             onChangeText={setEmail}
             value={email}
-            placeholder="youremail@gmail.com"
+            placeholder="Email"
             editable={false}
           />
         </View>
@@ -244,39 +263,20 @@ export const AccountDetails = ({route, navigation}) => {
           <Text style={globalInputsStyles.globalLabel}>Phone Number*</Text>
           <TextInput
             style={globalInputsStyles.input}
-            onChangeText={setPhoneNumber}
+            onChangeText={value => numberValidations(value)}
             value={phoneNumber}
-            placeholder="02112345678"
+            placeholder="Phone Number"
             editable={false}
+            maxLength={10}
           />
         </View>
-        {/* <View style={globalInputsStyles.globalInputs}>
-          <Text style={globalInputsStyles.globalLabel}>Password*</Text>
-          <TextInput
-            style={globalInputsStyles.input}
-            onChangeText={setPassword}
-            value={password}
-            placeholder="*********"
-            secureTextEntry={true}
-          />
-        </View>
-        <View style={globalInputsStyles.globalInputs}>
-          <Text style={globalInputsStyles.globalLabel}>Conform Password*</Text>
-          <TextInput
-            style={globalInputsStyles.input}
-            onChangeText={setConformPassword}
-            value={conformPassword}
-            placeholder="*********"
-            secureTextEntry={true}
-          />
-        </View> */}
         <View style={globalInputsStyles.globalInputs}>
           <Text style={globalInputsStyles.globalLabel}>occupation*</Text>
           <TextInput
             style={globalInputsStyles.input}
             onChangeText={setOccupation}
             value={occupation}
-            placeholder="Manager of a company"
+            placeholder="Occupation"
           />
         </View>
         <View style={globalInputsStyles.globalInputs}>
@@ -294,7 +294,7 @@ export const AccountDetails = ({route, navigation}) => {
             style={globalInputsStyles.input}
             onChangeText={setCountryAddress}
             value={countryAddress}
-            placeholder="USA"
+            placeholder="Country"
           />
         </View>
         <View style={globalInputsStyles.globalInputs}>
@@ -303,7 +303,7 @@ export const AccountDetails = ({route, navigation}) => {
             style={globalInputsStyles.input}
             onChangeText={setAddressLine1}
             value={addressLine1}
-            placeholder="#123, Dummy Street, Usa"
+            placeholder="Address Line"
           />
         </View>
         <View style={globalInputsStyles.globalInputs}>
@@ -312,7 +312,7 @@ export const AccountDetails = ({route, navigation}) => {
             style={globalInputsStyles.input}
             onChangeText={setAddressLine2}
             value={addressLine2}
-            placeholder="#123, Dummy Street, Usa"
+            placeholder="Address Line 2"
           />
         </View>
         <View style={globalInputsStyles.globalInputs}>
@@ -321,7 +321,7 @@ export const AccountDetails = ({route, navigation}) => {
             style={globalInputsStyles.input}
             onChangeText={setRegionCapital}
             value={regionCapital}
-            placeholder="Usa Capital here"
+            placeholder=" Capital"
           />
         </View>
         <Pressable style={styles.register} onPress={() => onPressUpdate()}>

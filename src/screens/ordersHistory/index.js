@@ -84,7 +84,6 @@ export const OrdersHistory = () => {
   const getOrderHistory = () => {
     setLoading(true);
     GetRequest(userToken.token, vendorUris.orderHistory).then(res => {
-      console.log('order Histories :', res.data.data.order_histories.data);
       setOrderHistoryData(res.data.data.order_histories.data);
       setLoading(false);
     });

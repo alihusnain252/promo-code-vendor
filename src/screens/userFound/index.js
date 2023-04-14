@@ -1,8 +1,14 @@
-import {View, Text, Pressable, Image, ActivityIndicator} from 'react-native';
+import {
+  View,
+  Text,
+  Pressable,
+  Image,
+  ActivityIndicator,
+  Alert,
+} from 'react-native';
 import React, {useState} from 'react';
 import {styles} from './styles';
-import {TopHeader, BottomBar} from '@components';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {ArrowHeader} from '../../components';
 import {PostRequest} from '../../api/apiCall';
 import {useSelector} from 'react-redux';
@@ -25,6 +31,7 @@ export const UserFound = ({route, navigation}) => {
       console.log('validate customer res :', res.data);
 
       if (res.data.is_otp_send === true) {
+        Alert.alert('Otp is : ', res.data.data.code);
         navigation.navigate('VerifyOtp', {
           phoneNumber: userDetails.phone_number,
         });
@@ -66,15 +73,12 @@ export const UserFound = ({route, navigation}) => {
           </Text>
         </View>
         <View style={styles.userDetails}>
-          <Image
-            source={require('../../assets/icons/location.png')}
-            style={styles.userDetailsIcon}
-          />
+          <MaterialIcons name="location-pin" size={15} color="#000" />
           <Text style={styles.userDetailsText}>
-            City:
+            Address:
             <Text style={styles.boldText}>
               {' '}
-              {userDetails.address ? userDetails.address : 'Accra'}
+              {userDetails.address ? userDetails.address : '--'}
             </Text>
           </Text>
         </View>

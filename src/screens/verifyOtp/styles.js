@@ -66,7 +66,6 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    backgroundColor: '#00000080',
   },
   modalView: {
     width: width - 50,
@@ -111,7 +110,11 @@ export const styles = StyleSheet.create({
     width: 85,
     height: 70,
     marginTop: 20,
+    borderWidth: 1,
+    borderColor: MyTheme.green,
     borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   successText: {
     fontFamily: MyTheme.fontFamily,

@@ -25,11 +25,11 @@ export const Ads = () => {
 
   const userToken = useSelector(token);
 
-  const AdRecord = async () => {
+  const adRecord = async () => {
     setLoading(true);
     await GetRequest(`${userToken.token}`, vendorUris.promotionListing)
       .then(res => {
-        console.log('with token data :', res.data.data);
+        // console.log('with token data :', res.data.data);
         setAdsRecord(res.data.data);
         setLoading(false);
       })
@@ -40,7 +40,7 @@ export const Ads = () => {
   };
   useFocusEffect(
     React.useCallback(() => {
-      AdRecord();
+      adRecord();
     }, []),
   );
   const Item = ({data}) => {

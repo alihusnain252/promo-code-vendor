@@ -22,7 +22,7 @@ import {vendorUris} from '../../utils';
 
 export const CreateAd = ({route, navigation}) => {
   const {adDetails, update} = route.params;
-  console.log('adDetails :' + adDetails + ' update :' + update);
+  // console.log('adDetails :' + adDetails + ' update :' + update);
 
   const [company, setCompany] = useState(update ? adDetails.company_name : '');
   const [category, setCategory] = useState(
@@ -45,10 +45,6 @@ export const CreateAd = ({route, navigation}) => {
   const [adImageName, setAdImageName] = useState(update ? adDetails.image : '');
   const [description, setDescription] = useState(
     update ? adDetails.description : '',
-  );
-  const [status, setStatus] = useState(update ? adDetails.status : '');
-  const [isFeatured, setIsFeatured] = useState(
-    update ? (adDetails.is_featured === true ? '1' : '0') : '',
   );
   const userToken = useSelector(token);
 
@@ -90,8 +86,8 @@ export const CreateAd = ({route, navigation}) => {
       type: 'image/jpeg',
       name: 'adPhoto.png',
     });
-    data.append('status', status);
-    data.append('is_featured', isFeatured);
+    data.append('status', 'active');
+    data.append('is_featured', '1');
     data.append('description', description);
 
     setLoading(true);
@@ -137,14 +133,16 @@ export const CreateAd = ({route, navigation}) => {
         <ActivityIndicator size={36} color={MyTheme.yellow} />
       </View>
 
-      <ScrollView style={styles.scrollView}>
+      <ScrollView
+        style={styles.scrollView}
+        showsVerticalScrollIndicator={false}>
         <View style={globalInputsStyles.globalInputs}>
           <Text style={globalInputsStyles.globalLabel}>Company name* </Text>
           <TextInput
             style={globalInputsStyles.input}
             onChangeText={setCompany}
             value={company}
-            placeholder="Good Health Pharmacy"
+            placeholder="Company Name"
           />
         </View>
         <View style={globalInputsStyles.globalInputs}>
@@ -153,14 +151,9 @@ export const CreateAd = ({route, navigation}) => {
             style={globalInputsStyles.input}
             onPress={() => pickImage()}>
             <Text
-              style={{
-                height: 50,
-                alignItems: 'center',
-                justifyContent: 'center',
-                paddingVertical: 15,
-                width: '80%',
-                color: MyTheme.textPrimary,
-              }}>
+              style={
+                adImageName != '' ? styles.pickImage : styles.notPickImage
+              }>
               {adImageName != '' ? adImageName : `Pick Ad Image`}
             </Text>
 
@@ -173,7 +166,7 @@ export const CreateAd = ({route, navigation}) => {
             style={globalInputsStyles.input}
             onChangeText={setCategory}
             value={category}
-            placeholder="1"
+            placeholder="Category Id"
             keyboardType="number-pad"
           />
         </View>
@@ -183,7 +176,7 @@ export const CreateAd = ({route, navigation}) => {
             style={globalInputsStyles.input}
             onChangeText={setOriginalPrice}
             value={originalPrice}
-            placeholder="150$"
+            placeholder="Original Price"
             keyboardType="number-pad"
           />
         </View>
@@ -193,7 +186,7 @@ export const CreateAd = ({route, navigation}) => {
             style={globalInputsStyles.input}
             onChangeText={setDiscountedPrice}
             value={discountedPrice}
-            placeholder="70$"
+            placeholder="Discounted Price"
             keyboardType="number-pad"
           />
         </View>
@@ -203,7 +196,7 @@ export const CreateAd = ({route, navigation}) => {
             style={globalInputsStyles.input}
             onChangeText={setPromotionDetails}
             value={promotionDetails}
-            placeholder="Philips Iron - Promo"
+            placeholder="Promotion Details"
           />
         </View>
         <View style={globalInputsStyles.globalInputs}>
@@ -214,17 +207,8 @@ export const CreateAd = ({route, navigation}) => {
             style={globalInputsStyles.input}
             onChangeText={setPromotionDuration}
             value={promotionDuration}
-            placeholder="15 hours"
+            placeholder="Promotion Duration"
             keyboardType="number-pad"
-          />
-        </View>
-        <View style={globalInputsStyles.globalInputs}>
-          <Text style={globalInputsStyles.globalLabel}>Status </Text>
-          <TextInput
-            style={globalInputsStyles.input}
-            onChangeText={setStatus}
-            value={status}
-            placeholder="Status"
           />
         </View>
         <View style={globalInputsStyles.globalInputs}>
@@ -234,16 +218,6 @@ export const CreateAd = ({route, navigation}) => {
             onChangeText={setDescription}
             value={description}
             placeholder="Description"
-          />
-        </View>
-        <View style={globalInputsStyles.globalInputs}>
-          <Text style={globalInputsStyles.globalLabel}>Is Featured (1,0) </Text>
-          <TextInput
-            style={globalInputsStyles.input}
-            onChangeText={setIsFeatured}
-            value={isFeatured}
-            placeholder="is Featured"
-            keyboardType="number-pad"
           />
         </View>
         <Pressable style={styles.register} onPress={() => createHandler()}>

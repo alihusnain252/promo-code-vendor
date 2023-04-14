@@ -18,7 +18,7 @@ export const TopHeader = () => {
   const userProfile = () => {
     setLoading(true);
     GetRequest(userToken.token, vendorUris.vendorProfile).then(res => {
-      console.log('user Profile data', res.data);
+      // console.log('user Profile data', res.data);
       if (res.data.success === true) {
         setUserData(res.data.data);
         setLoading(false);

@@ -52,12 +52,12 @@ export const AccountScreen = ({navigation}) => {
           />
         </View>
         <Text style={styles.userName}>
-          {userData.name ? userData.name : 'User Name'}
+          {userData.name ? userData.name : 'User ....'}
         </Text>
         <Text style={styles.userMail}>
-          {userData.email ? userData.email : '@johnSmith'}
+          {userData.email ? userData.email : '....@gmail'}
         </Text>
-        <Text style={styles.memberSince}>Member Since: 23 Mar 2023</Text>
+        {/* <Text style={styles.memberSince}>Member Since: 23 Mar 2023</Text> */}
         <View style={styles.accountBtns}>
           <Pressable
             style={styles.accountButton}

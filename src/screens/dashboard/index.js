@@ -1,16 +1,7 @@
-import {
-  View,
-  Text,
-  TextInput,
-  Image,
-  Pressable,
-} from 'react-native';
+import {View, Text, TextInput, Image, Pressable} from 'react-native';
 import React from 'react';
 import {styles} from './styles';
-import {
-  BottomBar,
-  TopHeader,
-} from '@components';
+import {BottomBar, TopHeader} from '@components';
 import {MyTheme} from '@utils';
 
 export const Dashboard = ({navigation}) => {
@@ -22,6 +13,7 @@ export const Dashboard = ({navigation}) => {
           style={styles.searchInput}
           placeholder="Search (Vendor, Offers)"
           placeholderTextColor={MyTheme.EerieBlack}
+          editable={false}
         />
         <Pressable style={styles.searchPress}>
           <Image

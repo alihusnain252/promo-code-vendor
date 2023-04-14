@@ -16,6 +16,7 @@ import {globalInputsStyles, MyTheme, vendorUris} from '../../utils';
 import {useSelector} from 'react-redux';
 import {token} from '../../redux/tokenSlice';
 import {PostRequest} from '../../api/apiCall';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export const RecordSale = () => {
   const [description, setDescription] = useState('');
@@ -45,10 +46,11 @@ export const RecordSale = () => {
       setErrorText('please Add Phone Number');
     } else {
       PostRequest(userToken.token, data, 'api/vendor/verify-user').then(res => {
-        console.log('validate customer res :', res.data.data.id);
+        // console.log('validate customer res :', res.data.data.id);
         if (res.data.message === 'User not found') {
           setNoDisplay(true);
           setLoading(false);
+          setUserFoundDisplay(false);
           setErrorText(res.data.message);
         } else {
           setNoDisplay(false);
@@ -78,7 +80,7 @@ export const RecordSale = () => {
     };
 
     PostRequest(userToken.token, data, vendorUris.createOrder).then(res => {
-      console.log('validate customer res :', res.data.success);
+      // console.log('validate customer res :', res.data.success);
       if (res.data.success === false) {
         Alert.alert(res.data.error);
         setLoading(false);
@@ -102,6 +104,19 @@ export const RecordSale = () => {
     setGrandTotal('');
     setUserFoundDisplay(false);
   };
+  const numberValidations = value => {
+    let s = value.toString();
+    if (parseInt(s.charAt(0)) !== 0) {
+      // Alert.alert('First number must be 0')
+    } else {
+      let num = value.replace('.', '');
+      if (isNaN(num)) {
+        // Alert.alert("please add Numbers")
+      } else {
+        setPhoneNumber(num);
+      }
+    }
+  };
 
   return (
     <View style={styles.recordSaleContainer}>
@@ -114,30 +129,28 @@ export const RecordSale = () => {
         <View style={styles.input}>
           <TextInput
             style={styles.customerPhoneInput}
-            onChangeText={setPhoneNumber}
+            onChangeText={value => numberValidations(value)}
             value={phoneNumber}
             placeholder="012345567"
+            maxLength={10}
           />
           <Pressable onPress={() => checkHandler()}>
             <Text style={styles.checkText}>Check</Text>
           </Pressable>
-          <View
-            style={noDisplay === false ? styles.noDisplay : styles.notFound}>
-            <Image
-              source={require('../../assets/icons/notFound.png')}
-              style={styles.notFoundImage}
-            />
-            <Text style={styles.notFoundText}>{errorText}</Text>
-          </View>
-          <View
-            style={
-              userFoundDisplay === false
-                ? styles.noDisplay
-                : styles.userFoundNote
-            }>
-            <Text style={styles.userFoundText}>{errorText}</Text>
-          </View>
         </View>
+      </View>
+      <View style={noDisplay === false ? styles.noDisplay : styles.notFound}>
+        <Image
+          source={require('../../assets/icons/notFound.png')}
+          style={styles.notFoundImage}
+        />
+        <Text style={styles.notFoundText}>{errorText}</Text>
+      </View>
+      <View
+        style={
+          userFoundDisplay === false ? styles.noDisplay : styles.userFoundNote
+        }>
+        <Text style={styles.userFoundText}>{errorText}</Text>
       </View>
       <ScrollView style={styles.scrollView}>
         <View style={globalInputsStyles.globalInputs}>
@@ -270,13 +283,16 @@ export const RecordSale = () => {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <View style={styles.successContainer}>
-                <Image
-                  source={require('../../assets/images/success.png')}
-                  style={styles.successImage}
-                />
+                <View style={styles.successImage}>
+                  <AntDesign
+                    name="checkcircle"
+                    size={55}
+                    color={MyTheme.green}
+                  />
+                </View>
                 <Text style={styles.successText}>Successful !!!</Text>
                 <Text style={styles.successMessage}>
-                  Recode has been submit Successfully !
+                  Order Created Successfully !
                 </Text>
                 <Pressable
                   style={styles.okPres}

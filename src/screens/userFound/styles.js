@@ -51,6 +51,7 @@ export const styles = StyleSheet.create({
   userFoundImage: {
     width: '100%',
     height: '100%',
+    borderRadius: 8,
   },
   userText: {
     fontFamily: MyTheme.poppins,
@@ -59,7 +60,7 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 21,
     marginTop: 7,
-    color: MyTheme.darkLemonLime,
+    color: MyTheme.textPrimary,
   },
   userDetailsContainer: {
     width: width - 28,
@@ -72,8 +73,9 @@ export const styles = StyleSheet.create({
     height: 27,
   },
   userDetailsIcon: {
-    width: 12,
-    height: 12,
+    // backgroundColor:"red",
+    width: 15,
+    height: 15,
   },
   userDetailsText: {
     fontFamily: MyTheme.poppins,
@@ -121,6 +123,6 @@ export const styles = StyleSheet.create({
     fontWeight: 400,
     fontSize: 16,
     lineHeight: 19,
-    color: MyTheme.white,
+    color: MyTheme.textPrimary,
   },
 });

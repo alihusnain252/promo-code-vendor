@@ -53,7 +53,19 @@ export const RecoverPassword = ({navigation}) => {
       );
     }
   };
-
+  const numberValidations = value => {
+    let s = value.toString();
+    if (parseInt(s.charAt(0)) !== 0) {
+      // Alert.alert('First number must be 0')
+    } else {
+      let num = value.replace('.', '');
+      if (isNaN(num)) {
+        // Alert.alert("please add Numbers")
+      } else {
+        setPhoneNumber(num);
+      }
+    }
+  };
   return (
     <View style={styles.validateContainer}>
       <ArrowHeader heading="Forgot Password" />
@@ -64,8 +76,9 @@ export const RecoverPassword = ({navigation}) => {
           style={noDisplay === false ? globalInputsStyles.input : styles.input}
           placeholder="0212345678"
           value={phoneNumber}
-          onChangeText={e => setPhoneNumber(e)}
+          onChangeText={value => numberValidations(value)}
           keyboardType="numeric"
+          maxLength={10}
         />
         <View style={noDisplay === false ? styles.noDisplay : styles.notFound}>
           <MaterialIcons name="error-outline" size={25} color="red" />
