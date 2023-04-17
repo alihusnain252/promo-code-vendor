@@ -21,53 +21,7 @@ export const OrdersHistory = () => {
   const [filterDisplay, setFilterDisplay] = useState(false);
   const [orderHistoryData, setOrderHistoryData] = useState([]);
   const [loading, setLoading] = useState(false);
-
   const userToken = useSelector(token);
-
-  const DATA = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      orderIndex: '1',
-      orderCustomerId: '04453453451',
-      orderTime: '5/6/22 . 12:49 AM',
-      orderPrice: '329.00',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      orderIndex: '2',
-      orderCustomerId: '12445342534',
-      orderTime: '9/6/22 . 02:00 AM',
-      orderPrice: '229.00',
-    },
-    {
-      id: '11194a0f-3da1-471f-bd96-145571e29d72',
-      orderIndex: '3',
-      orderCustomerId: '733534533451',
-      orderTime: '12/7/22 . 4:40 AM',
-      orderPrice: '124.00',
-    },
-    {
-      id: '67594a0f-3da1-471f-bd96-145571e29d72',
-      orderIndex: '4',
-      orderCustomerId: '432534533451',
-      orderTime: '23/9/22 . 5:50 PM',
-      orderPrice: '420.00',
-    },
-    {
-      id: '43294a0f-3da1-471f-bd96-145571e29d72',
-      orderIndex: '5',
-      orderCustomerId: '111134533451',
-      orderTime: '12/10/22 . 4:30 AM',
-      orderPrice: '1421.00',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      orderIndex: '6',
-      orderCustomerId: '321253453321',
-      orderTime: '01/4/23 . 12:00 PM',
-      orderPrice: '124.00',
-    },
-  ];
 
   const Item = ({id, customer_id, order_date, grand_total}) => (
     <View style={styles.item}>
@@ -95,13 +49,13 @@ export const OrdersHistory = () => {
   return (
     <View style={styles.ordersHistoryContainer}>
       <ArrowHeader heading="Order History" />
-      <View style={filterDisplay === false ? styles.top : styles.noDisplay}>
+      {/* <View style={filterDisplay === false ? styles.top : styles.noDisplay}>
         <Pressable
           style={styles.filterPress}
           onPress={() => setFilterDisplay(true)}>
           <Text style={styles.filterText}>Filter</Text>
         </Pressable>
-      </View>
+      </View> */}
       <View
         style={
           filterDisplay === false ? styles.noDisplay : styles.filterInputs
@@ -151,7 +105,7 @@ export const OrdersHistory = () => {
           keyExtractor={item => item.id}
         />
       </View>
-      <View style={styles.downloadBtn}>
+      {/* <View style={styles.downloadBtn}>
         <Pressable style={styles.downloadPress}>
           <Ionicons name="download-outline" size={22} color="#FFF" />
           <Text style={styles.downloadText}>Download in Pdf</Text>
@@ -160,7 +114,7 @@ export const OrdersHistory = () => {
           <Ionicons name="download-outline" size={22} color="#FFF" />
           <Text style={styles.downloadText}>Download in XLSX</Text>
         </Pressable>
-      </View>
+      </View> */}
     </View>
   );
 };

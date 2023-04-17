@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
     marginLeft: 4,
   },
   scrollView: {
-    width: width - 40,
+    width: width - 36,
   },
   register: {
     width: width - 40,

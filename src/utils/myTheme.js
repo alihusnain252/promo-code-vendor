@@ -2,9 +2,10 @@ export const MyTheme = {
 
   primary: '#FBD211',
   accent: '#000000',
-
+  
   textPrimary: '#000000',
-  backgroundColor: '#ffffff',
+  background: '#F5F5F5',
+
 
   white: '#ffffff',
   black: '#000000',

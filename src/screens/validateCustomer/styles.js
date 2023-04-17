@@ -42,10 +42,10 @@ export const styles = StyleSheet.create({
   searchText: {
     fontFamily: MyTheme.fontFamily,
     fontStyle: 'normal',
-    fontWeight: 400,
-    fontSize: 16,
+    fontWeight: 'bold',
+    fontSize: 18,
     lineHeight: 19,
-    color: MyTheme.white,
+    color: MyTheme.black,
   },
   noDisplay: {
     display: 'none',

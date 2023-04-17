@@ -8,7 +8,7 @@ export const Dashboard = ({navigation}) => {
   return (
     <View style={styles.dashboardContainer}>
       <TopHeader />
-      <View style={styles.searchContainer}>
+      {/* <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchInput}
           placeholder="Search (Vendor, Offers)"
@@ -21,7 +21,7 @@ export const Dashboard = ({navigation}) => {
             style={styles.searchImage}
           />
         </Pressable>
-      </View>
+      </View> */}
       <View style={styles.topPress}>
         <Pressable
           style={styles.validateCustomer}
@@ -36,8 +36,8 @@ export const Dashboard = ({navigation}) => {
           style={styles.validateCustomer}
           onPress={() => navigation.navigate('RecordSale')}>
           <Image
-            source={require('../../assets/icons/cat1.png')}
-            style={styles.images}
+            source={require('../../assets/icons/cart.png')}
+            style={[styles.images,{padding:20}]}
           />
           <Text style={styles.validationText}>Record Sale</Text>
         </Pressable>
