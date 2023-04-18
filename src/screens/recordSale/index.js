@@ -20,12 +20,12 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export const RecordSale = () => {
   const [description, setDescription] = useState('');
-  const [orderTotalExVAT, setOrderTotalExVAT] = useState('');
-  const [discountPercent, setDiscountPercent] = useState('');
-  const [discountedPrice, setDiscountedPrice] = useState('');
-  const [total, setTotal] = useState('');
+  const [orderTotalExVAT, setOrderTotalExVAT] = useState(0);
+  const [discountPercent, setDiscountPercent] = useState(0);
+  const [discountedPrice, setDiscountedPrice] = useState(0);
+  const [total, setTotal] = useState(orderTotal);
   const [vATPercent, setVATPercent] = useState('');
-  const [vAT, setVAT] = useState('');
+  const [vAT, setVAT] = useState(0);
   const [grandTotal, setGrandTotal] = useState('');
   const [customerId, setCustomerId] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -36,7 +36,11 @@ export const RecordSale = () => {
   const userToken = useSelector(token);
   const [loading, setLoading] = useState(false);
 
+  let orderTotal = orderTotalExVAT - discountedPrice;
+  let orderGrandTotal = +vAT + orderTotal;
+
   const checkHandler = () => {
+    numberValidations(phoneNumber)
     setLoading(true);
     const data = {phone_number: phoneNumber};
 
@@ -73,22 +77,27 @@ export const RecordSale = () => {
       order_total: orderTotalExVAT,
       discount_percentage: discountPercent,
       discount_price: discountedPrice,
-      total: total,
+      total: orderTotal,
       vat_percentage: vATPercent,
       vat_price: vAT,
-      grand_total: grandTotal,
+      grand_total: orderGrandTotal,
     };
-
-    PostRequest(userToken.token, data, vendorUris.createOrder).then(res => {
-      // console.log('validate customer res :', res.data.success);
-      if (res.data.success === false) {
-        Alert.alert(res.data.error);
-        setLoading(false);
-      } else {
-        setLoading(false);
-        setModalVisible(true);
-      }
-    });
+    description === ''
+      ? Alert.alert('Please add some description')
+      : orderTotalExVAT === 0
+      ? Alert.alert('please add order total_Ex-Vat ')
+      : discountedPrice === 0
+      ? Alert.alert("Please add discount price")
+      : PostRequest(userToken.token, data, vendorUris.createOrder).then(res => {
+          // console.log('validate customer res :', res.data.success);
+          if (res.data.success === false) {
+            Alert.alert(res.data.error);
+            setLoading(false);
+          } else {
+            setLoading(false);
+            setModalVisible(true);
+          }
+        });
   };
   const okPressHandler = () => {
     setModalVisible(false);
@@ -104,12 +113,12 @@ export const RecordSale = () => {
     setGrandTotal('');
     setUserFoundDisplay(false);
   };
-  const numberValidations = value => {
-    let s = value.toString();
+  const numberValidations = phoneNumber => {
+    let s = phoneNumber.toString();
     if (parseInt(s.charAt(0)) !== 0) {
       // Alert.alert('First number must be 0')
     } else {
-      let num = value.replace('.', '');
+      let num = phoneNumber.replace('.', '');
       if (isNaN(num)) {
         // Alert.alert("please add Numbers")
       } else {
@@ -129,9 +138,9 @@ export const RecordSale = () => {
         <View style={styles.input}>
           <TextInput
             style={styles.customerPhoneInput}
-            onChangeText={value => numberValidations(value)}
+            onChangeText={value => setPhoneNumber(value)}
             value={phoneNumber}
-            placeholder="012345567"
+            placeholder="Phone Number"
             maxLength={10}
           />
           <Pressable onPress={() => checkHandler()}>
@@ -164,7 +173,7 @@ export const RecordSale = () => {
             onChangeText={setDescription}
             value={description}
             placeholder=""
-            editable={noDisplay === true ? false : true}
+            editable={userFoundDisplay === true ? true : false}
           />
         </View>
         <View style={globalInputsStyles.globalInputs}>
@@ -181,11 +190,11 @@ export const RecordSale = () => {
             onChangeText={setOrderTotalExVAT}
             value={orderTotalExVAT}
             placeholder=""
-            editable={noDisplay === true ? false : true}
+            editable={userFoundDisplay === true ? true : false}
           />
         </View>
         <View style={globalInputsStyles.globalInputs}>
-          <Text style={globalInputsStyles.globalLabel}>Discount</Text>
+          <Text style={globalInputsStyles.globalLabel}>Discount (%)</Text>
           <View style={styles.discountInputContainer}>
             <TextInput
               style={
@@ -196,7 +205,7 @@ export const RecordSale = () => {
               onChangeText={setDiscountPercent}
               value={discountPercent}
               placeholder=""
-              editable={noDisplay === true ? false : true}
+              editable={userFoundDisplay === true ? true : false}
             />
             <TextInput
               style={
@@ -207,13 +216,21 @@ export const RecordSale = () => {
               onChangeText={setDiscountedPrice}
               value={discountedPrice}
               placeholder=""
-              editable={noDisplay === true ? false : true}
+              editable={userFoundDisplay === true ? true : false}
             />
           </View>
         </View>
         <View style={globalInputsStyles.globalInputs}>
           <Text style={globalInputsStyles.globalLabel}>Total</Text>
-          <TextInput
+          <Text
+            style={
+              noDisplay === false
+                ? [globalInputsStyles.input, {paddingVertical: 15}]
+                : [styles.noUserInput, {paddingVertical: 15}]
+            }>
+            {orderTotal}
+          </Text>
+          {/* <TextInput
             style={
               noDisplay === false
                 ? globalInputsStyles.input
@@ -223,10 +240,10 @@ export const RecordSale = () => {
             value={total}
             placeholder=""
             editable={noDisplay === true ? false : true}
-          />
+          /> */}
         </View>
         <View style={globalInputsStyles.globalInputs}>
-          <Text style={globalInputsStyles.globalLabel}>VAT</Text>
+          <Text style={globalInputsStyles.globalLabel}>VAT (%)</Text>
           <View style={styles.discountInputContainer}>
             <TextInput
               style={
@@ -237,7 +254,7 @@ export const RecordSale = () => {
               onChangeText={setVATPercent}
               value={vATPercent}
               placeholder=""
-              editable={noDisplay === true ? false : true}
+              editable={userFoundDisplay === true ? true : false}
             />
             <TextInput
               style={
@@ -248,13 +265,22 @@ export const RecordSale = () => {
               onChangeText={setVAT}
               value={vAT}
               placeholder=""
-              editable={noDisplay === true ? false : true}
+              editable={userFoundDisplay === true ? true : false}
+              s
             />
           </View>
         </View>
         <View style={globalInputsStyles.globalInputs}>
           <Text style={globalInputsStyles.globalLabel}>Grand Total</Text>
-          <TextInput
+          <Text
+            style={
+              noDisplay === false
+                ? [globalInputsStyles.input, {paddingVertical: 15}]
+                : [styles.noUserInput, {paddingVertical: 15}]
+            }>
+            {orderGrandTotal}
+          </Text>
+          {/* <TextInput
             style={
               noDisplay === false
                 ? globalInputsStyles.input
@@ -264,10 +290,19 @@ export const RecordSale = () => {
             value={grandTotal}
             placeholder=""
             editable={noDisplay === true ? false : true}
-          />
+          /> */}
         </View>
-        <Pressable style={styles.createPress} onPress={() => createHandler()}>
-          <Text style={styles.createPressText}>Create</Text>
+        <Pressable
+          style={userFoundDisplay ? styles.createPress : styles.noCreatePress}
+          onPress={() => (userFoundDisplay ? createHandler() : {})}>
+          <Text
+            style={
+              userFoundDisplay
+                ? styles.createPressText
+                : styles.noCreatePressText
+            }>
+            Create
+          </Text>
         </Pressable>
         {/* <View style={styles.emptyView}></View> */}
       </ScrollView>

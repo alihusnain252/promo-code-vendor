@@ -45,7 +45,7 @@ export const globalInputsStyles = StyleSheet.create({
     fontStyle: 'normal',
     marginTop: 9,
     fontSize: 12,
-    color: MyTheme.labelBlack,
+    color: MyTheme.textPrimary,
   },
 
 });
