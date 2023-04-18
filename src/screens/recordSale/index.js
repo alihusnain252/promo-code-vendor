@@ -9,13 +9,13 @@ import {
   Alert,
   ActivityIndicator,
 } from 'react-native';
-import React, {useState} from 'react';
-import {ArrowHeader} from '../../components';
-import {styles} from './styles';
-import {globalInputsStyles, MyTheme, vendorUris} from '../../utils';
-import {useSelector} from 'react-redux';
-import {token} from '../../redux/tokenSlice';
-import {PostRequest} from '../../api/apiCall';
+import React, { useState } from 'react';
+import { ArrowHeader } from '../../components';
+import { styles } from './styles';
+import { globalInputsStyles, MyTheme, vendorUris } from '../../utils';
+import { useSelector } from 'react-redux';
+import { token } from '../../redux/tokenSlice';
+import { PostRequest } from '../../api/apiCall';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export const RecordSale = () => {
@@ -29,8 +29,8 @@ export const RecordSale = () => {
   const [grandTotal, setGrandTotal] = useState('');
   const [customerId, setCustomerId] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [noDisplay, setNoDisplay] = useState(false);
-  const [userFoundDisplay, setUserFoundDisplay] = useState(false);
+  const [noDisplay, setNoDisplay] = useState(true);
+  const [userFoundDisplay, setUserFoundDisplay] = useState('waiting');
   const [errorText, setErrorText] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const userToken = useSelector(token);
@@ -42,7 +42,7 @@ export const RecordSale = () => {
   const checkHandler = () => {
     numberValidations(phoneNumber)
     setLoading(true);
-    const data = {phone_number: phoneNumber};
+    const data = { phone_number: phoneNumber };
 
     if (phoneNumber === '') {
       setNoDisplay(true);
@@ -54,12 +54,12 @@ export const RecordSale = () => {
         if (res.data.message === 'User not found') {
           setNoDisplay(true);
           setLoading(false);
-          setUserFoundDisplay(false);
+          setUserFoundDisplay('false');
           setErrorText(res.data.message);
         } else {
           setNoDisplay(false);
           setLoading(false);
-          setUserFoundDisplay(true);
+          setUserFoundDisplay('true');
           setCustomerId(res.data.data.id);
           setErrorText(
             'User subscription status : ' + res.data.data.subscription_status,
@@ -111,10 +111,10 @@ export const RecordSale = () => {
     setVATPercent('');
     setVAT('');
     setGrandTotal('');
-    setUserFoundDisplay(false);
+    setUserFoundDisplay('waiting');
   };
-  const numberValidations = phoneNumber => {
-    let s = phoneNumber.toString();
+  const numberValidations = value => {
+    let s = value.toString();
     if (parseInt(s.charAt(0)) !== 0) {
       // Alert.alert('First number must be 0')
     } else {
@@ -127,12 +127,52 @@ export const RecordSale = () => {
     }
   };
 
+
+
+
+  const updateData = (value, type) => {
+    if (type === 'discount') {
+      let discountPrice = 0
+      if (value && orderTotalExVAT) {
+        discountPrice = ((Number(value) / 100) * Number(orderTotalExVAT)).toFixed(2)
+        setDiscountedPrice(((Number(value) / 100) * Number(orderTotalExVAT)).toFixed(2))
+      } else {
+        setDiscountedPrice(('0'))
+      }
+      setTotal((orderTotalExVAT - discountPrice).toFixed(2))
+    }
+    else if (type === 'discount-amount') {
+      let percentVal = 0
+      if (value && orderTotalExVAT) {
+        percentVal = ((Number(value) / Number(orderTotalExVAT)) * 100)
+        console.log(percentVal)
+        setDiscountPercent(percentVal.toFixed(2))
+      } else {
+        setDiscountPercent('')
+      }
+      setTotal((orderTotalExVAT - value).toFixed(2))
+    }
+
+    else if (type === 'vat') {
+      let percentVat = 0
+      if (value && total) {
+        percentVat = ((Number(value) / 100) * Number(total))
+        console.log(percentVat)
+        setVAT(percentVat.toFixed(2))
+      } else {
+        setVAT('')
+      }
+      setGrandTotal((Number(total) + Number(percentVat)).toFixed(2))
+    }
+  }
+
   return (
     <View style={styles.recordSaleContainer}>
-      <View style={loading === false ? {display: 'none'} : styles.loader}>
+      <View style={loading === false ? { display: 'none' } : styles.loader}>
         <ActivityIndicator size={36} color={MyTheme.yellow} />
       </View>
       <ArrowHeader heading="Sales Order" />
+
       <View style={globalInputsStyles.globalInputs}>
         <Text style={globalInputsStyles.globalLabel}>Customer Phone* </Text>
         <View style={styles.input}>
@@ -140,7 +180,7 @@ export const RecordSale = () => {
             style={styles.customerPhoneInput}
             onChangeText={value => setPhoneNumber(value)}
             value={phoneNumber}
-            placeholder="Phone Number"
+            placeholder="012345567"
             maxLength={10}
           />
           <Pressable onPress={() => checkHandler()}>
@@ -148,20 +188,32 @@ export const RecordSale = () => {
           </Pressable>
         </View>
       </View>
-      <View style={noDisplay === false ? styles.noDisplay : styles.notFound}>
+
+
+      {/* <View style={noDisplay === false ? styles.noDisplay : styles.notFound}>
         <Image
           source={require('../../assets/icons/notFound.png')}
           style={styles.notFoundImage}
         />
         <Text style={styles.notFoundText}>{errorText}</Text>
-      </View>
-      <View
-        style={
-          userFoundDisplay === false ? styles.noDisplay : styles.userFoundNote
-        }>
-        <Text style={styles.userFoundText}>{errorText}</Text>
-      </View>
-      <ScrollView style={styles.scrollView}>
+      </View> */}
+
+      {userFoundDisplay !== 'waiting' &&
+        <View
+          style={[{ flexDirection: 'row', justifyContent: 'flex-end', alignSelf: 'flex-end', marginRight: '5%' },
+          userFoundDisplay === 'false' ? styles.notFound : userFoundDisplay === true ? styles.userFoundNote : {}
+          ]}>
+
+          <Text style={styles.userFoundText}>{errorText}</Text>
+          {userFoundDisplay === 'false' && <Image
+            source={require('../../assets/icons/notFound.png')}
+            style={styles.notFoundImage}
+          />}
+        </View>
+      }
+
+
+      <ScrollView style={styles.scrollView} contentContainerStyle={{ alignItems: 'center' }}>
         <View style={globalInputsStyles.globalInputs}>
           <Text style={globalInputsStyles.globalLabel}>Description </Text>
           <TextInput
@@ -173,13 +225,14 @@ export const RecordSale = () => {
             onChangeText={setDescription}
             value={description}
             placeholder=""
-            editable={userFoundDisplay === true ? true : false}
+            editable={noDisplay === true ? false : true}
           />
         </View>
+
         <View style={globalInputsStyles.globalInputs}>
           <Text style={globalInputsStyles.globalLabel}>
             {' '}
-            Order Total _Ex-VAT{' '}
+            Order Total {' '}
           </Text>
           <TextInput
             style={
@@ -190,11 +243,13 @@ export const RecordSale = () => {
             onChangeText={setOrderTotalExVAT}
             value={orderTotalExVAT}
             placeholder=""
-            editable={userFoundDisplay === true ? true : false}
+            editable={noDisplay === true ? false : true}
           />
         </View>
+
+
         <View style={globalInputsStyles.globalInputs}>
-          <Text style={globalInputsStyles.globalLabel}>Discount (%)</Text>
+          <Text style={globalInputsStyles.globalLabel}>Discount</Text>
           <View style={styles.discountInputContainer}>
             <TextInput
               style={
@@ -202,10 +257,13 @@ export const RecordSale = () => {
                   ? styles.discountInput1
                   : styles.noUserDiscountInput1
               }
-              onChangeText={setDiscountPercent}
+              onChangeText={(val) => {
+                setDiscountPercent(val)
+                updateData(val, 'discount')
+              }}
               value={discountPercent}
               placeholder=""
-              editable={userFoundDisplay === true ? true : false}
+              editable={noDisplay === true ? false : true}
             />
             <TextInput
               style={
@@ -213,13 +271,15 @@ export const RecordSale = () => {
                   ? styles.discountInput2
                   : styles.noUserDiscountInput2
               }
-              onChangeText={setDiscountedPrice}
+              onChangeText={(val) => (setDiscountedPrice(val), updateData(val, 'discount-amount'))}
               value={discountedPrice}
               placeholder=""
               editable={userFoundDisplay === true ? true : false}
             />
           </View>
         </View>
+
+
         <View style={globalInputsStyles.globalInputs}>
           <Text style={globalInputsStyles.globalLabel}>Total</Text>
           <Text
@@ -240,10 +300,10 @@ export const RecordSale = () => {
             value={total}
             placeholder=""
             editable={noDisplay === true ? false : true}
-          /> */}
+          />
         </View>
         <View style={globalInputsStyles.globalInputs}>
-          <Text style={globalInputsStyles.globalLabel}>VAT (%)</Text>
+          <Text style={globalInputsStyles.globalLabel}>VAT</Text>
           <View style={styles.discountInputContainer}>
             <TextInput
               style={
@@ -251,10 +311,10 @@ export const RecordSale = () => {
                   ? styles.discountInput1
                   : styles.noUserDiscountInput1
               }
-              onChangeText={setVATPercent}
+              onChangeText={(val) => (setVATPercent(val), updateData(val, 'vat'))}
               value={vATPercent}
               placeholder=""
-              editable={userFoundDisplay === true ? true : false}
+              editable={noDisplay === true ? false : true}
             />
             <TextInput
               style={
@@ -262,11 +322,11 @@ export const RecordSale = () => {
                   ? styles.discountInput2
                   : styles.noUserDiscountInput2
               }
-              onChangeText={setVAT}
+              onChangeText={(val) => (setVAT(val), updateData(val, 'vat-amount'))}
               value={vAT}
+              editable={false}
               placeholder=""
-              editable={userFoundDisplay === true ? true : false}
-              s
+              editable={noDisplay === true ? false : true}
             />
           </View>
         </View>
@@ -288,9 +348,10 @@ export const RecordSale = () => {
             }
             onChangeText={setGrandTotal}
             value={grandTotal}
+            editable={false}
             placeholder=""
             editable={noDisplay === true ? false : true}
-          /> */}
+          />
         </View>
         <Pressable
           style={userFoundDisplay ? styles.createPress : styles.noCreatePress}

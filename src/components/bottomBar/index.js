@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import {styles} from './styles';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
+import { MyTheme } from '../../utils';
 
 export const BottomBar = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -23,9 +24,9 @@ export const BottomBar = () => {
         onPress={() => navigation.navigate('Dashboard')}>
         <Image
           source={require('../../assets/icons/home.png')}
-          style={styles.icon}
+          style={[styles.icon,{tintColor:MyTheme.primary}]}
         />
-        <Text style={styles.iconText}>Home</Text>
+        <Text style={[styles.iconText,{color:MyTheme.primary}]}>Home</Text>
       </Pressable>
       <Pressable
         style={styles.iconView}

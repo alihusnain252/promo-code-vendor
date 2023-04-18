@@ -1,10 +1,10 @@
-import {MyTheme} from '@utils';
-import {StyleSheet, Dimensions} from 'react-native';
+import { MyTheme } from '@utils';
+import { StyleSheet, Dimensions } from 'react-native';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 export const styles = StyleSheet.create({
   topContainer: {
-    alignItems: 'center',
+    // alignItems: 'center',
     width: '100%',
     backgroundColor: MyTheme.primary,
     shadowColor: MyTheme.black,
@@ -14,15 +14,18 @@ export const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-
     elevation: 5,
   },
   topBody: {
-    width: width - 30,
+    // width: width - 30,
+    // backgroundColor:'red',
+    // flex:1,
+    padding: '3%',
+    justifyContent: 'space-between',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    height: 91,
+    height: 71,
   },
   profile: {
     width: 31,
@@ -35,8 +38,10 @@ export const styles = StyleSheet.create({
     height: '100%',
   },
   icon: {
-    width: 28,
-    height: 28,
+    width: 35,
+    height: 35,
+    // backgroundColor:'red',
+    // padding:'4%'
   },
   iconImage: {
     width: '100%',
