@@ -27,11 +27,9 @@ export const styles = StyleSheet.create({
     marginLeft: 5,
   },
   scrollView: {
-    position: 'absolute',
+    marginTop: '3%',
     width: '100%',
-    height: '80%',
-    left: 20,
-    top: 100,
+    flex: 1,
   },
   reset: {
     position: 'absolute',
@@ -51,7 +49,7 @@ export const styles = StyleSheet.create({
     fontWeight: 400,
     fontSize: 16,
     lineHeight: 19,
-    color: MyTheme.white,
+    color: MyTheme.textPrimary,
   },
 
   dateInput: {

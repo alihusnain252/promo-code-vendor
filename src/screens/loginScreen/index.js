@@ -19,13 +19,14 @@ export const LogInScreen = ({navigation}) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [validPhoneNumber, setValidPhoneNumber] = useState(false);
 
   const dispatch = useDispatch();
 
   const loginHandler = () => {
+    let s = phoneNumber.toString();
+
+    let num = phoneNumber.replace('.', '');
     setLoading(true);
-    numberValidations(phoneNumber)
     const data = {
       phone_number: phoneNumber,
       password: password,
@@ -48,12 +49,28 @@ export const LogInScreen = ({navigation}) => {
           },
           {text: 'OK', onPress: () => setLoading(false)},
         ])
-      : 
-        LoginPostRequest(data, vendorUris.login).then(response => {
+      : parseInt(s.charAt(0)) !== 0
+      ? Alert.alert('', 'First digit must be 0 in Phone number', [
+          {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          {text: 'OK', onPress: () => setLoading(false)},
+        ])
+      : isNaN(num)
+      ? Alert.alert('', 'please add Numbers in Phon NUmber', [
+          {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          {text: 'OK', onPress: () => setLoading(false)},
+        ])
+      : LoginPostRequest(data, vendorUris.login).then(response => {
           console.log('api response :', response.data);
           setLoading(false);
           if (response.data.data.length === 0) {
-           
             Alert.alert('', response.data.message, [
               {
                 text: 'Cancel',
@@ -61,7 +78,7 @@ export const LogInScreen = ({navigation}) => {
                 style: 'cancel',
               },
               {text: 'OK', onPress: () => setLoading(false)},
-            ])
+            ]);
           } else {
             dispatch(
               updateToken(
@@ -71,46 +88,9 @@ export const LogInScreen = ({navigation}) => {
             setLoading(false);
           }
         });
-    
-      
   };
   const recoverHandler = () => {
     navigation.navigate('RecoverPassword');
-  };
-
-  const numberValidations = phoneNumber => {
-   if (phoneNumber !=="" && password !=="") {
-    let s = phoneNumber.toString();
-    if (parseInt(s.charAt(0)) !== 0) {
-      Alert.alert('', "First digit must be 0 in Phone number", [
-        {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {text: 'OK', onPress: () => setLoading(false)},
-      ])
-      setValidPhoneNumber(false);
-    } else {
-      let num = phoneNumber.replace('.', '');
-      if (isNaN(num)) {
-        setLoading(false);
-        Alert.alert('please add Numbers in Phon NUmber');
-        Alert.alert('', 'please add Numbers in Phon NUmber', [
-          {
-            text: 'Cancel',
-            onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel',
-          },
-          {text: 'OK', onPress: () => setLoading(false)},
-        ])
-        setValidPhoneNumber(false);
-      } else {
-        setValidPhoneNumber(true);
-        setPhoneNumber(num);
-      }
-    }
-   }
   };
 
   return (
@@ -127,7 +107,7 @@ export const LogInScreen = ({navigation}) => {
           />
           <TextInput
             style={signInInputsStyles.input}
-            onChangeText={value => setPhoneNumber(value)}
+            onChangeText={e => setPhoneNumber(e)}
             value={phoneNumber}
             placeholder="Phone Number"
             placeholderTextColor={MyTheme.grey100}

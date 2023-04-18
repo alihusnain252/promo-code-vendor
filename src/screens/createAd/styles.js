@@ -62,10 +62,12 @@ export const styles = StyleSheet.create({
     marginLeft: 5,
   },
   scrollView: {
-    width: width - 40,
+    flex: 1,
+    width: width,
     marginTop: '3%',
   },
   register: {
+    alignSelf: 'center',
     width: width - 40,
     height: 56,
     marginTop: 16,
@@ -80,7 +82,7 @@ export const styles = StyleSheet.create({
     fontWeight: 400,
     fontSize: 16,
     lineHeight: 19,
-    color: MyTheme.white,
+    color: MyTheme.textPrimary,
   },
   emptyView: {
     width: width - 40,

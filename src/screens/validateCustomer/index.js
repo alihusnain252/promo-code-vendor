@@ -25,6 +25,8 @@ export const ValidateCustomer = ({navigation}) => {
   const userToken = useSelector(token);
 
   const searchHandler = () => {
+    let s = phoneNumber.toString();
+    let num = phoneNumber.replace('.', '');
     setLoading(true);
     const data = {phone_number: phoneNumber};
 
@@ -33,34 +35,35 @@ export const ValidateCustomer = ({navigation}) => {
       setLoading(false);
       setErrorText('please Add Phone Number');
     } else {
-      PostRequest(userToken.token, data, vendorUris.userVerifyUser).then(
-        res => {
-          console.log('validate customer res :', res.data);
-          if (res.data.message === 'User not found') {
-            setNoDisplay(true);
-            setLoading(false);
-            setErrorText(res.data.message);
-          } else {
-            setNoDisplay(false);
-            setLoading(false);
-            navigation.navigate('UserFound', {userDetails: res.data.data});
-          }
-        },
-      );
+      if (parseInt(s.charAt(0)) !== 0) {
+        setNoDisplay(true);
+        setLoading(false);
+        setErrorText('Phone Number must start with 0');
+      } else {
+        if (isNaN(num)) {
+          setNoDisplay(true);
+          setLoading(false);
+          setErrorText('Phone Number must be digits');
+        } else {
+          PostRequest(userToken.token, data, vendorUris.userVerifyUser).then(
+            res => {
+              console.log('validate customer res :', res.data);
+              if (res.data.message === 'User not found') {
+                setNoDisplay(true);
+                setLoading(false);
+                setErrorText(res.data.message);
+              } else {
+                setNoDisplay(false);
+                setLoading(false);
+                setPhoneNumber('');
+                navigation.navigate('UserFound', {userDetails: res.data.data});
+              }
+            },
+          );
+        }
+      }
     }
   };
-  const numberValidations=(value)=>{
-    let s = value.toString()
-   if (parseInt(s.charAt(0)) !==0) {
-    // Alert.alert('First number must be 0')
-   } else {
-    let num = value.replace(".", '');
-    if(isNaN(num)){
-        // Alert.alert("please add Numbers")
-    }else{
-       setPhoneNumber(num)}  
-   }
-  }
 
   return (
     <View style={styles.validateContainer}>
@@ -70,9 +73,10 @@ export const ValidateCustomer = ({navigation}) => {
         <Text style={styles.phoneText}>Customer Phone #</Text>
         <TextInput
           style={noDisplay === false ? globalInputsStyles.input : styles.input}
-          placeholder="0212345678"
+          placeholder="Phone Number"
+          placeholderTextColor={MyTheme.grey100}
           value={phoneNumber}
-          onChangeText={value => numberValidations(value)}
+          onChangeText={value => setPhoneNumber(value)}
           keyboardType="numeric"
           maxLength={10}
         />

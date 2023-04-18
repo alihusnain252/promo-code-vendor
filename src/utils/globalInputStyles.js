@@ -6,6 +6,7 @@ export const globalInputsStyles = StyleSheet.create({
   globalInputs: {
     width: width - 40,
     height: 85,
+    alignSelf: 'center',
   },
   globalLabel: {
     fontFamily: MyTheme.fontFamily,
@@ -18,9 +19,9 @@ export const globalInputsStyles = StyleSheet.create({
     marginTop: 5,
   },
   input: {
-    flexDirection:"row",
-    alignItems:"center",
-    justifyContent:"space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     fontFamily: MyTheme.fontFamily,
     fontStyle: 'normal',
     marginTop: 5,
@@ -40,12 +41,11 @@ export const globalInputsStyles = StyleSheet.create({
 
     elevation: 2,
   },
-  resend:{
+  resend: {
     fontFamily: MyTheme.fontFamily,
     fontStyle: 'normal',
     marginTop: 9,
     fontSize: 12,
     color: MyTheme.textPrimary,
   },
-
 });

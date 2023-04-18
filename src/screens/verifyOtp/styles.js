@@ -42,8 +42,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 69,
-    color: MyTheme.textPrimary,
-    backgroundColor: MyTheme.grey300,
+    color: MyTheme.grey100,
+    backgroundColor: MyTheme.white,
   },
   verifyOtpText: {
     fontFamily: MyTheme.fontFamily,
@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
     fontWeight: 400,
     fontSize: 16,
     lineHeight: 19,
-    color: MyTheme.textPrimary,
+    color: MyTheme.grey100,
   },
   centeredView: {
     flex: 1,

@@ -13,6 +13,7 @@ import {ArrowHeader} from '@components';
 import {PostRequest} from '../../api/apiCall';
 import {useSelector} from 'react-redux';
 import {token} from '@redux/tokenSlice';
+import {MyTheme} from '../../utils';
 
 export const UpdatePassword = ({navigation}) => {
   const userToken = useSelector(token);
@@ -30,38 +31,36 @@ export const UpdatePassword = ({navigation}) => {
       'new-password': newPassword,
       'new-password-confirm': conformNewPassword,
     };
-    PostRequest(
-      userToken.token,
-      data,
-      vendorUris.updatePassword,
-    ).then(response => {
-      console.log('api response :', response);
-      // Alert.alert(response.data.message)
-      if (response.data.success) {
-        Alert.alert('', response.data.message, [
-          {
-            text: 'Cancel',
-            onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel',
-          },
-          {text: 'OK', onPress: () => navigation.goBack()},
-        ]);
-        setLoading(false);
-      } else {
-        Alert.alert('Alert', response.data.message, [
-          {
-            text: 'Cancel',
-            onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel',
-          },
-          {text: 'OK', onPress: () => console.log('OK Pressed')},
-        ]);
-      }
-    });
+    PostRequest(userToken.token, data, vendorUris.updatePassword).then(
+      response => {
+        console.log('api response :', response);
+        // Alert.alert(response.data.message)
+        if (response.data.success) {
+          Alert.alert('', response.data.message, [
+            {
+              text: 'Cancel',
+              onPress: () => console.log('Cancel Pressed'),
+              style: 'cancel',
+            },
+            {text: 'OK', onPress: () => navigation.goBack()},
+          ]);
+          setLoading(false);
+        } else {
+          Alert.alert('Alert', response.data.message, [
+            {
+              text: 'Cancel',
+              onPress: () => console.log('Cancel Pressed'),
+              style: 'cancel',
+            },
+            {text: 'OK', onPress: () => console.log('OK Pressed')},
+          ]);
+        }
+      },
+    );
   };
 
   return (
-    <View style={styles.signupContainer}>
+    <View style={styles.updatePasswordContainer}>
       <ArrowHeader heading="Update Password" />
       <ScrollView style={styles.scrollView}>
         <View style={globalInputsStyles.globalInputs}>
@@ -71,6 +70,7 @@ export const UpdatePassword = ({navigation}) => {
             onChangeText={setCurrentPassword}
             value={currentPassword}
             placeholder="Current Password"
+            placeholderTextColor={MyTheme.grey100}
             secureTextEntry={true}
           />
         </View>
@@ -81,6 +81,7 @@ export const UpdatePassword = ({navigation}) => {
             onChangeText={setNewPassword}
             value={newPassword}
             placeholder="New Password"
+            placeholderTextColor={MyTheme.grey100}
             secureTextEntry={true}
           />
         </View>
@@ -93,13 +94,12 @@ export const UpdatePassword = ({navigation}) => {
             onChangeText={setConformNewPassword}
             value={conformNewPassword}
             placeholder="Conform New Password"
+            placeholderTextColor={MyTheme.grey100}
             secureTextEntry={true}
           />
         </View>
-        <Pressable
-          style={styles.register}
-          onPress={() => updatePasswordHandle()}>
-          <Text style={styles.registerText}>Update</Text>
+        <Pressable style={styles.update} onPress={() => updatePasswordHandle()}>
+          <Text style={styles.updateText}>Update</Text>
         </Pressable>
       </ScrollView>
     </View>

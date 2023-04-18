@@ -3,37 +3,18 @@ import {StyleSheet, Dimensions} from 'react-native';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 export const styles = StyleSheet.create({
-  signupContainer: {
+  updatePasswordContainer: {
     flex: 1,
     alignItems: 'center',
     backgroundColor: MyTheme.backgroundColor,
   },
-  signupHeader: {
-    width: '100%',
-    flexDirection: 'row',
-    position: 'absolute',
-    width: width - 40,
-    height: 25,
-    top: 70,
-  },
-  signUpHeaderText: {
-    fontFamily: MyTheme.fontFamily,
-    fontStyle: 'normal',
-    fontWeight: 500,
-    fontSize: 24,
-    lineHeight: 20,
-    color: MyTheme.black,
-    paddingTop: 5,
-    marginLeft: 5,
-  },
   scrollView: {
-    position: 'absolute',
+    marginTop: '5%',
     width: '100%',
-    height: '80%',
-    left: 20,
-    top: 80,
+    flex: 1,
   },
-  register: {
+  update: {
+    alignSelf: 'center',
     height: 56,
     width: width - 40,
     height: 56,
@@ -43,13 +24,13 @@ export const styles = StyleSheet.create({
     borderRadius: 69,
     backgroundColor: MyTheme.primary,
   },
-  registerText: {
+  updateText: {
     fontFamily: MyTheme.fontFamily,
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: 16,
     lineHeight: 19,
-    color: MyTheme.white,
+    color: MyTheme.textPrimary,
   },
 
   dateInput: {

@@ -31,31 +31,35 @@ export const ResetPassword = ({route, navigation}) => {
       password: newPassword,
       password_confirmation: conformNewPassword,
     };
-    PostRequestWithoutToken(data, vendorUris.resetPassword).then(response => {
-      console.log('api response :', response);
-      // Alert.alert(response.data.message)
-      if (response.data.success) {
-        Alert.alert('', response.data.message, [
-          {
-            text: 'Cancel',
-            onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel',
-          },
-          {text: 'OK', onPress: () => navigation.navigate('Login')},
-        ]);
-        setLoading(false);
-      } else {
-        setLoading(false);
-        Alert.alert('Alert', response.data.message, [
-          {
-            text: 'Cancel',
-            onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel',
-          },
-          {text: 'OK', onPress: () => console.log('OK Pressed')},
-        ]);
-      }
-    });
+    if (newPassword !== conformNewPassword) {
+      Alert.alert('Password is not matched');
+    } else {
+      PostRequestWithoutToken(data, vendorUris.resetPassword).then(response => {
+        console.log('api response :', response);
+        // Alert.alert(response.data.message)
+        if (response.data.success) {
+          Alert.alert('', response.data.message, [
+            {
+              text: 'Cancel',
+              onPress: () => console.log('Cancel Pressed'),
+              style: 'cancel',
+            },
+            {text: 'OK', onPress: () => navigation.navigate('Login')},
+          ]);
+          setLoading(false);
+        } else {
+          setLoading(false);
+          Alert.alert('Alert', response.data.message, [
+            {
+              text: 'Cancel',
+              onPress: () => console.log('Cancel Pressed'),
+              style: 'cancel',
+            },
+            {text: 'OK', onPress: () => console.log('OK Pressed')},
+          ]);
+        }
+      });
+    }
   };
 
   return (
@@ -69,6 +73,7 @@ export const ResetPassword = ({route, navigation}) => {
             onChangeText={setNewPassword}
             value={newPassword}
             placeholder="New Password"
+            placeholderTextColor={MyTheme.grey100}
             secureTextEntry={true}
           />
         </View>
@@ -81,6 +86,7 @@ export const ResetPassword = ({route, navigation}) => {
             onChangeText={setConformNewPassword}
             value={conformNewPassword}
             placeholder="Conform New Password"
+            placeholderTextColor={MyTheme.grey100}
             secureTextEntry={true}
           />
         </View>

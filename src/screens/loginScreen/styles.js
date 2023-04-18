@@ -10,14 +10,14 @@ export const styles = StyleSheet.create({
     backgroundColor: MyTheme.backgroundColor,
   },
   heading: {
-    width: width-40,
-    height:150,
-    justifyContent:"center",
+    width: width - 40,
+    height: 150,
+    justifyContent: 'center',
   },
   headingText: {
     fontFamily: MyTheme.fontFamily,
     fontStyle: 'normal',
-    paddingTop: "2%",
+    paddingTop: '2%',
     fontWeight: 500,
     fontSize: 24,
     lineHeight: 20,
@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 20,
     color: MyTheme.grey100,
-    paddingTop: "3%",
+    paddingTop: '3%',
   },
   loginInputs: {
     width: width - 40,
@@ -39,8 +39,9 @@ export const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: MyTheme.grey,
     borderRadius: 8,
-    marginBottom: "5%",
+    marginBottom: '5%',
     paddingHorizontal: 15,
+    color: MyTheme.textPrimary,
   },
   loginBtns: {
     width: width - 40,

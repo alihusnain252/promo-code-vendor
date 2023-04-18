@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
     fontWeight: 400,
     fontSize: 12,
     lineHeight: 20,
-    color: MyTheme.labelBlack,
+    color: MyTheme.textPrimary,
     marginVertical: 11,
   },
 
@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
     fontWeight: 400,
     fontSize: 16,
     lineHeight: 19,
-    color: MyTheme.white,
+    color: MyTheme.textPrimary,
   },
   noDisplay: {
     display: 'none',
@@ -73,7 +73,7 @@ export const styles = StyleSheet.create({
     fontStyle: 'normal',
     marginTop: 9,
     // fontSize: 12,
-    color: MyTheme.labelBlack,
+    color: MyTheme.textPrimary,
     textTransform: 'capitalize',
     width: '100%',
     backgroundColor: MyTheme.grey,

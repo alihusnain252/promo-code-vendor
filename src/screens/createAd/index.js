@@ -92,37 +92,42 @@ export const CreateAd = ({route, navigation}) => {
 
     setLoading(true);
 
-    CreateAdRequest(
-      userToken.token,
-      data,
-      update
-        ? vendorUris.promotionUpdate + `${adDetails.id}`
-        : vendorUris.promotionCreate,
-    ).then(response => {
-      if (response.status) {
-        Alert.alert('', response.data.message, [
-          {
-            text: 'Cancel',
-            onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel',
-          },
-          {text: 'OK', onPress: () => navigation.goBack()},
-        ]);
-        setLoading(false);
-        console.log('api response :', response);
-      } else {
-        Alert.alert('', response.error, [
-          {
-            text: 'Cancel',
-            onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel',
-          },
-          {text: 'OK', onPress: () => navigation.goBack()},
-        ]);
-        setLoading(false);
-        console.log('api response :', response);
-      }
-    });
+    if (adImage == '') {
+      Alert.alert('Image is required');
+      setLoading(false);
+    } else {
+      CreateAdRequest(
+        userToken.token,
+        data,
+        update
+          ? vendorUris.promotionUpdate + `${adDetails.id}`
+          : vendorUris.promotionCreate,
+      ).then(response => {
+        if (response.status) {
+          Alert.alert('', response.data.message, [
+            {
+              text: 'Cancel',
+              onPress: () => console.log('Cancel Pressed'),
+              style: 'cancel',
+            },
+            {text: 'OK', onPress: () => navigation.goBack()},
+          ]);
+          setLoading(false);
+          console.log('api response :', response);
+        } else {
+          Alert.alert('', response.error, [
+            {
+              text: 'Cancel',
+              onPress: () => console.log('Cancel Pressed'),
+              style: 'cancel',
+            },
+            {text: 'OK', onPress: () => navigation.goBack()},
+          ]);
+          setLoading(false);
+          console.log('api response :', response);
+        }
+      });
+    }
   };
 
   return (
@@ -143,6 +148,7 @@ export const CreateAd = ({route, navigation}) => {
             onChangeText={setCompany}
             value={company}
             placeholder="Company Name"
+            placeholderTextColor={MyTheme.grey100}
           />
         </View>
         <View style={globalInputsStyles.globalInputs}>
@@ -167,6 +173,7 @@ export const CreateAd = ({route, navigation}) => {
             onChangeText={setCategory}
             value={category}
             placeholder="Category Id"
+            placeholderTextColor={MyTheme.grey100}
             keyboardType="number-pad"
           />
         </View>
@@ -177,6 +184,7 @@ export const CreateAd = ({route, navigation}) => {
             onChangeText={setOriginalPrice}
             value={originalPrice}
             placeholder="Original Price"
+            placeholderTextColor={MyTheme.grey100}
             keyboardType="number-pad"
           />
         </View>
@@ -187,6 +195,7 @@ export const CreateAd = ({route, navigation}) => {
             onChangeText={setDiscountedPrice}
             value={discountedPrice}
             placeholder="Discounted Price"
+            placeholderTextColor={MyTheme.grey100}
             keyboardType="number-pad"
           />
         </View>
@@ -197,6 +206,7 @@ export const CreateAd = ({route, navigation}) => {
             onChangeText={setPromotionDetails}
             value={promotionDetails}
             placeholder="Promotion Details"
+            placeholderTextColor={MyTheme.grey100}
           />
         </View>
         <View style={globalInputsStyles.globalInputs}>
@@ -208,6 +218,7 @@ export const CreateAd = ({route, navigation}) => {
             onChangeText={setPromotionDuration}
             value={promotionDuration}
             placeholder="Promotion Duration"
+            placeholderTextColor={MyTheme.grey100}
             keyboardType="number-pad"
           />
         </View>
@@ -218,12 +229,12 @@ export const CreateAd = ({route, navigation}) => {
             onChangeText={setDescription}
             value={description}
             placeholder="Description"
+            placeholderTextColor={MyTheme.grey100}
           />
         </View>
         <Pressable style={styles.register} onPress={() => createHandler()}>
           <Text style={styles.registerText}>Create</Text>
         </Pressable>
-        <View style={styles.emptyView}></View>
       </ScrollView>
     </View>
   );

@@ -11,10 +11,8 @@ export const styles = StyleSheet.create({
   signupHeader: {
     width: '100%',
     flexDirection: 'row',
-    position: 'absolute',
     width: width - 40,
     height: 25,
-    top: 70,
   },
   signUpHeaderText: {
     fontFamily: MyTheme.fontFamily,
@@ -27,13 +25,11 @@ export const styles = StyleSheet.create({
     marginLeft: 5,
   },
   scrollView: {
-    position: 'absolute',
-    width: '100%',
-    height: '78%',
-    left: 20,
-    top: 154,
+    flex: 1,
+    width: width,
   },
   register: {
+    alignSelf: 'center',
     height: 56,
     width: width - 40,
     height: 56,
@@ -49,27 +45,26 @@ export const styles = StyleSheet.create({
     fontWeight: 400,
     fontSize: 16,
     lineHeight: 19,
-    color: MyTheme.white,
+    color: MyTheme.textPrimary,
   },
 
-  dateInput:{
-    width:"80%",
-    color:MyTheme.textPrimary
+  dateInput: {
+    width: '80%',
+    color: MyTheme.textPrimary,
   },
-  datePress:{
-    width:"20%",
-    height:"100%",
-    justifyContent:"center",
-    alignItems:"center",
+  datePress: {
+    width: '20%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   profileImageView: {
-    position: 'absolute',
     width: 80,
     height: 80,
-    top: 65,
     borderWidth: 2,
     borderColor: MyTheme.green200,
     borderRadius: 59,
+    marginVertical: '3%',
   },
   profileImage: {
     width: '100%',

@@ -53,7 +53,10 @@ export const VerifyOtp = ({route, navigation}) => {
       <Pressable
         style={otp === '' ? styles.notVerifyOtpBtn : styles.verifyOtpBtn}
         onPress={() => verifyHandler()}>
-        <Text style={styles.notVerifyOtpText}>Verify OTP</Text>
+        <Text
+          style={otp === '' ? styles.notVerifyOtpText : styles.verifyOtpText}>
+          Verify OTP
+        </Text>
       </Pressable>
 
       <View style={loading === false ? {display: 'none'} : {marginTop: 20}}>

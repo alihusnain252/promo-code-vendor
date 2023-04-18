@@ -47,7 +47,9 @@ export const styles = StyleSheet.create({
     marginLeft: 4,
   },
   scrollView: {
-    width: width - 36,
+    width: width,
+    flex: 1,
+    padding: '1%',
   },
   register: {
     width: width - 40,
@@ -68,21 +70,41 @@ export const styles = StyleSheet.create({
   },
   createPress: {
     width: width - 40,
-    height: 56,
-    marginTop: 16,
+    alignSelf: 'center',
+    padding: '5%',
+    marginVertical: '6%',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 69,
     backgroundColor: MyTheme.primary,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2,
   },
   noCreatePress: {
+    alignSelf: 'center',
     width: width - 40,
-    height: 56,
-    marginTop: 16,
+    padding: '5%',
+    marginVertical: '6%',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 69,
-    backgroundColor: MyTheme.grey,
+    backgroundColor: MyTheme.white,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+
+    elevation: 2,
   },
   createPressText: {
     fontFamily: MyTheme.fontFamily,
@@ -119,6 +141,7 @@ export const styles = StyleSheet.create({
   },
   customerPhoneInput: {
     width: '80%',
+    color: MyTheme.textPrimary,
   },
   checkText: {
     fontFamily: MyTheme.fontFamily,

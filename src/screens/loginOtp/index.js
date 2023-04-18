@@ -1,9 +1,16 @@
-import {View, Text, Pressable, TextInput, ActivityIndicator, Alert} from 'react-native';
+import {
+  View,
+  Text,
+  Pressable,
+  TextInput,
+  ActivityIndicator,
+  Alert,
+} from 'react-native';
 import React, {useState} from 'react';
 import {styles} from './styles';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {globalInputsStyles} from '@utils';
-import {OtpContainer} from '../../components';
+import {ArrowHeader, OtpContainer} from '../../components';
 import {useDispatch} from 'react-redux';
 import {updateToken} from '@redux/tokenSlice';
 import {PostRequestWithoutToken} from '../../api/apiCall';
@@ -33,13 +40,16 @@ export const LoginOtp = ({route, navigation}) => {
             onPress: () => console.log('Cancel Pressed'),
             style: 'cancel',
           },
-          {text: 'OK', onPress: () => navigation.navigate("ResetPassword",{phoneNumber:phoneNumber})},
+          {
+            text: 'OK',
+            onPress: () =>
+              navigation.navigate('ResetPassword', {phoneNumber: phoneNumber}),
+          },
         ]);
         setLoading(false);
-        
       } else {
         console.log(res);
-        Alert.alert(JSON.stringify(res.error))
+        Alert.alert(JSON.stringify(res.error));
         setLoading(false);
       }
     });
@@ -57,12 +67,7 @@ export const LoginOtp = ({route, navigation}) => {
 
   return (
     <View style={styles.otpContainer}>
-      <View style={styles.otpHeader}>
-        <Pressable onPress={() => navigation.goBack()}>
-          <AntDesign name="arrowleft" size={25} color="#000" />
-        </Pressable>
-        <Text style={styles.otpHeaderText}>Verification Code</Text>
-      </View>
+      <ArrowHeader heading="Verify Otp" />
       <View style={styles.otpView}>
         <OtpContainer setText={setOtp} />
       </View>

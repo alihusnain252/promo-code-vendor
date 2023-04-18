@@ -24,7 +24,7 @@ import ProfileImage from '../../assets/icons/profile.png';
 import {useSelector} from 'react-redux';
 import {token} from '@redux/tokenSlice';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {vendorUris} from '../../utils';
+import {MyTheme, vendorUris} from '../../utils';
 
 export const AccountDetails = ({route, navigation}) => {
   const {profileDetails} = route.params;
@@ -198,130 +198,142 @@ export const AccountDetails = ({route, navigation}) => {
         />
       </Pressable>
       <ScrollView style={styles.scrollView}>
-        <View style={globalInputsStyles.globalInputs}>
+        <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
           <Text style={globalInputsStyles.globalLabel}>First name*</Text>
           <TextInput
             style={globalInputsStyles.input}
             onChangeText={setFirstName}
             value={firstName}
             placeholder="First Name"
+            placeholderTextColor={MyTheme.grey100}
           />
         </View>
-        <View style={globalInputsStyles.globalInputs}>
+        <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
           <Text style={globalInputsStyles.globalLabel}>Last name*</Text>
           <TextInput
             style={globalInputsStyles.input}
             onChangeText={setLastName}
             value={lastName}
             placeholder="Last Name"
+            placeholderTextColor={MyTheme.grey100}
           />
         </View>
-        <View style={globalInputsStyles.globalInputs}>
+        <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
           <Text style={globalInputsStyles.globalLabel}>Date of birth*</Text>
-          <Pressable onPress={() => {
-                showDatePicker();
-              }}>
-
-          <View style={globalInputsStyles.input}>
-            <TextInput
-              style={styles.dateInput}
-              onChangeText={setDob}
-              value={dob}
-              placeholder="Date of birth"
-              editable={false}
-            />
-            <Pressable
-              style={styles.datePress}
-              onPress={() => {
-                showDatePicker();
-              }}>
-              <EvilIcons name="calendar" size={30} color="#000" />
-            </Pressable>
-          </View>
+          <Pressable
+            onPress={() => {
+              showDatePicker();
+            }}>
+            <View style={globalInputsStyles.input}>
+              <TextInput
+                style={styles.dateInput}
+                onChangeText={setDob}
+                value={dob}
+                placeholder="Date of birth"
+                placeholderTextColor={MyTheme.grey100}
+                editable={false}
+              />
+              <Pressable
+                style={styles.datePress}
+                onPress={() => {
+                  showDatePicker();
+                }}>
+                <EvilIcons name="calendar" size={30} color="#000" />
+              </Pressable>
+            </View>
           </Pressable>
         </View>
-        <View style={globalInputsStyles.globalInputs}>
+        <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
           <Text style={globalInputsStyles.globalLabel}>Nationality*</Text>
           <TextInput
             style={globalInputsStyles.input}
             onChangeText={setNationality}
             value={nationality}
             placeholder="Nationality"
+            placeholderTextColor={MyTheme.grey100}
           />
         </View>
-        <View style={globalInputsStyles.globalInputs}>
+        <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
           <Text style={globalInputsStyles.globalLabel}>email*</Text>
           <TextInput
             style={globalInputsStyles.input}
             onChangeText={setEmail}
             value={email}
             placeholder="Email"
+            placeholderTextColor={MyTheme.grey100}
             editable={false}
           />
         </View>
-        <View style={globalInputsStyles.globalInputs}>
+        <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
           <Text style={globalInputsStyles.globalLabel}>Phone Number*</Text>
           <TextInput
             style={globalInputsStyles.input}
             onChangeText={value => numberValidations(value)}
             value={phoneNumber}
             placeholder="Phone Number"
+            placeholderTextColor={MyTheme.grey100}
             editable={false}
             maxLength={10}
           />
         </View>
-        <View style={globalInputsStyles.globalInputs}>
+        <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
           <Text style={globalInputsStyles.globalLabel}>occupation*</Text>
           <TextInput
             style={globalInputsStyles.input}
             onChangeText={setOccupation}
             value={occupation}
             placeholder="Occupation"
+            placeholderTextColor={MyTheme.grey100}
           />
         </View>
-        <View style={globalInputsStyles.globalInputs}>
+        <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
           <Text style={globalInputsStyles.globalLabel}>Institution Name*</Text>
           <TextInput
             style={globalInputsStyles.input}
             onChangeText={setInstituteName}
             value={instituteName}
             placeholder="Institution name here"
+            placeholderTextColor={MyTheme.grey100}
           />
         </View>
-        <View style={globalInputsStyles.globalInputs}>
+        <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
           <Text style={globalInputsStyles.globalLabel}>Country Address*</Text>
           <TextInput
             style={globalInputsStyles.input}
             onChangeText={setCountryAddress}
             value={countryAddress}
             placeholder="Country"
+            placeholderTextColor={MyTheme.grey100}
           />
         </View>
-        <View style={globalInputsStyles.globalInputs}>
+        <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
           <Text style={globalInputsStyles.globalLabel}>Address Line 1*</Text>
           <TextInput
             style={globalInputsStyles.input}
             onChangeText={setAddressLine1}
             value={addressLine1}
             placeholder="Address Line"
+            placeholderTextColor={MyTheme.grey100}
           />
         </View>
-        <View style={globalInputsStyles.globalInputs}>
+        <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
           <Text style={globalInputsStyles.globalLabel}>Address Line 2*</Text>
           <TextInput
             style={globalInputsStyles.input}
             onChangeText={setAddressLine2}
             value={addressLine2}
             placeholder="Address Line 2"
+            placeholderTextColor={MyTheme.grey100}
           />
         </View>
-        <View style={globalInputsStyles.globalInputs}>
+        <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
           <Text style={globalInputsStyles.globalLabel}>Region Capital*</Text>
           <TextInput
             style={globalInputsStyles.input}
             onChangeText={setRegionCapital}
             value={regionCapital}
             placeholder=" Capital"
+            placeholderTextColor={MyTheme.grey100}
           />
         </View>
         <Pressable style={styles.register} onPress={() => onPressUpdate()}>
