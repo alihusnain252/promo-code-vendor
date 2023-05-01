@@ -9,10 +9,14 @@ export const styles = StyleSheet.create({
     backgroundColor: MyTheme.backgroundColor,
   },
   signupHeader: {
-    width: '100%',
     flexDirection: 'row',
     width: width - 40,
     height: 25,
+  },
+  imagesContainer: {
+    flexDirection: 'row',
+    width: width - 40,
+    justifyContent:"space-between"
   },
   signUpHeaderText: {
     fontFamily: MyTheme.fontFamily,

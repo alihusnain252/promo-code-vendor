@@ -36,6 +36,7 @@ export const styles = StyleSheet.create({
     borderRadius: 50,
     width: '100%',
     height: '100%',
+    backgroundColor:MyTheme.grey100
   },
   icon: {
     width: 35,

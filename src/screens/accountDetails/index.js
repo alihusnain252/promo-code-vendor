@@ -9,21 +9,15 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {styles} from './styles';
-import {customerUris, globalInputsStyles} from '@utils';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import {globalInputsStyles} from '@utils';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import {
-  RegisterRequest,
-  SignupUserAPI,
-  UpdateRequest,
-  updateImageRequest,
-} from '../../api/apiCall';
+import {updateImageRequest} from '../../api/apiCall';
 import {ArrowHeader} from '@components';
 import ProfileImage from '../../assets/icons/profile.png';
 import {useSelector} from 'react-redux';
 import {token} from '@redux/tokenSlice';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {launchImageLibrary} from 'react-native-image-picker';
 import {MyTheme, vendorUris} from '../../utils';
 
 export const AccountDetails = ({route, navigation}) => {
@@ -36,6 +30,18 @@ export const AccountDetails = ({route, navigation}) => {
 
   const [imageUri, setImageUri] = useState(
     profileDetails ? profileDetails.profile_pic : ProfileImage,
+  );
+  const [image_one, setImage_one] = useState(
+    profileDetails ? profileDetails.image_one : ProfileImage,
+  );
+  const [image_two, setImage_two] = useState(
+    profileDetails ? profileDetails.image_two : ProfileImage,
+  );
+  const [image_three, setImage_three] = useState(
+    profileDetails ? profileDetails.image_three : ProfileImage,
+  );
+  const [image_four, setImage_four] = useState(
+    profileDetails ? profileDetails.image_four : ProfileImage,
   );
   const [firstName, setFirstName] = useState(
     profileDetails ? profileDetails.first_name : '',
@@ -73,39 +79,33 @@ export const AccountDetails = ({route, navigation}) => {
   const [phoneNumber, setPhoneNumber] = useState(
     profileDetails ? profileDetails.phone_number : '',
   );
-  // const updateProfileHandler = () => {
-  //   setLoading(true);
-  //   let data = new FormData();
-  //   data.append('first_name', firstName);
-  //   data.append('last_name', lastName);
-  //   data.append('date_of_birth', dob);
-  //   data.append('nationality', nationality);
-  //   data.append('occupation', occupation);
-  //   data.append('institution_name', instituteName);
-  //   data.append('address', addressLine1);
-  //   data.append('address_two', addressLine2);
-  //   data.append('region_capital', regionCapital);
-  //   data.append('email', email);
-  //   data.append('country', countryAddress);
-  //   data.append('phone_number', phoneNumber);
-  //   UpdateRequest(userToken.token, data, vendorUris.updateProfileImage).then(
-  //     response => {
-  //       console.log('update profile api response :', response);
-  //       // Alert.alert(response.data.message)
-  //       if (response.data.success === true) {
-  //         Alert.alert(response.data.message);
-  //         setLoading(false);
-  //         // navigation.navigate('LoginOtp', {phoneNumber: phoneNumber});
-  //       } else {
-  //         Alert.alert(response.data.message);
-  //       }
-  //     },
-  //   );
-  // };
-  const updateProfileImage = sImageUri => {
+
+  const updateProfileImage = (sImageUri, image1 , image2 , image3,image4) => {
+    console.log("image1 :" + image1 + "   pImage : " + sImageUri);
+
     let data = new FormData();
     data.append('image', {
       uri: sImageUri,
+      type: 'image/jpeg',
+      name: 'adPhoto.png',
+    });
+    data.append('image_one', {
+      uri: image1,
+      type: 'image/jpeg',
+      name: 'adPhoto.png',
+    });
+    data.append('image_two', {
+      uri: image2,
+      type: 'image/jpeg',
+      name: 'adPhoto.png',
+    });
+    data.append('image_three', {
+      uri: image3,
+      type: 'image/jpeg',
+      name: 'adPhoto.png',
+    });
+    data.append('image_four', {
+      uri: image4,
       type: 'image/jpeg',
       name: 'adPhoto.png',
     });
@@ -118,17 +118,14 @@ export const AccountDetails = ({route, navigation}) => {
       vendorUris.updateProfileImage,
     ).then(response => {
       console.log('api response :', response);
-      if (response.data.success === true) {
+      if (response.data?.success ) {
         Alert.alert(response.data.message);
         setLoading(false);
       } else {
-        Alert.alert(response.data.message);
+        Alert.alert(response.data.error);
         setLoading(false);
       }
     });
-  };
-  const onPressUpdate = () => {
-    // updateProfileImage();
   };
 
   const pickImage = () => {
@@ -152,7 +149,111 @@ export const AccountDetails = ({route, navigation}) => {
         console.log('selected Image :', source.uri);
         setImageUri(source.uri);
         const sImageUri = source.uri;
-        updateProfileImage(sImageUri);
+        updateProfileImage(sImageUri , image_one , image_two , image_three , image_four);
+        // setAdImageName(source.fileName);
+      }
+    });
+  };
+  const pickImage1 = () => {
+    let options = {
+      title: 'Select Image',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+
+    launchImageLibrary(options, response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        const source = response.assets[0];
+        console.log('selected Image :', source.uri);
+        setImage_one(source.uri);
+        const image1 = source.uri;
+        updateProfileImage( imageUri, image1);
+        // setAdImageName(source.fileName);
+      }
+    });
+  };
+  const pickImage2 = () => {
+    let options = {
+      title: 'Select Image',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+
+    launchImageLibrary(options, response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        const source = response.assets[0];
+        console.log('selected Image :', source.uri);
+        setImage_two(source.uri);
+        const image2 = source.uri;
+        updateProfileImage( imageUri , image_one ,image2,image_three , image_four);
+        // setAdImageName(source.fileName);
+      }
+    });
+  };
+  const pickImage3 = () => {
+    let options = {
+      title: 'Select Image',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+
+    launchImageLibrary(options, response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        const source = response.assets[0];
+        console.log('selected Image :', source.uri);
+        setImage_three(source.uri);
+        const image3 = source.uri;
+        updateProfileImage(image3);
+        // setAdImageName(source.fileName);
+      }
+    });
+  };
+  const pickImage4 = () => {
+    let options = {
+      title: 'Select Image',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+
+    launchImageLibrary(options, response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        const source = response.assets[0];
+        console.log('selected Image :', source.uri);
+        setImage_four(source.uri);
+        const image4 = source.uri;
+        updateProfileImage(image4);
         // setAdImageName(source.fileName);
       }
     });
@@ -188,6 +289,10 @@ export const AccountDetails = ({route, navigation}) => {
     }
   };
 
+  const onPressUpdate = () => {
+    // updateProfileImage();
+  };
+
   return (
     <View style={styles.signupContainer}>
       <ArrowHeader heading="Account Details" />
@@ -197,6 +302,32 @@ export const AccountDetails = ({route, navigation}) => {
           style={styles.profileImage}
         />
       </Pressable>
+      <View style={styles.imagesContainer}>
+        <Pressable style={styles.profileImageView} onPress={() => pickImage1()}>
+          <Image
+            source={image_one ? {uri: image_one} : ProfileImage}
+            style={styles.profileImage}
+          />
+        </Pressable>
+        <Pressable style={styles.profileImageView} onPress={() => pickImage2()}>
+          <Image
+            source={image_two ? {uri: image_two} : ProfileImage}
+            style={styles.profileImage}
+          />
+        </Pressable>
+        <Pressable style={styles.profileImageView} onPress={() => pickImage3()}>
+          <Image
+            source={image_three ? {uri: image_three} : ProfileImage}
+            style={styles.profileImage}
+          />
+        </Pressable>
+        <Pressable style={styles.profileImageView} onPress={() => pickImage4()}>
+          <Image
+            source={image_four ? {uri: image_four} : ProfileImage}
+            style={styles.profileImage}
+          />
+        </Pressable>
+      </View>
       <ScrollView style={styles.scrollView}>
         <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
           <Text style={globalInputsStyles.globalLabel}>First name*</Text>
