@@ -32,7 +32,7 @@ export const LogInScreen = ({navigation}) => {
       password: password,
     };
     phoneNumber === ''
-      ? Alert.alert('', 'Please add phone number', [
+      ? Alert.alert('Error', 'Please add phone number', [
           {
             text: 'Cancel',
             onPress: () => console.log('Cancel Pressed'),
@@ -41,7 +41,7 @@ export const LogInScreen = ({navigation}) => {
           {text: 'OK', onPress: () => setLoading(false)},
         ])
       : password === ''
-      ? Alert.alert('', 'Please add password', [
+      ? Alert.alert('Error', 'Please add password', [
           {
             text: 'Cancel',
             onPress: () => console.log('Cancel Pressed'),
@@ -50,7 +50,7 @@ export const LogInScreen = ({navigation}) => {
           {text: 'OK', onPress: () => setLoading(false)},
         ])
       : parseInt(s.charAt(0)) !== 0
-      ? Alert.alert('', 'First digit must be 0 in Phone number', [
+      ? Alert.alert('Error', 'First digit must be 0 in Phone number', [
           {
             text: 'Cancel',
             onPress: () => console.log('Cancel Pressed'),
@@ -59,7 +59,7 @@ export const LogInScreen = ({navigation}) => {
           {text: 'OK', onPress: () => setLoading(false)},
         ])
       : isNaN(num)
-      ? Alert.alert('', 'please add Numbers in Phon NUmber', [
+      ? Alert.alert('Error', 'Please enter correct phone number', [
           {
             text: 'Cancel',
             onPress: () => console.log('Cancel Pressed'),
@@ -68,10 +68,10 @@ export const LogInScreen = ({navigation}) => {
           {text: 'OK', onPress: () => setLoading(false)},
         ])
       : LoginPostRequest(data, vendorUris.login).then(response => {
-          console.log('api response :', response.data);
+          console.log('api response :', JSON.stringify(response));
           setLoading(false);
-          if (response.data.data.length === 0) {
-            Alert.alert('', response.data.message, [
+          if (response?.data?.data?.length === 0) {
+            Alert.alert('', response?.data?.message, [
               {
                 text: 'Cancel',
                 onPress: () => console.log('Cancel Pressed'),
@@ -82,7 +82,7 @@ export const LogInScreen = ({navigation}) => {
           } else {
             dispatch(
               updateToken(
-                response.data.data.token ? response.data.data.token : '',
+                response?.data?.data?.token ? response?.data?.data?.token : '',
               ),
             );
             setLoading(false);

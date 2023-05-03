@@ -127,7 +127,7 @@ export const updateImageRequest = async (userToken, data, url) => {
     console.log('postData :', data);
     console.log('post URl :', url);
     const AuthStr = 'Bearer '.concat(userToken);
-    console.log(AuthStr);
+    // console.log(AuthStr);
 
     const res = await axios({
       method: 'post',

@@ -9,6 +9,7 @@ import {GetRequest} from '../../api/apiCall';
 import {MyTheme, vendorUris} from '../../utils';
 import {token} from '../../redux/tokenSlice';
 import {useFocusEffect} from '@react-navigation/native';
+import { Loader } from '../../components';
 
 export const AccountScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -20,11 +21,11 @@ export const AccountScreen = ({navigation}) => {
     setLoading(true);
     GetRequest(userToken.token, vendorUris.vendorProfile).then(res => {
       console.log('user Profile data', res.data);
-      if (res.data.success === true) {
-        setUserData(res.data.data);
+      if (res?.data?.success === true) {
+        setUserData(res.data?.data);
         setLoading(false);
       } else {
-        Alert.alert(res.data.message);
+        Alert.alert(res.data?.message);
         setLoading(false);
       }
     });
@@ -78,9 +79,9 @@ export const AccountScreen = ({navigation}) => {
             <Text style={styles.accountButtonText}>Notifications</Text>
           </Pressable> */}
         </View>
-        <View style={loading === false ? {display: 'none'} : {marginTop: 20}}>
+        {/* <View style={loading === false ? {display: 'none'} : {marginTop: 20}}>
           <ActivityIndicator size={36} color={MyTheme.yellow} />
-        </View>
+        </View> */}
         <View style={styles.logoutView}>
           <Pressable
             style={styles.logoutPress}
@@ -93,6 +94,8 @@ export const AccountScreen = ({navigation}) => {
           </Pressable>
         </View>
       </View>
+
+      <Loader loading={loading} />
     </View>
   );
 };

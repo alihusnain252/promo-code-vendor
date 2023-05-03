@@ -42,6 +42,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 69,
     backgroundColor: MyTheme.primary,
+    marginBottom:'4%'
   },
   registerText: {
     fontFamily: MyTheme.fontFamily,
@@ -63,16 +64,20 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profileImageView: {
-    width: 80,
-    height: 80,
-    borderWidth: 2,
-    borderColor: MyTheme.green200,
-    borderRadius: 59,
+    width: width/5,
+    height: width/5,
+    borderWidth: 1,
+    borderColor: MyTheme.borderColor,
+    borderRadius: 6,
+    resizeMode:'cover',
     marginVertical: '3%',
+    justifyContent:'center',
+    alignItems:'center',
+    overflow:'hidden',
   },
   profileImage: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 59,
+    width: (width/6),
+    height: (width/6),
+    
   },
 });

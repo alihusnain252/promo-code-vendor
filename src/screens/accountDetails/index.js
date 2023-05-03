@@ -7,26 +7,29 @@ import {
   Alert,
   Image,
 } from 'react-native';
-import React, {useState} from 'react';
-import {styles} from './styles';
-import {globalInputsStyles} from '@utils';
+import React, { useState } from 'react';
+import { styles } from './styles';
+import { globalInputsStyles } from '@utils';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import {updateImageRequest} from '../../api/apiCall';
-import {ArrowHeader} from '@components';
-import ProfileImage from '../../assets/icons/profile.png';
-import {useSelector} from 'react-redux';
-import {token} from '@redux/tokenSlice';
-import {launchImageLibrary} from 'react-native-image-picker';
-import {MyTheme, vendorUris} from '../../utils';
+import { updateImageRequest } from '../../api/apiCall';
+import { ArrowHeader } from '@components';
+import ProfileImage from '../../assets/icons/placeholder.png';
+import { useSelector } from 'react-redux';
+import { token } from '@redux/tokenSlice';
+import { launchImageLibrary } from 'react-native-image-picker';
+import { MyTheme, vendorUris } from '../../utils';
+import { Loader } from '../../components';
 
-export const AccountDetails = ({route, navigation}) => {
-  const {profileDetails} = route.params;
+export const AccountDetails = ({ route, navigation }) => {
+  const { profileDetails } = route.params;
 
   const userToken = useSelector(token);
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [loading, setLoading] = useState(false);
+
+
 
   const [imageUri, setImageUri] = useState(
     profileDetails ? profileDetails.profile_pic : ProfileImage,
@@ -43,6 +46,9 @@ export const AccountDetails = ({route, navigation}) => {
   const [image_four, setImage_four] = useState(
     profileDetails ? profileDetails.image_four : ProfileImage,
   );
+
+
+
   const [firstName, setFirstName] = useState(
     profileDetails ? profileDetails.first_name : '',
   );
@@ -80,61 +86,36 @@ export const AccountDetails = ({route, navigation}) => {
     profileDetails ? profileDetails.phone_number : '',
   );
 
-  const updateProfileImage = (sImageUri, image1 , image2 , image3,image4) => {
-    console.log("image1 :" + image1 + "   pImage : " + sImageUri);
-
+  const updateProfileImage = (uri, type) => {
     let data = new FormData();
-    data.append('image', {
-      uri: sImageUri,
+    data.append(type, {
+      uri: uri,
       type: 'image/jpeg',
-      name: 'adPhoto.png',
+      name: 'vendorPhoto.png',
     });
-    data.append('image_one', {
-      uri: image1,
-      type: 'image/jpeg',
-      name: 'adPhoto.png',
-    });
-    data.append('image_two', {
-      uri: image2,
-      type: 'image/jpeg',
-      name: 'adPhoto.png',
-    });
-    data.append('image_three', {
-      uri: image3,
-      type: 'image/jpeg',
-      name: 'adPhoto.png',
-    });
-    data.append('image_four', {
-      uri: image4,
-      type: 'image/jpeg',
-      name: 'adPhoto.png',
-    });
-
     setLoading(true);
-
     updateImageRequest(
       userToken.token,
       data,
       vendorUris.updateProfileImage,
     ).then(response => {
-      console.log('api response :', response);
-      if (response.data?.success ) {
-        Alert.alert(response.data.message);
+      if (response.data?.success) {
         setLoading(false);
       } else {
-        Alert.alert(response.data.error);
+        console.log(response.error)
         setLoading(false);
       }
     });
   };
 
-  const pickImage = () => {
+  const pickImage = (type) => {
     let options = {
       title: 'Select Image',
       storageOptions: {
         skipBackup: true,
         path: 'images',
       },
+      quality: 0.5
     };
 
     launchImageLibrary(options, response => {
@@ -146,115 +127,9 @@ export const AccountDetails = ({route, navigation}) => {
         console.log('User tapped custom button: ', response.customButton);
       } else {
         const source = response.assets[0];
-        console.log('selected Image :', source.uri);
         setImageUri(source.uri);
         const sImageUri = source.uri;
-        updateProfileImage(sImageUri , image_one , image_two , image_three , image_four);
-        // setAdImageName(source.fileName);
-      }
-    });
-  };
-  const pickImage1 = () => {
-    let options = {
-      title: 'Select Image',
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-
-    launchImageLibrary(options, response => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-        const source = response.assets[0];
-        console.log('selected Image :', source.uri);
-        setImage_one(source.uri);
-        const image1 = source.uri;
-        updateProfileImage( imageUri, image1);
-        // setAdImageName(source.fileName);
-      }
-    });
-  };
-  const pickImage2 = () => {
-    let options = {
-      title: 'Select Image',
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-
-    launchImageLibrary(options, response => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-        const source = response.assets[0];
-        console.log('selected Image :', source.uri);
-        setImage_two(source.uri);
-        const image2 = source.uri;
-        updateProfileImage( imageUri , image_one ,image2,image_three , image_four);
-        // setAdImageName(source.fileName);
-      }
-    });
-  };
-  const pickImage3 = () => {
-    let options = {
-      title: 'Select Image',
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-
-    launchImageLibrary(options, response => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-        const source = response.assets[0];
-        console.log('selected Image :', source.uri);
-        setImage_three(source.uri);
-        const image3 = source.uri;
-        updateProfileImage(image3);
-        // setAdImageName(source.fileName);
-      }
-    });
-  };
-  const pickImage4 = () => {
-    let options = {
-      title: 'Select Image',
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-
-    launchImageLibrary(options, response => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-        const source = response.assets[0];
-        console.log('selected Image :', source.uri);
-        setImage_four(source.uri);
-        const image4 = source.uri;
-        updateProfileImage(image4);
-        // setAdImageName(source.fileName);
+        updateProfileImage(sImageUri, type);
       }
     });
   };
@@ -296,40 +171,41 @@ export const AccountDetails = ({route, navigation}) => {
   return (
     <View style={styles.signupContainer}>
       <ArrowHeader heading="Account Details" />
-      <Pressable style={styles.profileImageView} onPress={() => pickImage()}>
+      <Pressable style={styles.profileImageView} onPress={() => pickImage('image')}>
         <Image
-          source={imageUri ? {uri: imageUri} : ProfileImage}
+          source={imageUri ? { uri: imageUri } : ProfileImage}
           style={styles.profileImage}
         />
       </Pressable>
+
       <View style={styles.imagesContainer}>
-        <Pressable style={styles.profileImageView} onPress={() => pickImage1()}>
+        <Pressable style={styles.profileImageView} onPress={() => pickImage('image_one')}>
           <Image
-            source={image_one ? {uri: image_one} : ProfileImage}
+            source={image_one ? { uri: image_one } : ProfileImage}
             style={styles.profileImage}
           />
         </Pressable>
-        <Pressable style={styles.profileImageView} onPress={() => pickImage2()}>
+        <Pressable style={styles.profileImageView} onPress={() => pickImage('image_two')}>
           <Image
-            source={image_two ? {uri: image_two} : ProfileImage}
+            source={image_two ? { uri: image_two } : ProfileImage}
             style={styles.profileImage}
           />
         </Pressable>
-        <Pressable style={styles.profileImageView} onPress={() => pickImage3()}>
+        <Pressable style={styles.profileImageView} onPress={() => pickImage('image_three')}>
           <Image
-            source={image_three ? {uri: image_three} : ProfileImage}
+            source={image_three ? { uri: image_three } : ProfileImage}
             style={styles.profileImage}
           />
         </Pressable>
-        <Pressable style={styles.profileImageView} onPress={() => pickImage4()}>
+        <Pressable style={styles.profileImageView} onPress={() => pickImage('image_four')}>
           <Image
-            source={image_four ? {uri: image_four} : ProfileImage}
+            source={image_four ? { uri: image_four } : ProfileImage}
             style={styles.profileImage}
           />
         </Pressable>
       </View>
       <ScrollView style={styles.scrollView}>
-        <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
+        <View style={[globalInputsStyles.globalInputs, { alignSelf: 'center' }]}>
           <Text style={globalInputsStyles.globalLabel}>First name*</Text>
           <TextInput
             style={globalInputsStyles.input}
@@ -339,7 +215,7 @@ export const AccountDetails = ({route, navigation}) => {
             placeholderTextColor={MyTheme.grey100}
           />
         </View>
-        <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
+        <View style={[globalInputsStyles.globalInputs, { alignSelf: 'center' }]}>
           <Text style={globalInputsStyles.globalLabel}>Last name*</Text>
           <TextInput
             style={globalInputsStyles.input}
@@ -349,7 +225,7 @@ export const AccountDetails = ({route, navigation}) => {
             placeholderTextColor={MyTheme.grey100}
           />
         </View>
-        <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
+        <View style={[globalInputsStyles.globalInputs, { alignSelf: 'center' }]}>
           <Text style={globalInputsStyles.globalLabel}>Date of birth*</Text>
           <Pressable
             onPress={() => {
@@ -374,7 +250,7 @@ export const AccountDetails = ({route, navigation}) => {
             </View>
           </Pressable>
         </View>
-        <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
+        <View style={[globalInputsStyles.globalInputs, { alignSelf: 'center' }]}>
           <Text style={globalInputsStyles.globalLabel}>Nationality*</Text>
           <TextInput
             style={globalInputsStyles.input}
@@ -384,7 +260,7 @@ export const AccountDetails = ({route, navigation}) => {
             placeholderTextColor={MyTheme.grey100}
           />
         </View>
-        <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
+        <View style={[globalInputsStyles.globalInputs, { alignSelf: 'center' }]}>
           <Text style={globalInputsStyles.globalLabel}>email*</Text>
           <TextInput
             style={globalInputsStyles.input}
@@ -395,7 +271,7 @@ export const AccountDetails = ({route, navigation}) => {
             editable={false}
           />
         </View>
-        <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
+        <View style={[globalInputsStyles.globalInputs, { alignSelf: 'center' }]}>
           <Text style={globalInputsStyles.globalLabel}>Phone Number*</Text>
           <TextInput
             style={globalInputsStyles.input}
@@ -407,7 +283,7 @@ export const AccountDetails = ({route, navigation}) => {
             maxLength={10}
           />
         </View>
-        <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
+        <View style={[globalInputsStyles.globalInputs, { alignSelf: 'center' }]}>
           <Text style={globalInputsStyles.globalLabel}>occupation*</Text>
           <TextInput
             style={globalInputsStyles.input}
@@ -417,7 +293,7 @@ export const AccountDetails = ({route, navigation}) => {
             placeholderTextColor={MyTheme.grey100}
           />
         </View>
-        <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
+        <View style={[globalInputsStyles.globalInputs, { alignSelf: 'center' }]}>
           <Text style={globalInputsStyles.globalLabel}>Institution Name*</Text>
           <TextInput
             style={globalInputsStyles.input}
@@ -427,7 +303,7 @@ export const AccountDetails = ({route, navigation}) => {
             placeholderTextColor={MyTheme.grey100}
           />
         </View>
-        <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
+        <View style={[globalInputsStyles.globalInputs, { alignSelf: 'center' }]}>
           <Text style={globalInputsStyles.globalLabel}>Country Address*</Text>
           <TextInput
             style={globalInputsStyles.input}
@@ -437,7 +313,7 @@ export const AccountDetails = ({route, navigation}) => {
             placeholderTextColor={MyTheme.grey100}
           />
         </View>
-        <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
+        <View style={[globalInputsStyles.globalInputs, { alignSelf: 'center' }]}>
           <Text style={globalInputsStyles.globalLabel}>Address Line 1*</Text>
           <TextInput
             style={globalInputsStyles.input}
@@ -447,7 +323,7 @@ export const AccountDetails = ({route, navigation}) => {
             placeholderTextColor={MyTheme.grey100}
           />
         </View>
-        <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
+        <View style={[globalInputsStyles.globalInputs, { alignSelf: 'center' }]}>
           <Text style={globalInputsStyles.globalLabel}>Address Line 2*</Text>
           <TextInput
             style={globalInputsStyles.input}
@@ -457,7 +333,7 @@ export const AccountDetails = ({route, navigation}) => {
             placeholderTextColor={MyTheme.grey100}
           />
         </View>
-        <View style={[globalInputsStyles.globalInputs, {alignSelf: 'center'}]}>
+        <View style={[globalInputsStyles.globalInputs, { alignSelf: 'center' }]}>
           <Text style={globalInputsStyles.globalLabel}>Region Capital*</Text>
           <TextInput
             style={globalInputsStyles.input}
@@ -477,6 +353,7 @@ export const AccountDetails = ({route, navigation}) => {
         onConfirm={handleConfirm}
         onCancel={hideDatePicker}
       />
+      <Loader loading={loading} />
     </View>
   );
 };

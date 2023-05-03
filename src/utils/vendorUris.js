@@ -8,6 +8,7 @@ export const vendorUris = {
   forgotPasswordRequest: 'api/vendor/forgot-password-request',
   resetPassword: 'api/vendor/reset-password',
   updateProfileImage: 'api/vendor/update-profile-image',
+
   createOrder: 'api/vendor/create-order',
   userVerifyUser: 'api/vendor/verify-user',
   userSendOtpCode: 'api/vendor/send-otpcode',
@@ -17,6 +18,5 @@ export const vendorUris = {
   promotionFindById: 'api/vendor/promotion/findById/3',
   promotionDelete: 'api/vendor/promotion/delete/',
   promotionUpdate: 'api/vendor/promotion/update/',
-  updateProfileImage: 'api/customer/update-profile-image',
   updatePassword: 'api/vendor/update-password',
 };

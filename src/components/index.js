@@ -6,3 +6,4 @@ export {BottomBar} from './bottomBar';
 export {OtpContainer} from './otp';
 export {AdCard} from './adCard';
 export {ArrowHeader} from './arrowHeader';
+export {Loader} from './loader';

@@ -1,10 +1,10 @@
-import {View, Text, TextInput, Image, Pressable} from 'react-native';
+import { View, Text, TextInput, Image, Pressable } from 'react-native';
 import React from 'react';
-import {styles} from './styles';
-import {BottomBar, TopHeader} from '@components';
-import {MyTheme} from '@utils';
+import { styles } from './styles';
+import { BottomBar, TopHeader } from '@components';
+import { MyTheme } from '@utils';
 
-export const Dashboard = ({navigation}) => {
+export const Dashboard = ({ navigation }) => {
   return (
     <View style={styles.dashboardContainer}>
       <TopHeader />
@@ -37,7 +37,7 @@ export const Dashboard = ({navigation}) => {
           onPress={() => navigation.navigate('RecordSale')}>
           <Image
             source={require('../../assets/icons/cart.png')}
-            style={[styles.images,{padding:20}]}
+            style={[styles.images, { padding: 20 }]}
           />
           <Text style={styles.validationText}>Record Sale</Text>
         </Pressable>
